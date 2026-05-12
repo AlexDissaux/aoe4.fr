@@ -39,7 +39,7 @@
       "path": "../../libs/ui/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/wololo-challenge/tsconfig.lib.json"
+      "path": "../wololo-challenge/tsconfig.lib.json"
     }
   ]
 }

@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "serve:front": "nx serve frontend",
+    "serve:wololo": "nx serve wololo-challenge",
     "build:front": "nx build frontend --prod",
     "build:back": "nx build backend",
     "serve:back": "nx serve backend",

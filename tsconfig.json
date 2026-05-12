@@ -16,7 +16,7 @@
       "path": "./apps/backend"
     },
     {
-      "path": "./libs/wololo-challenge"
+      "path": "./apps/wololo-challenge"
     },
     {
       "path": "./libs/shared-types"
