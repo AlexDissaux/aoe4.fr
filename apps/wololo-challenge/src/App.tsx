@@ -1,9 +1,7 @@
 import './App.css'
 import { Titre } from './components/Titre'
-import Stat from './components/Stat/Stat'
-// import BelgianLeaderboard from './components/BelgianLeaderboard'
-import LastChancePopup from './components/LastChancePopup'
-import Countdown from './components/Countdown'
+import Podium from './components/Podium'
+import Leaderboard from './components/Leaderboard'
 
 
 function App() {
@@ -14,15 +12,13 @@ function App() {
         <img src="Banniere_ODW.jpg" alt="Bannière ODW" className="banner-image" />
       </div>
       <div className="px-0 sm:px-3 py-8">
-        <div className="w-full space-y-8">
+        <div className="w-full space-y-12">
           <Titre />
-          <Countdown />
-          <Stat/>
+          <Podium />
+          <Leaderboard />
         </div>
-        {/* <BelgianLeaderboard /> */}
-        <LastChancePopup />
       </div>
-        <div className="banner-container-footer">
+      <div className="banner-container-footer">
         <img src="Banniere_ODW.jpg" alt="Bannière ODW" className="banner-image-footer" />
       </div>
     </div>
