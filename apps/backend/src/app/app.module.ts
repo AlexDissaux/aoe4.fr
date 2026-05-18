@@ -9,6 +9,7 @@ import { CurrentGamesModule } from '../current-games';
 import { TwitchModule } from '../twitch';
 import { YouTubeModule } from '../youtube';
 import { DiscordModule } from '../discord';
+import { WololoPlayerModule } from 'src/wololo-player/wololoPlayer.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { DiscordModule } from '../discord';
     TwitchModule,
     YouTubeModule,
     DiscordModule,
+    WololoPlayerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
