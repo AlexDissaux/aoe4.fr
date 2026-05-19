@@ -9,7 +9,7 @@ import { CurrentGamesModule } from '../current-games';
 import { TwitchModule } from '../twitch';
 import { YouTubeModule } from '../youtube';
 import { DiscordModule } from '../discord';
-import { WololoPlayerModule } from 'src/wololo-player/wololoPlayer.module';
+import { WololoPlayerModule } from '../wololo-player/wololo-player.module';
 
 @Module({
   imports: [

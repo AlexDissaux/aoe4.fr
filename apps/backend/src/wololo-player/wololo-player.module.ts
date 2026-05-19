@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { WololoPlayerController } from './wololoPlayer.contoller';
-import { WololoPlayerRepository } from './wololo-player.repository';
-import { WololoPlayer } from './wololo-player.entity';
+import { WololoPlayerController } from './wololo-player.contoller';
+import { WololoPlayerService } from './wololo-player.service';
+import { WololoPlayerApi } from './wololo-player.api';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([WololoPlayer])],
   controllers: [WololoPlayerController],
-  providers: [WololoPlayerRepository],
+  providers: [WololoPlayerService, WololoPlayerApi],
 })
 export class WololoPlayerModule {}

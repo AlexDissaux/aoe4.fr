@@ -1,20 +1,17 @@
 import { useState, useMemo } from "react";
 import { usePlayers } from "../hook/usePlayers";
-import { teamsNameAndId } from "../db/data";
 
-type SortKey = 'winrate' | 'games' | 'mmr' | 'civs';
+type SortKey = 'winrate' | 'games' | 'civs';
 
-// One color per team, ordered matching teamsNameAndId
+const TEAMS = ['ODW', 'Lash', 'aoeItalia', 'cup of tea', 'Shing Shong'];
+
 const TEAM_COLORS: Record<string, { border: string; text: string; bg: string; activeBg: string }> = {
-    'ODC': { border: 'border-orange-500',   text: 'text-orange-400',   bg: 'hover:bg-orange-500/10',   activeBg: 'bg-orange-500/20'  },
-    'LHA': { border: 'border-slate-400',    text: 'text-slate-300',    bg: 'hover:bg-slate-400/10',    activeBg: 'bg-slate-400/20'   },
+    'ODW':         { border: 'border-orange-500', text: 'text-orange-400', bg: 'hover:bg-orange-500/10', activeBg: 'bg-orange-500/20' },
+    'Lash':        { border: 'border-slate-400',  text: 'text-slate-300',  bg: 'hover:bg-slate-400/10',  activeBg: 'bg-slate-400/20'  },
     'SSJ': { border: 'border-yellow-400',   text: 'text-yellow-400',   bg: 'hover:bg-yellow-400/10',   activeBg: 'bg-yellow-400/20'  },
-    'LTDR':{ border: 'border-red-500',      text: 'text-red-400',      bg: 'hover:bg-red-500/10',      activeBg: 'bg-red-500/20'     },
-    'HDW': { border: 'border-purple-500',   text: 'text-purple-400',   bg: 'hover:bg-purple-500/10',   activeBg: 'bg-purple-500/20'  },
-    'WDO': { border: 'border-cyan-500',     text: 'text-cyan-400',     bg: 'hover:bg-cyan-500/10',     activeBg: 'bg-cyan-500/20'    },
-    'CDC': { border: 'border-indigo-500',   text: 'text-indigo-400',   bg: 'hover:bg-indigo-500/10',   activeBg: 'bg-indigo-500/20'  },
-    'WLRS':{ border: 'border-emerald-500',  text: 'text-emerald-400',  bg: 'hover:bg-emerald-500/10',  activeBg: 'bg-emerald-500/20' },
-    'INF': { border: 'border-pink-500',     text: 'text-pink-400',     bg: 'hover:bg-pink-500/10',     activeBg: 'bg-pink-500/20'    },
+    'aoeItalia':   { border: 'border-green-500',  text: 'text-green-400',  bg: 'hover:bg-green-500/10',  activeBg: 'bg-green-500/20'  },
+    'cup of tea':  { border: 'border-cyan-500',   text: 'text-cyan-400',   bg: 'hover:bg-cyan-500/10',   activeBg: 'bg-cyan-500/20'   },
+    'Shing Shong': { border: 'border-purple-500', text: 'text-purple-400', bg: 'hover:bg-purple-500/10', activeBg: 'bg-purple-500/20' },
 };
 
 export default function Leaderboard() {
@@ -29,7 +26,7 @@ export default function Leaderboard() {
         let list = [...players];
 
         if (selectedTeam) {
-            list = list.filter(p => p.acronyme === selectedTeam);
+            list = list.filter(p => p.team === selectedTeam);
         }
         if (search.trim()) {
             const q = search.trim().toLowerCase();
@@ -38,10 +35,9 @@ export default function Leaderboard() {
 
         list.sort((a, b) => {
             switch (sortBy) {
-                case 'winrate': return parseFloat(b.modes.rm_solo.win_rate) - parseFloat(a.modes.rm_solo.win_rate);
-                case 'games':   return (b.modes.rm_solo.wins_count + b.modes.rm_solo.losses_count) - (a.modes.rm_solo.wins_count + a.modes.rm_solo.losses_count);
-                case 'mmr':     return b.modes.rm_solo.mmrChange - a.modes.rm_solo.mmrChange;
-                case 'civs':    return b.modes.rm_solo.nombreCivDiffJouer - a.modes.rm_solo.nombreCivDiffJouer;
+                case 'winrate': return b.winRate - a.winRate;
+                case 'games':   return b.gamesCount - a.gamesCount;
+                case 'civs':    return (b.civsWon?.length ?? 0) - (a.civsWon?.length ?? 0);
                 default:        return 0;
             }
         });
@@ -85,18 +81,18 @@ export default function Leaderboard() {
                 >
                     Toutes les équipes
                 </button>
-                {teamsNameAndId.map(team => {
-                    const c = TEAM_COLORS[team.acronyme] ?? { border: 'border-gray-500', text: 'text-gray-400', bg: 'hover:bg-gray-500/10', activeBg: 'bg-gray-500/20' };
-                    const isActive = selectedTeam === team.acronyme;
+                {TEAMS.map(teamName => {
+                    const c = TEAM_COLORS[teamName] ?? { border: 'border-gray-500', text: 'text-gray-400', bg: 'hover:bg-gray-500/10', activeBg: 'bg-gray-500/20' };
+                    const isActive = selectedTeam === teamName;
                     return (
                         <button
-                            key={team.acronyme}
-                            onClick={() => setSelectedTeam(isActive ? null : team.acronyme)}
+                            key={teamName}
+                            onClick={() => setSelectedTeam(isActive ? null : teamName)}
                             className={`px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider border transition-all ${c.border} ${c.text} ${
                                 isActive ? c.activeBg : `bg-transparent ${c.bg}`
                             }`}
                         >
-                            {team.acronyme}
+                            {teamName}
                         </button>
                     );
                 })}
@@ -120,8 +116,7 @@ export default function Leaderboard() {
             <div className="flex gap-2 mb-4 overflow-x-auto pb-1 justify-center lg:hidden">
                 <SortButton label="Winrate" value="winrate" color="border-yellow-400 text-yellow-400" />
                 <SortButton label="Games"   value="games"   color="border-blue-400 text-blue-400" />
-                <SortButton label="MMR ±"   value="mmr"     color="border-cyan-400 text-cyan-400" />
-                <SortButton label="Civs"    value="civs"    color="border-amber-400 text-amber-400" />
+                <SortButton label="Civs ✓"  value="civs"    color="border-amber-400 text-amber-400" />
             </div>
 
             {/* Table */}
@@ -129,20 +124,17 @@ export default function Leaderboard() {
                 {/* Desktop header */}
                 <div className="hidden lg:grid grid-cols-12 gap-2 px-4 py-3 border-b border-gray-700/50 text-gray-400 text-xs font-bold uppercase tracking-wider">
                     <div className="col-span-1 text-center">#</div>
-                    <div className="col-span-2">Joueur</div>
+                    <div className="col-span-3">Joueur</div>
                     <div className="col-span-2">Équipe</div>
-                    <button onClick={() => setSortBy('winrate')} className={`col-span-1 text-center hover:text-yellow-400 transition-colors ${sortBy === 'winrate' ? 'text-yellow-400' : ''}`}>
+                    <button onClick={() => setSortBy('winrate')} className={`col-span-2 text-center hover:text-yellow-400 transition-colors ${sortBy === 'winrate' ? 'text-yellow-400' : ''}`}>
                         Win Rate {sortBy === 'winrate' && '▼'}
                     </button>
                     <button onClick={() => setSortBy('games')} className={`col-span-1 text-center hover:text-blue-400 transition-colors ${sortBy === 'games' ? 'text-blue-400' : ''}`}>
                         Games {sortBy === 'games' && '▼'}
                     </button>
                     <div className="col-span-2 text-center">V / D</div>
-                    <button onClick={() => setSortBy('mmr')} className={`col-span-2 text-center hover:text-cyan-400 transition-colors ${sortBy === 'mmr' ? 'text-cyan-400' : ''}`}>
-                        MMR ± {sortBy === 'mmr' && '▼'}
-                    </button>
                     <button onClick={() => setSortBy('civs')} className={`col-span-1 text-center hover:text-amber-400 transition-colors ${sortBy === 'civs' ? 'text-amber-400' : ''}`}>
-                        Civs {sortBy === 'civs' && '▼'}
+                        Civs ✓ {sortBy === 'civs' && '▼'}
                     </button>
                 </div>
 
@@ -154,13 +146,11 @@ export default function Leaderboard() {
                 ) : (
                     <div className="divide-y divide-gray-700/30">
                         {filteredAndSorted.map((player, index) => {
-                            const teamColor = TEAM_COLORS[player.acronyme] ?? { border: 'border-gray-500', text: 'text-gray-400', bg: '', activeBg: '' };
-                            const games = player.modes.rm_solo.wins_count + player.modes.rm_solo.losses_count;
-                            const mmr = player.modes.rm_solo.mmrChange;
+                            const teamColor = TEAM_COLORS[player.team] ?? { border: 'border-gray-500', text: 'text-gray-400', bg: '', activeBg: '' };
 
                             return (
                                 <div
-                                    key={index}
+                                    key={player.profileId}
                                     className={`px-3 sm:px-4 hover:bg-white/5 transition-colors duration-150 ${
                                         player.isCap ? `border-l-2 ${teamColor.border}` : 'border-l-2 border-transparent'
                                     } ${index % 2 === 0 ? 'bg-white/[0.02]' : ''}`}
@@ -176,36 +166,30 @@ export default function Leaderboard() {
                                                 </span>
                                             </div>
                                             <span className={`text-xs font-bold px-2 py-0.5 border ${teamColor.border} ${teamColor.text} flex-shrink-0`}>
-                                                {player.acronyme}
+                                                {player.team}
                                             </span>
                                         </div>
-                                        <div className="grid grid-cols-4 gap-1.5 text-xs ml-9">
+                                        <div className="grid grid-cols-3 gap-1.5 text-xs ml-9">
                                             <div className="bg-yellow-900/20 border border-yellow-500/30 px-2 py-1 text-center">
-                                                <div className="text-yellow-400 font-bold">{player.modes.rm_solo.win_rate}%</div>
+                                                <div className="text-yellow-400 font-bold">{player.winRate}%</div>
                                                 <div className="text-gray-500">WR</div>
                                             </div>
                                             <div className="bg-blue-900/20 border border-blue-500/30 px-2 py-1 text-center">
-                                                <div className="text-blue-400 font-bold">{games}</div>
+                                                <div className="text-blue-400 font-bold">{player.gamesCount}</div>
                                                 <div className="text-gray-500">Games</div>
-                                            </div>
-                                            <div className={`border px-2 py-1 text-center ${mmr >= 0 ? 'bg-cyan-900/20 border-cyan-500/30' : 'bg-orange-900/20 border-orange-500/30'}`}>
-                                                <div className={`font-bold ${mmr >= 0 ? 'text-cyan-400' : 'text-orange-400'}`}>
-                                                    {mmr >= 0 ? '+' : ''}{mmr}
-                                                </div>
-                                                <div className="text-gray-500">MMR</div>
                                             </div>
                                             <div
                                                 className="bg-amber-900/20 border border-amber-500/30 px-2 py-1 text-center relative cursor-pointer"
                                                 onClick={() => setOpenTooltipIndex(openTooltipIndex === index ? null : index)}
                                             >
-                                                <div className="text-amber-400 font-bold">{player.modes.rm_solo.nombreCivDiffJouer}</div>
-                                                <div className="text-gray-500">Civs</div>
-                                                {player.modes.rm_solo.civilizations?.length > 0 && openTooltipIndex === index && (
+                                                <div className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}<span className="text-gray-500 text-[10px]">/23</span></div>
+                                                <div className="text-gray-500">Civs ✓</div>
+                                                {player.civsWon?.length > 0 && openTooltipIndex === index && (
                                                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-44">
                                                         <div className="bg-gray-900 border-2 border-amber-500/50 rounded shadow-xl p-2">
-                                                            <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Civs jouées</div>
+                                                            <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Civs gagnées</div>
                                                             <div className="space-y-0.5 max-h-48 overflow-y-auto">
-                                                                {player.modes.rm_solo.civilizations.map((civ: string, i: number) => (
+                                                                {player.civsWon.map((civ: string, i: number) => (
                                                                     <div key={i} className="text-gray-300 text-xs px-2 py-0.5 bg-gray-800/50">{civ}</div>
                                                                 ))}
                                                             </div>
@@ -221,43 +205,37 @@ export default function Leaderboard() {
                                         <div className="col-span-1 text-center">
                                             <span className="text-gray-500 font-bold">{index + 1}</span>
                                         </div>
-                                        <div className="col-span-2 flex items-center gap-2">
+                                        <div className="col-span-3 flex items-center gap-2">
                                             {player.isCap && <span className="text-yellow-400 flex-shrink-0">👑</span>}
                                             <span className={`font-bold truncate ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
                                                 {player.name}
                                             </span>
                                         </div>
-                                        <div className="col-span-2 flex items-center gap-2">
+                                        <div className="col-span-2 flex items-center">
                                             <span className={`text-xs font-bold px-2 py-0.5 border ${teamColor.border} ${teamColor.text}`}>
-                                                {player.acronyme}
+                                                {player.team}
                                             </span>
-                                            <span className="text-gray-400 text-sm truncate">{player.teamName}</span>
-                                        </div>
-                                        <div className="col-span-1 text-center">
-                                            <span className="text-yellow-400 font-bold">{player.modes.rm_solo.win_rate}%</span>
-                                        </div>
-                                        <div className="col-span-1 text-center">
-                                            <span className="text-blue-400 font-semibold">{games}</span>
                                         </div>
                                         <div className="col-span-2 text-center">
-                                            <span className="text-green-400 font-bold">{player.modes.rm_solo.wins_count}W</span>
+                                            <span className="text-yellow-400 font-bold">{player.winRate}%</span>
+                                        </div>
+                                        <div className="col-span-1 text-center">
+                                            <span className="text-blue-400 font-semibold">{player.gamesCount}</span>
+                                        </div>
+                                        <div className="col-span-2 text-center">
+                                            <span className="text-green-400 font-bold">{player.wins}V</span>
                                             <span className="text-gray-600 mx-1">/</span>
-                                            <span className="text-red-400 font-bold">{player.modes.rm_solo.losses_count}L</span>
-                                        </div>
-                                        <div className="col-span-2 text-center">
-                                            <div className={`font-bold ${mmr >= 0 ? 'text-cyan-400' : 'text-orange-400'}`}>
-                                                {mmr >= 0 ? '+' : ''}{mmr}
-                                            </div>
-                                            <div className="text-gray-500 text-xs">{player.modes.rm_solo.mmrBeg} → {player.modes.rm_solo.mmrEnd}</div>
+                                            <span className="text-red-400 font-bold">{player.losses}D</span>
                                         </div>
                                         <div className="col-span-1 text-center relative group">
-                                            <span className="text-amber-400 font-bold">{player.modes.rm_solo.nombreCivDiffJouer}</span>
-                                            {player.modes.rm_solo.civilizations?.length > 0 && (
+                                            <span className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}</span>
+                                            <span className="text-gray-500 text-xs">/23</span>
+                                            {player.civsWon?.length > 0 && (
                                                 <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 w-44">
                                                     <div className="bg-gray-900 border-2 border-amber-500/50 rounded shadow-xl p-2">
-                                                        <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Civs jouées</div>
+                                                        <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Civs gagnées</div>
                                                         <div className="space-y-0.5 max-h-64 overflow-y-auto">
-                                                            {player.modes.rm_solo.civilizations.map((civ: string, i: number) => (
+                                                            {player.civsWon.map((civ: string, i: number) => (
                                                                 <div key={i} className="text-gray-300 text-xs px-2 py-0.5 bg-gray-800/50">{civ}</div>
                                                             ))}
                                                         </div>

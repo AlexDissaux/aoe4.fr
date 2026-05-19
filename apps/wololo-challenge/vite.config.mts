@@ -10,6 +10,12 @@ export default defineConfig(() => ({
   server: {
     port: 4201,
     host: 'localhost',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
   preview: {
     port: 4301,

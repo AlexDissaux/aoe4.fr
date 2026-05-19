@@ -1,21 +1,27 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger, OnApplicationBootstrap } from "@nestjs/common";
 import { WololoPlayer } from "@aoe4.fr/shared-types";
-import { WololoPLayerApi } from "./wololo-player.api";
+import { WololoPlayerApi } from "./wololo-player.api";
+import { toWololoPlayer } from "./wololo-player.mapper";
 
 @Injectable()
-export class WololoPlayerService {
+export class WololoPlayerService implements OnApplicationBootstrap {
+    private readonly logger = new Logger(WololoPlayerService.name);
+    private wololoPlayers: WololoPlayer[] = [];
 
-    constructor(private readonly wololoPlayerApi: WololoPLayerApi) {}
+    constructor(private readonly wololoPlayerApi: WololoPlayerApi) {}
 
-    private wololoPlayers: WololoPlayer[] = []
+    onApplicationBootstrap() {
+        this.syncWololoPlayers();
+    }
 
-    getWololoPlayers() {
+    getWololoPlayers(): WololoPlayer[] {
         return this.wololoPlayers;
     }
 
-    setWololoPLayers() {
-        let wololoPlayersfetched = this.wololoPlayerApi.fetchWololoPlayer();
-
-        
+    async syncWololoPlayers(): Promise<void> {
+        this.logger.log('Syncing wololo players...');
+        const rawPlayers = await this.wololoPlayerApi.fetchAllWololoPlayers();
+        this.wololoPlayers = rawPlayers.map(toWololoPlayer);
+        this.logger.log(`Synced ${this.wololoPlayers.length} wololo players`);
     }
 }
