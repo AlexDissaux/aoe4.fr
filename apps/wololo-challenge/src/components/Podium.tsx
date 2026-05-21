@@ -55,7 +55,7 @@ function PodiumCard({ team, rank }: { team: Team; rank: number }) {
                 <div className="w-full border-t border-white/5 pt-2 flex justify-around">
                     <StatPill label="WR" value={`${team.teamWinrate.winRate}%`} />
                     <StatPill label="Games" value={team.totalGames} />
-                    <StatPill label="Civs" value={team.totalCivsWon} sub="/23" />
+                    <StatPill label="Civs" value={team.totalCivsWon} sub="" />
                 </div>
             </div>
             {/* Podium bar */}
@@ -82,7 +82,7 @@ function RankedRow({ team, rank }: { team: Team; rank: number }) {
             <div className="hidden sm:flex items-center gap-4 text-xs text-gray-400">
                 <span>{team.teamWinrate.winRate}<span className="text-gray-600">%</span></span>
                 <span>{team.totalGames}<span className="text-gray-600"> games</span></span>
-                <span>{team.totalCivsWon}<span className="text-gray-600">/23 civs</span></span>
+                <span>{team.totalCivsWon}<span className="text-gray-600"> civs</span></span>
             </div>
             <div className="font-black text-lg tabular-nums text-gray-300">
                 {team.rankingPoints}
@@ -98,7 +98,7 @@ export default function Podium() {
     if (!teams || teams.length === 0) {
         return (
             <div className="flex items-center justify-center py-16 text-gray-500 text-sm tracking-widest uppercase">
-                Chargement du podium…
+                Loading podium...
             </div>
         );
     }
@@ -108,10 +108,14 @@ export default function Podium() {
 
     return (
         <div className="max-w-3xl mx-auto space-y-8 px-4 py-6">
-            {/* Titre */}
-            <div className="text-center">
-                <h2 className="text-4xl font-black tracking-tight text-white">Classement</h2>
-                <p className="text-gray-500 text-sm mt-1 tracking-widest uppercase">Wololo Challenge</p>
+            {/* Header */}
+            <div className="mb-1 text-center">
+                <p className="mb-2 text-[10px] sm:text-xs uppercase tracking-[0.35em] text-gray-500">Wololo Challenge</p>
+                <div className="flex items-center justify-center gap-4">
+                    <div className="h-px w-10 sm:w-16 bg-linear-to-r from-transparent to-amber-300/70" />
+                    <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-[0.08em] text-stone-100">Team Ranking</h2>
+                    <div className="h-px w-10 sm:w-16 bg-linear-to-l from-transparent to-amber-300/70" />
+                </div>
             </div>
 
             {/* Podium visuel top 3 */}

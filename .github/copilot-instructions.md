@@ -116,6 +116,9 @@ interface ICurrentGamePlayer {
 
 Self-contained React app/library for the ODW tournament. Static team/player data in `src/db/data.ts`. API calls to aoe4world are made client-side from `src/api/`. Components: `Stat/`, `BelgianLeaderboard`, `Countdown`, `LastChancePopup`, `Podium`, `Titre`.
 
+### Language rule
+- All user-facing text in Wololo Challenge must be in English (labels, headings, placeholders, tooltips, buttons, empty/loading states, and messages).
+
 ---
 
 ## Key Domain Concepts

@@ -61,12 +61,15 @@ export default function Leaderboard() {
     return (
         <div className="max-w-7xl mx-auto">
             {/* Header */}
-            <div className="flex items-center justify-center space-x-3 mb-6">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-500 to-blue-500" />
-                <h2 className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
-                    Leaderboard Joueurs
-                </h2>
-                <div className="h-px flex-1 bg-gradient-to-l from-transparent via-blue-500 to-blue-500" />
+            <div className="mb-7 text-center">
+                <div className="mb-2 text-[10px] sm:text-xs uppercase tracking-[0.35em] text-gray-500">Wololo Challenge</div>
+                <div className="flex items-center justify-center gap-4">
+                    <div className="h-px w-12 sm:w-20 bg-linear-to-r from-transparent to-amber-300/70" />
+                    <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-[0.08em] text-stone-100">
+                        Player Leaderboard
+                    </h2>
+                    <div className="h-px w-12 sm:w-20 bg-linear-to-l from-transparent to-amber-300/70" />
+                </div>
             </div>
 
             {/* Team filter buttons */}
@@ -79,7 +82,7 @@ export default function Leaderboard() {
                             : 'border-gray-600 text-gray-400 hover:border-gray-400 hover:text-gray-300'
                     }`}
                 >
-                    Toutes les équipes
+                    All teams
                 </button>
                 {TEAMS.map(teamName => {
                     const c = TEAM_COLORS[teamName] ?? { border: 'border-gray-500', text: 'text-gray-400', bg: 'hover:bg-gray-500/10', activeBg: 'bg-gray-500/20' };
@@ -104,7 +107,7 @@ export default function Leaderboard() {
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
                     <input
                         type="text"
-                        placeholder="Rechercher un joueur…"
+                        placeholder="Search a player..."
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                         className="w-full bg-gray-900 border border-gray-600 text-white placeholder-gray-500 pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors"
@@ -124,8 +127,8 @@ export default function Leaderboard() {
                 {/* Desktop header */}
                 <div className="hidden lg:grid grid-cols-12 gap-2 px-4 py-3 border-b border-gray-700/50 text-gray-400 text-xs font-bold uppercase tracking-wider">
                     <div className="col-span-1 text-center">#</div>
-                    <div className="col-span-3">Joueur</div>
-                    <div className="col-span-2">Équipe</div>
+                    <div className="col-span-3">Player</div>
+                    <div className="col-span-2">Team</div>
                     <button onClick={() => setSortBy('winrate')} className={`col-span-2 text-center hover:text-yellow-400 transition-colors ${sortBy === 'winrate' ? 'text-yellow-400' : ''}`}>
                         Win Rate {sortBy === 'winrate' && '▼'}
                     </button>
@@ -140,9 +143,9 @@ export default function Leaderboard() {
 
                 {/* Rows */}
                 {!players || players.length === 0 ? (
-                    <div className="text-white text-center py-12">Chargement des joueurs…</div>
+                    <div className="text-white text-center py-12">Loading players...</div>
                 ) : filteredAndSorted.length === 0 ? (
-                    <div className="text-gray-400 text-center py-12 text-sm">Aucun joueur trouvé</div>
+                    <div className="text-gray-400 text-center py-12 text-sm">No players found</div>
                 ) : (
                     <div className="divide-y divide-gray-700/30">
                         {filteredAndSorted.map((player, index) => {
@@ -182,12 +185,12 @@ export default function Leaderboard() {
                                                 className="bg-amber-900/20 border border-amber-500/30 px-2 py-1 text-center relative cursor-pointer"
                                                 onClick={() => setOpenTooltipIndex(openTooltipIndex === index ? null : index)}
                                             >
-                                                <div className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}<span className="text-gray-500 text-[10px]">/23</span></div>
+                                                <div className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}<span className="text-gray-500 text-[10px]"></span></div>
                                                 <div className="text-gray-500">Civs ✓</div>
                                                 {player.civsWon?.length > 0 && openTooltipIndex === index && (
                                                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-44">
                                                         <div className="bg-gray-900 border-2 border-amber-500/50 rounded shadow-xl p-2">
-                                                            <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Civs gagnées</div>
+                                                            <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Won civs</div>
                                                             <div className="space-y-0.5 max-h-48 overflow-y-auto">
                                                                 {player.civsWon.map((civ: string, i: number) => (
                                                                     <div key={i} className="text-gray-300 text-xs px-2 py-0.5 bg-gray-800/50">{civ}</div>
@@ -229,11 +232,11 @@ export default function Leaderboard() {
                                         </div>
                                         <div className="col-span-1 text-center relative group">
                                             <span className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}</span>
-                                            <span className="text-gray-500 text-xs">/23</span>
+                                            <span className="text-gray-500 text-xs"></span>
                                             {player.civsWon?.length > 0 && (
                                                 <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 w-44">
                                                     <div className="bg-gray-900 border-2 border-amber-500/50 rounded shadow-xl p-2">
-                                                        <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Civs gagnées</div>
+                                                        <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Won civs</div>
                                                         <div className="space-y-0.5 max-h-64 overflow-y-auto">
                                                             {player.civsWon.map((civ: string, i: number) => (
                                                                 <div key={i} className="text-gray-300 text-xs px-2 py-0.5 bg-gray-800/50">{civ}</div>
@@ -253,7 +256,7 @@ export default function Leaderboard() {
 
             {/* Footer count */}
             <div className="text-center mt-3 text-xs text-gray-600">
-                {filteredAndSorted.length} joueur{filteredAndSorted.length !== 1 ? 's' : ''} affiché{filteredAndSorted.length !== 1 ? 's' : ''}
+                {filteredAndSorted.length} player{filteredAndSorted.length !== 1 ? 's' : ''} shown
             </div>
         </div>
     );
