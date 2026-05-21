@@ -23,6 +23,7 @@ export class WololoPlayerRepository {
       losses: e.losses,
       winRate: Number(e.winRate),
       civsWon: e.civsWon ?? [],
+      twitchLogin: e.twitchLogin ?? null,
     }));
   }
 
@@ -37,6 +38,7 @@ export class WololoPlayerRepository {
       losses: p.losses,
       winRate: p.winRate,
       civsWon: p.civsWon,
+      twitchLogin: p.twitchLogin,
     }));
     await this.repo.upsert(entities, ['profileId']);
   }

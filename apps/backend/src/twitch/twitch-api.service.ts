@@ -87,4 +87,29 @@ export class TwitchApiService {
         const data = await this.fetchWithAuth<{ data: ITwitchVod[] }>(url);
         return data.data;
     }
+
+    async fetchStreamsByLogins(logins: string[]): Promise<ITwitchStream[]> {
+        if (logins.length === 0) return [];
+        const params = logins.map(l => `user_login=${encodeURIComponent(l)}`).join('&');
+        const data = await this.fetchWithAuth<{ data: ITwitchStream[] }>(
+            `${TWITCH_API_BASE}/streams?${params}&first=100`,
+        );
+        return data.data;
+    }
+
+    async fetchVodsByLogins(logins: string[]): Promise<ITwitchVod[]> {
+        if (logins.length === 0) return [];
+        // Resolve logins → user_ids
+        const params = logins.map(l => `login=${encodeURIComponent(l)}`).join('&');
+        const users = await this.fetchWithAuth<{ data: { id: string; login: string }[] }>(
+            `${TWITCH_API_BASE}/users?${params}`,
+        );
+        if (users.data.length === 0) return [];
+
+        const idParams = users.data.map(u => `user_id=${u.id}`).join('&');
+        const vods = await this.fetchWithAuth<{ data: ITwitchVod[] }>(
+            `${TWITCH_API_BASE}/videos?${idParams}&type=archive&first=5`,
+        );
+        return vods.data;
+    }
 }

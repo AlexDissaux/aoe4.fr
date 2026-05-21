@@ -42,5 +42,6 @@ export function toWololoPlayer(raw: WololoPlayerRaw): WololoPlayer {
         losses,
         winRate: total > 0 ? Math.round((wins / total) * 1000) / 10 : 0,
         civsWon: getWonCivs(raw.games, raw.profileId),
+        twitchLogin: raw.twitchLogin,
     };
 }

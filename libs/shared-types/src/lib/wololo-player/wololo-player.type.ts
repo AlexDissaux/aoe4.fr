@@ -8,4 +8,5 @@ export type WololoPlayer = {
     losses: number;
     winRate: number;
     civsWon: string[];
+    twitchLogin: string | null;
 }

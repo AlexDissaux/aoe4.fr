@@ -11,5 +11,6 @@ import { TwitchChannel } from './entities/twitch-channel.entity';
     imports: [TypeOrmModule.forFeature([TwitchChannel])],
     controllers: [TwitchController],
     providers: [TwitchService, TwitchApiService, TwitchChannelRepository, TwitchSyncScheduler],
+    exports: [TwitchApiService],
 })
 export class TwitchModule {}

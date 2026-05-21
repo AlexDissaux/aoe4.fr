@@ -29,6 +29,9 @@ export class WololoPlayerEntity {
   @Column({ name: 'civs_won', type: 'simple-array', nullable: true })
   civsWon: string[];
 
+  @Column({ name: 'twitch_login', type: 'varchar', nullable: true })
+  twitchLogin: string | null;
+
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }

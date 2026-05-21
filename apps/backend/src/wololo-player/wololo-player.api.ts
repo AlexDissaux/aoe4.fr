@@ -15,6 +15,7 @@ export interface WololoPlayerRaw {
     team: string;
     isCap: boolean;
     games: any[];
+    twitchLogin: string | null;
 }
 
 @Injectable()
@@ -32,12 +33,18 @@ export class WololoPlayerApi {
                     this.fetchPlayerGames(playerEntry.id),
                 ]);
 
+                const twitchUrl: string | null = playerData.social?.twitch ?? null;
+                const twitchLogin = twitchUrl
+                    ? twitchUrl.replace(/.*twitch\.tv\//, '').replace(/\/.*$/, '').toLowerCase() || null
+                    : null;
+
                 results.push({
                     profileId: Number(playerEntry.id),
                     name: playerData.name ?? `Player ${playerEntry.id}`,
                     team: playerEntry.team,
                     isCap: playerEntry.isCap,
                     games,
+                    twitchLogin,
                 });
             } catch (err) {
                 this.logger.error(`Failed to fetch player ${playerEntry.id}: ${err}`);
