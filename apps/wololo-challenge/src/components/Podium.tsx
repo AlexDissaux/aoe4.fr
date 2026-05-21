@@ -1,162 +1,134 @@
-import { useTeams } from '../hook/useTeams';
+import { useTeams, } from '../hook/useTeams';
+import type { Team } from '../api/team.service';
 
-const TEAM_COLORS: Record<string, { border: string; text: string }> = {
-    'ODW':         { border: 'border-orange-500', text: 'text-orange-300'  },
-    'Lash':        { border: 'border-slate-400',  text: 'text-slate-200'   },
-    'aoeItalia':   { border: 'border-green-500',  text: 'text-green-300'   },
-    'cup of tea':  { border: 'border-cyan-500',   text: 'text-cyan-300'    },
-    'Shing Shong': { border: 'border-purple-500', text: 'text-purple-300'  },
+const TEAM_ACCENT: Record<string, string> = {
+    'ODW':         '#f97316',
+    'Lash':        '#94a3b8',
+    'aoeItalia':   '#22c55e',
+    'cup of tea':  '#06b6d4',
+    'Shing Shong': '#a855f7',
 };
+
+const RANK_CONFIG = [
+    { medal: '🥇', podiumColor: '#ca8a04', scoreColor: '#fbbf24', barHeight: 'h-20', order: 'order-2' },
+    { medal: '🥈', podiumColor: '#6b7280', scoreColor: '#d1d5db', barHeight: 'h-14', order: 'order-1' },
+    { medal: '🥉', podiumColor: '#b45309', scoreColor: '#fb923c', barHeight: 'h-10', order: 'order-3' },
+];
+
+function StatPill({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
+    return (
+        <div className="flex flex-col items-center gap-0.5">
+            <span className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold">{label}</span>
+            <span className="text-white font-bold text-sm leading-none">
+                {value}{sub && <span className="text-gray-500 text-xs font-normal">{sub}</span>}
+            </span>
+        </div>
+    );
+}
+
+function PodiumCard({ team, rank }: { team: Team; rank: number }) {
+    const cfg = RANK_CONFIG[rank];
+    const accent = TEAM_ACCENT[team.name] ?? '#6b7280';
+    const captain = team.players.find((p: any) => p.isCap);
+
+    return (
+        <div className={`flex flex-col items-center gap-2 ${cfg.order} w-full max-w-[180px]`}>
+            {/* Card */}
+            <div
+                className="w-full rounded-lg p-3 flex flex-col items-center gap-2 border border-white/5"
+                style={{ background: `linear-gradient(160deg, ${accent}18 0%, #111827 100%)` }}
+            >
+                <div className="text-2xl">{cfg.medal}</div>
+                <div className="text-center">
+                    <div className="font-black text-base leading-tight" style={{ color: accent }}>{team.name}</div>
+                    {captain && (
+                        <div className="text-[11px] text-gray-500 mt-0.5">👑 {captain.name}</div>
+                    )}
+                </div>
+                <div
+                    className="text-3xl font-black tabular-nums"
+                    style={{ color: cfg.scoreColor }}
+                >
+                    {team.rankingPoints}
+                    <span className="text-xs font-normal text-gray-500 ml-1">pts</span>
+                </div>
+                <div className="w-full border-t border-white/5 pt-2 flex justify-around">
+                    <StatPill label="WR" value={`${team.teamWinrate.winRate}%`} />
+                    <StatPill label="Games" value={team.totalGames} />
+                    <StatPill label="Civs" value={team.totalCivsWon} sub="/23" />
+                </div>
+            </div>
+            {/* Podium bar */}
+            <div
+                className={`w-full ${cfg.barHeight} rounded-t-sm`}
+                style={{ background: `linear-gradient(to top, ${accent}40, ${accent}20)`, borderTop: `2px solid ${accent}60` }}
+            />
+        </div>
+    );
+}
+
+function RankedRow({ team, rank }: { team: Team; rank: number }) {
+    const accent = TEAM_ACCENT[team.name] ?? '#6b7280';
+    const captain = team.players.find((p: any) => p.isCap);
+
+    return (
+        <div className="flex items-center gap-4 px-4 py-3 rounded-lg bg-gray-900/60 border border-white/5 hover:border-white/10 transition-colors">
+            <span className="text-gray-500 font-bold tabular-nums w-5 text-center text-sm">{rank}</span>
+            <div className="w-0.5 h-8 rounded-full flex-shrink-0" style={{ background: accent }} />
+            <div className="flex-1 min-w-0">
+                <div className="font-bold text-sm truncate" style={{ color: accent }}>{team.name}</div>
+                {captain && <div className="text-[11px] text-gray-500">👑 {captain.name}</div>}
+            </div>
+            <div className="hidden sm:flex items-center gap-4 text-xs text-gray-400">
+                <span>{team.teamWinrate.winRate}<span className="text-gray-600">%</span></span>
+                <span>{team.totalGames}<span className="text-gray-600"> games</span></span>
+                <span>{team.totalCivsWon}<span className="text-gray-600">/23 civs</span></span>
+            </div>
+            <div className="font-black text-lg tabular-nums text-gray-300">
+                {team.rankingPoints}
+                <span className="text-xs font-normal text-gray-600 ml-1">pts</span>
+            </div>
+        </div>
+    );
+}
 
 export default function Podium() {
     const { teams } = useTeams();
 
     if (!teams || teams.length === 0) {
         return (
-            <div className="bg-gray-900/80 backdrop-blur-sm border-l-4 border-yellow-500 p-4 sm:p-6">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white text-center pb-4">Podium</h2>
-                <div className="text-white text-center">Loading podium...</div>
+            <div className="flex items-center justify-center py-16 text-gray-500 text-sm tracking-widest uppercase">
+                Chargement du podium…
             </div>
         );
     }
 
+    const top3 = teams.slice(0, 3);
+    const rest = teams.slice(3);
+
     return (
-    <div className="max-w-5xl mx-auto">
-        <div className="bg-gray-900/80 backdrop-blur-sm p-4 sm:p-6 lg:p-8 shadow-2xl">
-            <div className="flex items-center justify-center space-x-3 mb-6 sm:mb-8">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-500 to-yellow-500" />
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
-                    🏆 Podium
-                </h2>
-                <div className="h-px flex-1 bg-gradient-to-l from-transparent via-yellow-500 to-yellow-500" />
+        <div className="max-w-3xl mx-auto space-y-8 px-4 py-6">
+            {/* Titre */}
+            <div className="text-center">
+                <h2 className="text-4xl font-black tracking-tight text-white">Classement</h2>
+                <p className="text-gray-500 text-sm mt-1 tracking-widest uppercase">Wololo Challenge</p>
             </div>
 
-            {/* En-têtes desktop */}
-            <div className="hidden md:flex items-center gap-2 px-3 sm:px-4 py-2 border-b border-gray-700/50 mb-2">
-                <div className="flex items-center gap-2 sm:gap-3 flex-1">
-                    <div className="w-10" />
-                    <div className="flex-1 text-xs text-gray-500 uppercase font-bold">Équipe</div>
+            {/* Podium visuel top 3 */}
+            <div className="flex items-end justify-center gap-3 sm:gap-6">
+                {top3.map((team, i) => (
+                    <PodiumCard key={team.name} team={team} rank={i} />
+                ))}
+            </div>
+
+            {/* Reste du classement */}
+            {rest.length > 0 && (
+                <div className="space-y-2">
+                    {rest.map((team, i) => (
+                        <RankedRow key={team.name} team={team} rank={i + 4} />
+                    ))}
                 </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                    <div className="text-center w-[70px] text-xs text-yellow-400 uppercase font-bold">Winrate</div>
-                    <div className="text-center w-[60px] text-xs text-blue-400 uppercase font-bold">Games</div>
-                    <div className="text-center w-[60px] text-xs text-amber-400 uppercase font-bold">Civs ✓</div>
-                </div>
-                <div className="w-px h-6 bg-gray-600 mx-2" />
-                <div className="text-center w-[67px] text-xs text-purple-400 uppercase font-bold">Total</div>
-            </div>
-
-            <div className="space-y-2">
-                {teams.map((team, index) => {
-                    const captain = team.players.find((p: any) => p.isCap);
-                    const teamColor = TEAM_COLORS[team.name] ?? { border: 'border-gray-500', text: 'text-gray-300' };
-
-                    const positionStyles = index === 0 ? {
-                        bgGradient: 'bg-gradient-to-r from-yellow-500/15 via-yellow-600/8 to-transparent',
-                        textColor: teamColor.text,
-                        scoreColor: 'text-yellow-400',
-                        medal: '🥇'
-                    } : index === 1 ? {
-                        bgGradient: 'bg-gradient-to-r from-gray-400/15 via-gray-500/8 to-transparent',
-                        textColor: teamColor.text,
-                        scoreColor: 'text-gray-300',
-                        medal: '🥈',
-                    } : index === 2 ? {
-                        bgGradient: 'bg-gradient-to-r from-orange-500/15 via-orange-600/8 to-transparent',
-                        textColor: teamColor.text,
-                        scoreColor: 'text-orange-400',
-                        medal: '🥉',
-                    } : {
-                        bgGradient: 'bg-gradient-to-r from-gray-700/10 to-transparent',
-                        textColor: teamColor.text,
-                        scoreColor: 'text-gray-400',
-                        medal: `${index + 1}`,
-                    };
-
-                    return (
-                    <div key={team.name} className={`${positionStyles.bgGradient} border border-gray-700/30 hover:border-gray-600/50 transition-all duration-200 hover:brightness-110 px-3 sm:px-4 py-2`}>
-                        <div className="flex items-center gap-2">
-                            {/* Position + Nom */}
-                            <div className="flex items-center gap-2 sm:gap-3 w-full md:flex-1">
-                                <div className={`flex-shrink-0 text-center ${index > 2 ? 'text-base sm:text-lg font-bold bg-gray-800/50 rounded-full w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center border border-gray-600/50 text-gray-300' : 'text-xl sm:text-2xl w-10'}`}>
-                                    {positionStyles.medal}
-                                </div>
-
-                                <div className="min-w-0 flex-1">
-                                    <div className={`font-bold text-base sm:text-lg truncate ${positionStyles.textColor}`}>
-                                        {team.name}
-                                    </div>
-                                    {captain && (
-                                        <div className="text-xs text-gray-500 truncate">
-                                            <span className="text-yellow-400">👑</span> {captain.name}
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Score mobile */}
-                            <div className="md:hidden flex-shrink-0 text-right">
-                                <div className={`font-black text-2xl ${positionStyles.scoreColor}`}>
-                                    {team.rankingPoints}
-                                </div>
-                                <div className="text-[10px] text-gray-500 uppercase">pts</div>
-                            </div>
-                            
-                            {/* Disciplines desktop */}
-                            <div className="hidden md:flex items-center gap-2 flex-shrink-0">
-                                <div className="text-center py-1 bg-yellow-900/20 border border-yellow-500/30 w-[70px]">
-                                    <div className="text-yellow-400 font-bold text-sm">{team.teamWinrate.winRate}%</div>
-                                    <div className="text-purple-400 font-bold text-xs">{team.pointsByDiscipline.winrate}pt</div>
-                                </div>
-                                <div className="text-center py-1 bg-blue-900/20 border border-blue-500/30 w-[60px]">
-                                    <div className="text-blue-400 font-bold text-sm">{team.totalGames}</div>
-                                    <div className="text-purple-400 font-bold text-xs">{team.pointsByDiscipline.games}pt</div>
-                                </div>
-                                <div className="text-center py-1 bg-amber-900/20 border border-amber-500/30 w-[60px]">
-                                    <div className="text-amber-400 font-bold text-sm">{team.totalCivsWon}<span className="text-gray-500 text-xs">/23</span></div>
-                                    <div className="text-purple-400 font-bold text-xs">{team.pointsByDiscipline.civs}pt</div>
-                                </div>
-                            </div>
-
-                            {/* Séparateur + Score Total */}
-                            <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-                                <div className="w-px h-10 bg-gray-600" />
-                                <div className={`font-black text-2xl ${positionStyles.scoreColor} w-[70px] text-center`}>
-                                    {team.rankingPoints}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Disciplines mobile */}
-                        <div className="md:hidden mt-3 space-y-1.5 text-xs">
-                            <div className="bg-yellow-900/20 border border-yellow-500/30 px-3 py-1.5 flex items-center justify-between">
-                                <span className="text-yellow-400 uppercase font-bold text-[11px]">Winrate</span>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-yellow-400 font-bold text-sm">{team.teamWinrate.winRate}%</span>
-                                    <span className="text-gray-500 text-xs">({team.teamWinrate.win}V/{team.teamWinrate.lose}D)</span>
-                                    <span className="text-purple-400 font-bold text-xs">{team.pointsByDiscipline.winrate}pt</span>
-                                </div>
-                            </div>
-                            <div className="bg-blue-900/20 border border-blue-500/30 px-3 py-1.5 flex items-center justify-between">
-                                <span className="text-blue-400 uppercase font-bold text-[11px]">Games</span>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-blue-400 font-bold text-sm">{team.totalGames}</span>
-                                    <span className="text-purple-400 font-bold text-xs">{team.pointsByDiscipline.games}pt</span>
-                                </div>
-                            </div>
-                            <div className="bg-amber-900/20 border border-amber-500/30 px-3 py-1.5 flex items-center justify-between">
-                                <span className="text-amber-400 uppercase font-bold text-[11px]">Civs gagnées</span>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-amber-400 font-bold text-sm">{team.totalCivsWon}<span className="text-gray-500">/23</span></span>
-                                    <span className="text-purple-400 font-bold text-xs">{team.pointsByDiscipline.civs}pt</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    );
-                })}
-            </div>
+            )}
         </div>
-    </div>
     );
 }
