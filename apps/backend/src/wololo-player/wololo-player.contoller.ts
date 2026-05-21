@@ -8,5 +8,5 @@ export class WololoPlayerController {
 
     @Get() getWololoPlayer() {
         return this.wololoPlayerService.getWololoPlayers();
-    }    
+    }
 }
