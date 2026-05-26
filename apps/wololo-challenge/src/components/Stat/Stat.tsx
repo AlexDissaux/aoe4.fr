@@ -2,7 +2,7 @@ import { useState } from "react";
 import Separator from "./Separator";
 import Teams from "./Team";
 import Player from "./Player";
-import Podium from "../Podium";
+import Podium from "../podium/Podium";
 
 
 export default function Stat() {

@@ -9,7 +9,7 @@ export { default as Countdown } from './components/Countdown';
 export { default as Player } from './components/Stat/Player';
 export { default as Team } from './components/Stat/Team';
 export { default as Separator } from './components/Stat/Separator';
-export { default as Podium } from './components/Podium';
+export { default as Podium } from './components/podium/Podium';
 
 // Export hooks
 export { usePlayers } from './hook/usePlayers';

@@ -62,7 +62,6 @@ export default function Leaderboard() {
         <div className="max-w-7xl mx-auto">
             {/* Header */}
             <div className="mb-7 text-center">
-                <div className="mb-2 text-[10px] sm:text-xs uppercase tracking-[0.35em] text-gray-500">Wololo Challenge</div>
                 <div className="flex items-center justify-center gap-4">
                     <div className="h-px w-12 sm:w-20 bg-linear-to-r from-transparent to-amber-300/70" />
                     <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-[0.08em] text-stone-100">
