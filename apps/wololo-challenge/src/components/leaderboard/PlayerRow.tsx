@@ -30,36 +30,42 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
             } ${index % 2 === 0 ? 'bg-white/[0.02]' : ''}`}
         >
             {/* Mobile */}
-            <div className="lg:hidden py-3">
-                <div className="flex items-center gap-3 mb-2">
-                    <span className="text-gray-500 font-bold text-sm w-6 text-center flex-shrink-0">{index + 1}</span>
-                    <div className="flex items-center gap-1.5 min-w-0 flex-1">
-                        {player.isCap && <span className="text-yellow-400 flex-shrink-0">👑</span>}
-                        <span className={`font-bold text-sm truncate ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
-                            {player.name}
-                        </span>
-                    </div>
-                    <span className={`text-xs font-bold px-2 py-0.5 border ${teamColor.border} ${teamColor.text} flex-shrink-0`}>
+            <div className="lg:hidden py-3 space-y-1.5">
+                {/* Name + team */}
+                <div className="flex items-center gap-2">
+                    <span className="text-gray-600 font-bold text-xs w-5 text-right flex-shrink-0">{index + 1}</span>
+                    {player.isCap && <span className="text-yellow-400 text-xs flex-shrink-0">👑</span>}
+                    <span className={`font-bold text-sm truncate flex-1 ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
+                        {player.name}
+                    </span>
+                    <span className={`text-[11px] font-bold px-2 py-0.5 border flex-shrink-0 ${teamColor.border} ${teamColor.text}`}>
                         {player.team}
                     </span>
                 </div>
-                <div className="grid grid-cols-3 gap-1.5 text-xs ml-9">
-                    <div className="bg-yellow-900/20 border border-yellow-500/30 px-2 py-1 text-center">
-                        <div className="text-yellow-400 font-bold">{player.winRate}%</div>
-                        <div className="text-gray-500">WR</div>
+
+                {/* Stats row */}
+                <div className="grid grid-cols-4 pl-7 text-xs">
+                    <div>
+                        <span className="text-gray-500">WR </span>
+                        <span className="text-yellow-400 font-bold tabular-nums">{player.winRate}%</span>
                     </div>
-                    <div className="bg-blue-900/20 border border-blue-500/30 px-2 py-1 text-center">
-                        <div className="text-blue-400 font-bold">{player.gamesCount}</div>
-                        <div className="text-gray-500">Games</div>
+                    <div>
+                        <span className="text-blue-400 font-bold tabular-nums">{player.gamesCount}</span>
+                        <span className="text-gray-500"> games</span>
+                    </div>
+                    <div>
+                        <span className="text-green-400 font-bold tabular-nums">{player.wins}V</span>
+                        <span className="text-gray-600 mx-0.5">/</span>
+                        <span className="text-red-400 font-bold tabular-nums">{player.losses}D</span>
                     </div>
                     <div
-                        className="bg-amber-900/20 border border-amber-500/30 px-2 py-1 text-center relative cursor-pointer"
+                        className="relative cursor-pointer"
                         onClick={() => onTooltipToggle(index)}
                     >
-                        <div className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}</div>
-                        <div className="text-gray-500">Civs</div>
+                        <span className="text-amber-400 font-bold tabular-nums">{player.civsWon?.length ?? 0}</span>
+                        <span className="text-gray-500"> civs</span>
                         {player.civsWon?.length > 0 && openTooltipIndex === index && (
-                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-44">
+                            <div className="absolute bottom-full left-0 mb-2 z-50 w-44">
                                 <CivsTooltip civs={player.civsWon} />
                             </div>
                         )}
