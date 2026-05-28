@@ -1,25 +1,23 @@
 import './App.css'
-import { Titre } from './components/Titre'
+import { Routes, Route } from 'react-router-dom'
+import { Header } from './components/Header'
+import Home from './components/Home'
+import Podium from './components/podium/Podium'
 import Leaderboard from './components/Leaderboard'
-import TwitchSection from './components/TwitchSection'
-import PodiumLight from './components/podium/PodiumLight'
-import Teasing from './components/Teasing'
+import Rules from './components/Rules'
 
 
 function App() {
-
   return (
     <div className="min-h-screen bg-black">
+      <Header />
       <div className="px-0 sm:px-3 py-8">
-        <div className="w-full space-y-12">
-          <Titre />
-          <div className="flex flex-col lg:flex-row gap-8 items-start">
-            <div className="w-full lg:w-1/4"><Teasing /></div>
-            <div className="w-full lg:w-1/2"><TwitchSection /></div>
-            <div className="w-full lg:w-1/4"><PodiumLight /></div>
-          </div>
-          <Leaderboard />
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/podium" element={<Podium />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/rules" element={<Rules />} />
+        </Routes>
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ export { default as WololoChallengeApp } from './App';
 export { default as App } from './App';
 
 // Export components
-export { Titre } from './components/Titre';
+export { Header } from './components/Header';
 export { default as Stat } from './components/Stat/Stat';
 export { default as Countdown } from './components/Countdown';
 export { default as Player } from './components/Stat/Player';
