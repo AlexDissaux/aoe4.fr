@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { Header } from './components/Header'
 import Home from './components/Home'
 import Podium from './components/podium/Podium'
-import Leaderboard from './components/Leaderboard'
+import Leaderboard from './components/leaderboard/Leaderboard'
 import Rules from './components/Rules'
 
 

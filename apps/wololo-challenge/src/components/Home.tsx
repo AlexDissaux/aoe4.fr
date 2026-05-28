@@ -1,4 +1,4 @@
-import Leaderboard from './Leaderboard'
+import Leaderboard from './leaderboard/Leaderboard'
 import TwitchSection from './TwitchSection'
 import PodiumLight from './podium/PodiumLight'
 import Teasing from './Teasing'
