@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const TABS = [
-    { to: '/',            label: 'Home',        end: true },
+    { to: '/',            label: 'Home',        end: true  },
     { to: '/podium',      label: 'Podium',      end: false },
     { to: '/leaderboard', label: 'Leaderboard', end: false },
+    { to: '/live',        label: 'Live',        end: false },
     { to: '/rules',       label: 'Rules',       end: false },
 ];
 
@@ -52,7 +53,12 @@ export function Header() {
                 <nav className="hidden sm:flex items-stretch gap-1 h-16 ml-6">
                     {TABS.map(tab => (
                         <NavLink key={tab.to} to={tab.to} end={tab.end} className={desktopClass}>
-                            {tab.label}
+                            {tab.to === '/live' ? (
+                                <span className="inline-flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                                    {tab.label}
+                                </span>
+                            ) : tab.label}
                         </NavLink>
                     ))}
                 </nav>
@@ -78,7 +84,12 @@ export function Header() {
                             onClick={() => setMenuOpen(false)}
                             className={mobileClass}
                         >
-                            {tab.label}
+                            {tab.to === '/live' ? (
+                                <span className="inline-flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                                    {tab.label}
+                                </span>
+                            ) : tab.label}
                         </NavLink>
                     ))}
                 </nav>

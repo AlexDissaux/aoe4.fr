@@ -4,11 +4,7 @@ export { default as App } from './App';
 
 // Export components
 export { Header } from './components/Header';
-export { default as Stat } from './components/Stat/Stat';
 export { default as Countdown } from './components/Countdown';
-export { default as Player } from './components/Stat/Player';
-export { default as Team } from './components/Stat/Team';
-export { default as Separator } from './components/Stat/Separator';
 export { default as Podium } from './components/podium/Podium';
 
 // Export hooks

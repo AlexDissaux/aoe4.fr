@@ -1,5 +1,6 @@
-import { WololoPlayer } from '@aoe4.fr/shared-types';
+import { CurrentGame, WololoPlayer } from '@aoe4.fr/shared-types';
 import { TeamColor } from './leaderboard.types';
+import { LiveIndicator } from './LiveIndicator';
 
 interface PlayerRowProps {
     player: WololoPlayer;
@@ -7,6 +8,7 @@ interface PlayerRowProps {
     teamColor: TeamColor;
     openTooltipIndex: number | null;
     onTooltipToggle: (index: number) => void;
+    currentGame?: CurrentGame;
 }
 
 function CivsTooltip({ civs }: { civs: string[] }) {
@@ -22,7 +24,7 @@ function CivsTooltip({ civs }: { civs: string[] }) {
     );
 }
 
-export function PlayerRow({ player, index, teamColor, openTooltipIndex, onTooltipToggle }: PlayerRowProps) {
+export function PlayerRow({ player, index, teamColor, openTooltipIndex, onTooltipToggle, currentGame }: PlayerRowProps) {
     return (
         <div
             className={`px-3 sm:px-4 hover:bg-white/5 transition-colors duration-150 ${
@@ -38,6 +40,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                     <span className={`font-bold text-sm truncate flex-1 ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
                         {player.name}
                     </span>
+                    {currentGame && <LiveIndicator game={currentGame} />}
                     <span className={`text-[11px] font-bold px-2 py-0.5 border flex-shrink-0 ${teamColor.border} ${teamColor.text}`}>
                         {player.team}
                     </span>
@@ -83,6 +86,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                     <span className={`font-bold truncate ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
                         {player.name}
                     </span>
+                    {currentGame && <LiveIndicator game={currentGame} />}
                 </div>
                 <div className="col-span-2 flex items-center">
                     <span className={`text-xs font-bold px-2 py-0.5 border ${teamColor.border} ${teamColor.text}`}>

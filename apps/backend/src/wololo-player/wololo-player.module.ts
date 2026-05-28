@@ -11,5 +11,6 @@ import { TwitchModule } from '../twitch/twitch.module';
   imports: [TypeOrmModule.forFeature([WololoPlayerEntity]), TwitchModule],
   controllers: [WololoPlayerController],
   providers: [WololoPlayerService, WololoPlayerApi, WololoPlayerRepository],
+  exports: [WololoPlayerRepository],
 })
 export class WololoPlayerModule {}

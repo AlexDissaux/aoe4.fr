@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Podium from './components/podium/Podium'
 import Leaderboard from './components/leaderboard/Leaderboard'
 import Rules from './components/Rules'
+import LiveGames from './components/live-games/LiveGames'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/podium" element={<Podium />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/live" element={<LiveGames />} />
           <Route path="/rules" element={<Rules />} />
         </Routes>
       </div>

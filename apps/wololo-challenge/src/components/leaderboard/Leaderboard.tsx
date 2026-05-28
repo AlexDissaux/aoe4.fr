@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { usePlayers } from "../../hook/usePlayers";
+import { useWololoCurrentGames } from "../../hook/useWololoCurrentGames";
 import { SortKey } from "./leaderboard.types";
 import { TEAM_COLORS, DEFAULT_TEAM_COLOR } from "./teamColors";
 import { LeaderboardFilters } from "./LeaderboardFilters";
@@ -8,6 +9,7 @@ import { PlayerRow } from "./PlayerRow";
 
 export default function Leaderboard() {
     const { players } = usePlayers();
+    const gamesMap = useWololoCurrentGames();
     const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
     const [search, setSearch] = useState('');
     const [sortBy, setSortBy] = useState<SortKey>('winrate');
@@ -74,6 +76,7 @@ export default function Leaderboard() {
                                 teamColor={TEAM_COLORS[player.team] ?? DEFAULT_TEAM_COLOR}
                                 openTooltipIndex={openTooltipIndex}
                                 onTooltipToggle={handleTooltipToggle}
+                                currentGame={gamesMap.get(player.name.toLowerCase())}
                             />
                         ))}
                     </div>
