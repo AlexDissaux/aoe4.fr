@@ -102,26 +102,6 @@ export default function TwitchSection() {
 
     return (
         <div className="max-w-3xl mx-auto px-4 space-y-3">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm">
-                    <TwitchLogo size={14} />
-                    <span className="flex items-center gap-1.5 text-white font-semibold">
-                        <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                        En live
-                    </span>
-                    <span className="text-gray-500">{state.streams.length} stream{state.streams.length > 1 ? 's' : ''}</span>
-                </div>
-                <a
-                    href={`https://www.twitch.tv/${currentStream.user_login}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-purple-400 hover:text-purple-300 transition-colors"
-                >
-                    Ouvrir sur Twitch ↗
-                </a>
-            </div>
-
             {/* Tabs si plusieurs streams */}
             {state.streams.length > 1 && (
                 <div className="flex gap-2 flex-wrap">
