@@ -15,6 +15,11 @@ export default function Teasing() {
           Every game can flip the rankings. Watch the streams, track the podium, and follow the sprint to the top.
         </p>
       </div>
+
+      <div className="inline-flex items-baseline gap-2">
+        <span className="text-4xl font-black text-amber-300 tracking-tight">1 000 €</span>
+        <span className="text-sm font-bold uppercase tracking-widest text-amber-200/70">Cash Prize</span>
+      </div>
     </div>
   );
 }

@@ -118,7 +118,7 @@ export default function Leaderboard() {
             <div className="flex gap-2 mb-4 overflow-x-auto pb-1 justify-center lg:hidden">
                 <SortButton label="Winrate" value="winrate" color="border-yellow-400 text-yellow-400" />
                 <SortButton label="Games"   value="games"   color="border-blue-400 text-blue-400" />
-                <SortButton label="Civs ✓"  value="civs"    color="border-amber-400 text-amber-400" />
+                <SortButton label="Civs"  value="civs"    color="border-amber-400 text-amber-400" />
             </div>
 
             {/* Table */}
@@ -136,7 +136,7 @@ export default function Leaderboard() {
                     </button>
                     <div className="col-span-2 text-center">V / D</div>
                     <button onClick={() => setSortBy('civs')} className={`col-span-1 text-center hover:text-amber-400 transition-colors ${sortBy === 'civs' ? 'text-amber-400' : ''}`}>
-                        Civs ✓ {sortBy === 'civs' && '▼'}
+                        Civs {sortBy === 'civs' && '▼'}
                     </button>
                 </div>
 
@@ -185,7 +185,7 @@ export default function Leaderboard() {
                                                 onClick={() => setOpenTooltipIndex(openTooltipIndex === index ? null : index)}
                                             >
                                                 <div className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}<span className="text-gray-500 text-[10px]"></span></div>
-                                                <div className="text-gray-500">Civs ✓</div>
+                                                <div className="text-gray-500">Civs</div>
                                                 {player.civsWon?.length > 0 && openTooltipIndex === index && (
                                                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-44">
                                                         <div className="bg-gray-900 border-2 border-amber-500/50 rounded shadow-xl p-2">

@@ -9,7 +9,7 @@ import Rules from './components/Rules'
 
 function App() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_#1c1208_0%,_#0d0d0d_45%,_#000000_100%)]">
       <Header />
       <div className="px-0 sm:px-3 py-8">
         <Routes>
