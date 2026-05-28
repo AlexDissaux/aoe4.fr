@@ -4,15 +4,16 @@
   "license": "MIT",
   "scripts": {
     "serve:front": "nx serve frontend",
-    "serve:wololo": "nx serve wololo-challenge",
     "build:front": "nx build frontend --prod",
     "build:back": "nx build backend",
     "serve:back": "nx serve backend",
     "serve:back:dev": "cd apps/backend && webpack --config webpack-hmr.config.js --watch",
-    "test": "nx test",
-    "lint": "nx lint",
+    "serve:wololo": "nx serve wololo-challenge",
     "deploy:wololo": "nx build wololo-challenge --prod && gh-pages -d dist/apps/wololo-challenge",
-    "deploy:vps": "bash deploy.sh"
+    "deploy:vps": "bash deploy.sh",
+
+    "test": "nx test",
+    "lint": "nx lint"
   },
   "private": true,
   "dependencies": {

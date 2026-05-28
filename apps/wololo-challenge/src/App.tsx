@@ -1,9 +1,9 @@
 import './App.css'
 import { Titre } from './components/Titre'
-import Podium from './components/podium/Podium'
 import Leaderboard from './components/Leaderboard'
 import TwitchSection from './components/TwitchSection'
 import PodiumLight from './components/podium/PodiumLight'
+import Teasing from './components/Teasing'
 
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <div className="w-full space-y-12">
           <Titre />
           <div className="flex flex-col lg:flex-row gap-8 items-start">
-            <div className="w-full lg:w-1/4"><Podium /></div>
+            <div className="w-full lg:w-1/4"><Teasing /></div>
             <div className="w-full lg:w-1/2"><TwitchSection /></div>
             <div className="w-full lg:w-1/4"><PodiumLight /></div>
           </div>
