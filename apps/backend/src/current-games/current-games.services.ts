@@ -5,7 +5,6 @@ import { PlayerRepository } from "src/player/player.repository";
 import { LeaderboardService } from "../leaderboard/leaderboard.service";
 import { CurrentGame } from "@aoe4.fr/shared-types";
 import { toCurrentGameDto } from "./current-games.mapper";
-import { WololoPlayerRepository } from "../wololo-player/wololo-player.repository";
 
 
 @Injectable()
@@ -13,7 +12,6 @@ export class CurrentGamesService {
     constructor(
         private readonly playerRepository: PlayerRepository,
         private readonly leaderboardService: LeaderboardService,
-        private readonly wololoPlayerRepository: WololoPlayerRepository,
     ) {}
 
     private readonly gamesSubject = new BehaviorSubject<CurrentGame[]>([]);
@@ -43,15 +41,10 @@ export class CurrentGamesService {
     }
 
     public async setCurrentGamesFromActivePlayers(): Promise<void> {
-        const [activeProfileIds, wololoPlayers] = await Promise.all([
-            this.playerRepository.findAllProfileIdsFromActivePlayers(),
-            this.wololoPlayerRepository.findAll(),
-        ]);
-        const wololoProfileIds = wololoPlayers.map((p) => p.profileId);
-        const profileIds = [...new Set([...activeProfileIds, ...wololoProfileIds])];
+        const activeProfileIds = await this.playerRepository.findAllProfileIdsFromActivePlayers();
         const rankMap = await this.buildRankMap();
 
-        const games = (await fetchCurrentGames(profileIds))
+        const games = (await fetchCurrentGames(activeProfileIds))
             .map(({ game, profileId }) => toCurrentGameDto(game, profileId, rankMap));
         this.gamesSubject.next(games);
     }

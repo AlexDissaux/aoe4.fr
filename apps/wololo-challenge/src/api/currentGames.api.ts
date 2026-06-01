@@ -8,7 +8,7 @@ export function subscribeToCurrentGames(
     onUpdate: (games: CurrentGame[]) => void,
     onError: (err: Event) => void,
 ): EventSource {
-    const source = new EventSource(`${API_BASE}/current-games/stream`);
+    const source = new EventSource(`${API_BASE}/current-games/wololo-players/stream`);
     source.onmessage = (event) => {
         onUpdate(JSON.parse(event.data as string) as CurrentGame[]);
     };
