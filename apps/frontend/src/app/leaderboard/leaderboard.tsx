@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RankIcon } from '@aoe4.fr/ui';
+import { RankIcon, PlayerLink } from '@aoe4.fr/ui';
 import { PLayerLeaderboard } from '@aoe4.fr/shared-types';
 
 const PAGE_SIZE = 50;
@@ -109,7 +109,9 @@ export function LeaderboardTable({ players, isLoading }: Props) {
                     <td className="px-4 py-3 text-center font-mono text-sm text-zinc-500">
                       {offset + index + 1}
                     </td>
-                    <td className="px-4 py-3 font-medium">{player.name}</td>
+                    <td className="px-4 py-3 font-medium">
+                      <PlayerLink profileId={player.id} name={player.name} className="hover:text-amber-400 transition-colors" />
+                    </td>
                     <td className="px-4 py-3">
                       <div className="flex justify-center">
                         <RankIcon rankLevel={player.rm_solo_rank_level} size={28} />

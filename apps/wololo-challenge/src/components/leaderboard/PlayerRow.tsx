@@ -1,4 +1,5 @@
 import { CurrentGame, WololoPlayer } from '@aoe4.fr/shared-types';
+import { PlayerLink } from '@aoe4.fr/ui';
 import { TeamColor } from './leaderboard.types';
 import { LiveIndicator } from './LiveIndicator';
 
@@ -38,7 +39,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                     <span className="text-gray-600 font-bold text-xs w-5 text-right flex-shrink-0">{index + 1}</span>
                     {player.isCap && <span className="text-yellow-400 text-xs flex-shrink-0">👑</span>}
                     <span className={`font-bold text-sm truncate flex-1 ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
-                        {player.name}
+                        <PlayerLink profileId={player.profileId} name={player.name} className="hover:underline" />
                     </span>
                     {currentGame && <LiveIndicator game={currentGame} />}
                     <span className={`text-[11px] font-bold px-2 py-0.5 border flex-shrink-0 ${teamColor.border} ${teamColor.text}`}>
@@ -84,7 +85,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                 <div className="col-span-3 flex items-center gap-2">
                     {player.isCap && <span className="text-yellow-400 flex-shrink-0">👑</span>}
                     <span className={`font-bold truncate ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
-                        {player.name}
+                        <PlayerLink profileId={player.profileId} name={player.name} className="hover:underline" />
                     </span>
                     {currentGame && <LiveIndicator game={currentGame} />}
                 </div>

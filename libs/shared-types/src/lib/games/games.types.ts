@@ -1,4 +1,5 @@
 export interface CurrentGamePlayer {
+  profileId: number;
   name: string;
   civilization: string;
   civilization_randomized: boolean;

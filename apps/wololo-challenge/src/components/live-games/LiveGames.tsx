@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { CurrentGame } from '@aoe4.fr/shared-types';
-import { CivFlag } from '@aoe4.fr/ui';
+import { CivFlag, PlayerLink } from '@aoe4.fr/ui';
 import { useWololoCurrentGames } from '../../hook/useWololoCurrentGames';
 import { usePlayers } from '../../hook/usePlayers';
 import { useWololoTeams } from '../../hook/useWololoTeams';
@@ -37,7 +37,7 @@ function GameCard({ game, playerTeamMap }: { game: CurrentGame; playerTeamMap: M
                                         className="w-6 h-auto flex-shrink-0 rounded-sm"
                                     />
                                     <span className={`text-sm truncate flex-1 font-medium ${color ? color.text : 'text-gray-400'}`}>
-                                        {player.name}
+                                        <PlayerLink profileId={player.profileId} name={player.name} className="hover:underline" />
                                     </span>
                                     {player.rating != null && (
                                         <span className={`text-xs font-bold tabular-nums flex-shrink-0 ${color ? 'text-amber-400' : 'text-gray-600'}`}>

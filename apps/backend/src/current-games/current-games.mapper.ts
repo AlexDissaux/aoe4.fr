@@ -16,6 +16,7 @@ export function toCurrentGameDto(game: any, profileId?: number, rankMap: Map<num
 
 export function toCurrentGamePlayerDto(player: any, rankMap: Map<number, string | null> = new Map()): CurrentGamePlayerDto {
     return {
+        profileId: player.profile_id,
         name: player.name,
         civilization: player.civilization,
         civilization_randomized: player.civilization_randomized,
