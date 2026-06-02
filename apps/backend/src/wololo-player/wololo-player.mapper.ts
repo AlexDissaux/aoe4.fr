@@ -35,6 +35,7 @@ export function toWololoPlayer(raw: WololoPlayerRaw): WololoPlayer {
     return {
         profileId: raw.profileId,
         name: raw.name,
+        teamId: raw.teamId,
         team: raw.team,
         isCap: raw.isCap,
         gamesCount: total,

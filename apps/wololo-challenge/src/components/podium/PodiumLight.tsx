@@ -1,8 +1,10 @@
-import { useTeams, } from '../../hook/useTeams';
-import { getTeamAccent } from './teamAccent';
+import { useTeams } from '../../hook/useTeams';
+import { useWololoTeams } from '../../hook/useWololoTeams';
+import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../leaderboard/teamColors';
 
 export default function PodiumLight() {
     const { teams } = useTeams();
+    const wololoTeams = useWololoTeams();
 
     if (!teams || teams.length === 0) {
         return (
@@ -12,6 +14,7 @@ export default function PodiumLight() {
         );
     }
 
+    const teamColorMap = new Map(wololoTeams.map(t => [t.id, COLOR_PALETTE_HEX[t.color] ?? DEFAULT_TEAM_COLOR_HEX]));
     const maxPoints = Math.max(...teams.map((team) => team.rankingPoints), 1);
 
     return (
@@ -26,12 +29,12 @@ export default function PodiumLight() {
 
             <div className="space-y-0">
                 {teams.map((team) => {
-                    const accent = getTeamAccent(team.name);
+                    const accent = teamColorMap.get(team.teamId) ?? DEFAULT_TEAM_COLOR_HEX;
                     const widthPercent = Math.max(28, (team.rankingPoints / maxPoints) * 100);
 
                     return (
                         <div
-                            key={team.name}
+                            key={team.teamId}
                             className="h-10 flex items-center justify-between px-3 border bg-black"
                             style={{
                                 width: `${widthPercent}%`,

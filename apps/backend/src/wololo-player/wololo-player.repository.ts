@@ -16,6 +16,7 @@ export class WololoPlayerRepository {
     return entities.map((e) => ({
       profileId: e.profileId,
       name: e.name,
+      teamId: e.teamId ?? '',
       team: e.team,
       isCap: e.isCap,
       gamesCount: e.gamesCount,
@@ -31,6 +32,7 @@ export class WololoPlayerRepository {
     const entities: Partial<WololoPlayerEntity>[] = players.map((p) => ({
       profileId: p.profileId,
       name: p.name,
+      teamId: p.teamId,
       team: p.team,
       isCap: p.isCap,
       gamesCount: p.gamesCount,

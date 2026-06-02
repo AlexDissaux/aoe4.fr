@@ -1,14 +1,16 @@
 import { useState, useMemo } from "react";
 import { usePlayers } from "../../hook/usePlayers";
 import { useWololoCurrentGames } from "../../hook/useWololoCurrentGames";
+import { useWololoTeams } from "../../hook/useWololoTeams";
 import { SortKey } from "./leaderboard.types";
-import { TEAM_COLORS, DEFAULT_TEAM_COLOR } from "./teamColors";
+import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from "./teamColors";
 import { LeaderboardFilters } from "./LeaderboardFilters";
 import { LeaderboardTableHeader } from "./LeaderboardTableHeader";
 import { PlayerRow } from "./PlayerRow";
 
 export default function Leaderboard() {
     const { players } = usePlayers();
+    const teams = useWololoTeams();
     const gamesMap = useWololoCurrentGames();
     const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
     const [search, setSearch] = useState('');
@@ -18,7 +20,7 @@ export default function Leaderboard() {
     const filteredAndSorted = useMemo(() => {
         if (!players) return [];
         let list = [...players];
-        if (selectedTeam) list = list.filter(p => p.team === selectedTeam);
+        if (selectedTeam) list = list.filter(p => p.teamId === selectedTeam);
         if (search.trim()) {
             const q = search.trim().toLowerCase();
             list = list.filter(p => p.name.toLowerCase().includes(q));
@@ -51,6 +53,7 @@ export default function Leaderboard() {
             </div>
 
             <LeaderboardFilters
+                teams={teams}
                 selectedTeam={selectedTeam}
                 onTeamChange={setSelectedTeam}
                 search={search}
@@ -73,7 +76,7 @@ export default function Leaderboard() {
                                 key={player.profileId}
                                 player={player}
                                 index={index}
-                                teamColor={TEAM_COLORS[player.team] ?? DEFAULT_TEAM_COLOR}
+                                teamColor={COLOR_PALETTE[teams.find(t => t.id === player.teamId)?.color ?? ''] ?? DEFAULT_TEAM_COLOR}
                                 openTooltipIndex={openTooltipIndex}
                                 onTooltipToggle={handleTooltipToggle}
                                 currentGame={gamesMap.get(player.name.toLowerCase())}

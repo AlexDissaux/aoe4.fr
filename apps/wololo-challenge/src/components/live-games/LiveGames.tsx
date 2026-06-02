@@ -3,7 +3,8 @@ import { CurrentGame } from '@aoe4.fr/shared-types';
 import { CivFlag } from '@aoe4.fr/ui';
 import { useWololoCurrentGames } from '../../hook/useWololoCurrentGames';
 import { usePlayers } from '../../hook/usePlayers';
-import { TEAM_COLORS, DEFAULT_TEAM_COLOR } from '../leaderboard/teamColors';
+import { useWololoTeams } from '../../hook/useWololoTeams';
+import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from '../leaderboard/teamColors';
 
 function formatLeaderboard(leaderboard: string): string {
     return leaderboard.replace(/_/g, ' ').toUpperCase();
@@ -27,8 +28,8 @@ function GameCard({ game, playerTeamMap }: { game: CurrentGame; playerTeamMap: M
                 {game.teams.map((team, ti) => (
                     <div key={ti} className="flex-1 py-3 px-4 space-y-2 min-w-0">
                         {team.map((player, pi) => {
-                            const team = playerTeamMap.get(player.name.toLowerCase());
-                            const color = team ? (TEAM_COLORS[team] ?? DEFAULT_TEAM_COLOR) : null;
+                            const teamColor = playerTeamMap.get(player.name.toLowerCase());
+                            const color = teamColor ? (COLOR_PALETTE[teamColor] ?? DEFAULT_TEAM_COLOR) : null;
                             return (
                                 <div key={pi} className={`flex items-center gap-2 min-w-0 ${color ? 'opacity-100' : 'opacity-50'}`}>
                                     <CivFlag
@@ -60,16 +61,20 @@ function GameCard({ game, playerTeamMap }: { game: CurrentGame; playerTeamMap: M
 
 export default function LiveGames() {
     const { players } = usePlayers();
+    const teams = useWololoTeams();
     const gamesMap = useWololoCurrentGames();
     const games = [...new Set(gamesMap.values())];
 
+    // Map player name → team color key
     const playerTeamMap = useMemo(() => {
+        const teamColorById = new Map(teams.map(t => [t.id, t.color]));
         const map = new Map<string, string>();
         for (const p of players ?? []) {
-            map.set(p.name.toLowerCase(), p.team);
+            const color = teamColorById.get(p.teamId);
+            if (color) map.set(p.name.toLowerCase(), color);
         }
         return map;
-    }, [players]);
+    }, [players, teams]);
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-8">

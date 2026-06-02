@@ -8,6 +8,9 @@ export class WololoPlayerEntity {
   @Column({ type: 'varchar' })
   name: string;
 
+  @Column({ name: 'team_id', type: 'varchar', nullable: true })
+  teamId: string;
+
   @Column({ type: 'varchar' })
   team: string;
 

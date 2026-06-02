@@ -10,6 +10,7 @@ import { TwitchModule } from '../twitch';
 import { YouTubeModule } from '../youtube';
 import { DiscordModule } from '../discord';
 import { WololoPlayerModule } from '../wololo-player/wololo-player.module';
+import { WololoTeamModule } from '../wololo-team/wololo-team.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { WololoPlayerModule } from '../wololo-player/wololo-player.module';
     YouTubeModule,
     DiscordModule,
     WololoPlayerModule,
+    WololoTeamModule,
   ],
   controllers: [AppController],
   providers: [AppService],

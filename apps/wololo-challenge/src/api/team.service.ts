@@ -7,6 +7,7 @@ export interface TeamWinrate {
 }
 
 export interface Team {
+    teamId: string;
     name: string;
     players: any[];
     teamWinrate: TeamWinrate;
@@ -26,13 +27,13 @@ export async function getAllTeams(): Promise<Team[]> {
     // Grouper les joueurs par équipe
     const teamMap = new Map<string, any[]>();
     for (const player of players) {
-        const existing = teamMap.get(player.team) ?? [];
+        const existing = teamMap.get(player.teamId) ?? [];
         existing.push(player);
-        teamMap.set(player.team, existing);
+        teamMap.set(player.teamId, existing);
     }
 
     const teams: Team[] = [];
-    for (const [teamName, teamPlayers] of teamMap.entries()) {
+    for (const [teamId, teamPlayers] of teamMap.entries()) {
         const totalWins = teamPlayers.reduce((s, p) => s + p.wins, 0);
         const totalLosses = teamPlayers.reduce((s, p) => s + p.losses, 0);
         const totalGames = totalWins + totalLosses;
@@ -40,7 +41,8 @@ export async function getAllTeams(): Promise<Team[]> {
         const totalCivsWon = teamPlayers.reduce((s, p) => s + (p.civsWon?.length ?? 0), 0);
 
         teams.push({
-            name: teamName,
+            teamId,
+            name: teamPlayers[0].team,
             players: teamPlayers,
             teamWinrate: { win: totalWins, lose: totalLosses, winRate },
             totalGames,

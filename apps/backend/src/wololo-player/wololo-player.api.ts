@@ -1,6 +1,9 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { sinceDate, wololoPlayersData } from "./wololo-player.data";
+import { WOLOLO_TEAMS_SEED } from "../wololo-team/wololo-team.data";
 import { delay } from "../common/utils";
+
+const TEAM_NAME_BY_ID = new Map(WOLOLO_TEAMS_SEED.map(t => [t.id, t.name]));
 
 const API_BASE_URL = 'https://aoe4world.com/api/v0';
 
@@ -12,6 +15,7 @@ interface PlayerGamesResponse {
 export interface WololoPlayerRaw {
     profileId: number;
     name: string;
+    teamId: string;
     team: string;
     isCap: boolean;
     games: any[];
@@ -41,7 +45,8 @@ export class WololoPlayerApi {
                 results.push({
                     profileId: Number(playerEntry.id),
                     name: playerData.name ?? `Player ${playerEntry.id}`,
-                    team: playerEntry.team,
+                    teamId: playerEntry.teamId,
+                    team: TEAM_NAME_BY_ID.get(playerEntry.teamId) ?? playerEntry.teamId,
                     isCap: playerEntry.isCap,
                     games,
                     twitchLogin,

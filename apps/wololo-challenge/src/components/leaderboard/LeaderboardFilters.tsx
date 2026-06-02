@@ -1,7 +1,9 @@
+import { IWololoTeam } from '@aoe4.fr/shared-types';
 import { SortKey } from './leaderboard.types';
-import { TEAMS, TEAM_COLORS } from './teamColors';
+import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from './teamColors';
 
 interface LeaderboardFiltersProps {
+    teams: IWololoTeam[];
     selectedTeam: string | null;
     onTeamChange: (team: string | null) => void;
     search: string;
@@ -32,6 +34,7 @@ function SortButton({ label, value, color, sortBy, onSortChange }: {
 }
 
 export function LeaderboardFilters({
+    teams,
     selectedTeam,
     onTeamChange,
     search,
@@ -53,18 +56,18 @@ export function LeaderboardFilters({
                 >
                     All teams
                 </button>
-                {TEAMS.map(teamName => {
-                    const c = TEAM_COLORS[teamName] ?? { border: 'border-gray-500', text: 'text-gray-400', bg: 'hover:bg-gray-500/10', activeBg: 'bg-gray-500/20' };
-                    const isActive = selectedTeam === teamName;
+                {teams.map(team => {
+                    const c = COLOR_PALETTE[team.color] ?? DEFAULT_TEAM_COLOR;
+                    const isActive = selectedTeam === team.id;
                     return (
                         <button
-                            key={teamName}
-                            onClick={() => onTeamChange(isActive ? null : teamName)}
+                            key={team.id}
+                            onClick={() => onTeamChange(isActive ? null : team.id)}
                             className={`px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider border transition-all ${c.border} ${c.text} ${
                                 isActive ? c.activeBg : `bg-transparent ${c.bg}`
                             }`}
                         >
-                            {teamName}
+                            {team.name}
                         </button>
                     );
                 })}
