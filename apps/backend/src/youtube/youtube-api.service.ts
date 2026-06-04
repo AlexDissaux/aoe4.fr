@@ -43,7 +43,8 @@ export class YouTubeApiService {
 
   private async search(extraParams: Record<string, string>): Promise<IYouTubeVideo[]> {
     if (!this.apiKey) {
-      throw new Error('YOUTUBE_API_KEY is not configured');
+      this.logger.warn('YOUTUBE_API_KEY is not configured, skipping YouTube API call');
+      return [];
     }
 
     const results = await Promise.all(

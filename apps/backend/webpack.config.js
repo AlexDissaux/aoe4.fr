@@ -2,6 +2,11 @@ const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
 const { join } = require('path');
 
 module.exports = {
+  externals: {
+    '@nestjs/microservices': 'commonjs2 @nestjs/microservices',
+    '@nestjs/websockets': 'commonjs2 @nestjs/websockets',
+    '@nestjs/platform-socket.io': 'commonjs2 @nestjs/platform-socket.io',
+  },
   resolve: {
     alias: {
       src: join(__dirname, 'src'),

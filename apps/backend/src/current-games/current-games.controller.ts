@@ -15,7 +15,7 @@ export class CurrentGamesController {
 
     @Get('')
     async getCurrentPlaying() {
-            return await this.currentGamesService.getCurrentGames();
+        return await this.currentGamesService.getCurrentGames();
     }
 
     @Sse('stream')
