@@ -1,5 +1,5 @@
 import { CurrentGame, WololoPlayer } from '@aoe4.fr/shared-types';
-import { PlayerLink } from '@aoe4.fr/ui';
+import { PlayerLink, LiveTwitch } from '@aoe4.fr/ui';
 import { TeamColor } from './leaderboard.types';
 import { LiveIndicator } from './LiveIndicator';
 
@@ -10,6 +10,7 @@ interface PlayerRowProps {
     openTooltipIndex: number | null;
     onTooltipToggle: (index: number) => void;
     currentGame?: CurrentGame;
+    isStreaming?: boolean;
 }
 
 function CivsTooltip({ civs }: { civs: string[] }) {
@@ -25,7 +26,7 @@ function CivsTooltip({ civs }: { civs: string[] }) {
     );
 }
 
-export function PlayerRow({ player, index, teamColor, openTooltipIndex, onTooltipToggle, currentGame }: PlayerRowProps) {
+export function PlayerRow({ player, index, teamColor, openTooltipIndex, onTooltipToggle, currentGame, isStreaming }: PlayerRowProps) {
     return (
         <div
             className={`px-3 sm:px-4 hover:bg-white/5 transition-colors duration-150 ${
@@ -42,6 +43,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                         <PlayerLink profileId={player.profileId} name={player.name} className="hover:underline" />
                     </span>
                     {currentGame && <LiveIndicator game={currentGame} />}
+                    {isStreaming && player.twitchLogin && <LiveTwitch twitchLogin={player.twitchLogin} />}
                     <span className={`text-[11px] font-bold px-2 py-0.5 border flex-shrink-0 ${teamColor.border} ${teamColor.text}`}>
                         {player.team}
                     </span>
@@ -88,6 +90,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                         <PlayerLink profileId={player.profileId} name={player.name} className="hover:underline" />
                     </span>
                     {currentGame && <LiveIndicator game={currentGame} />}
+                    {isStreaming && player.twitchLogin && <LiveTwitch twitchLogin={player.twitchLogin} />}
                 </div>
                 <div className="col-span-2 flex items-center">
                     <span className={`text-xs font-bold px-2 py-0.5 border ${teamColor.border} ${teamColor.text}`}>

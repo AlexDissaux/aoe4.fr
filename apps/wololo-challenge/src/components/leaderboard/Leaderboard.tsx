@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { usePlayers } from "../../hook/usePlayers";
 import { useWololoCurrentGames } from "../../hook/useWololoCurrentGames";
 import { useWololoTeams } from "../../hook/useWololoTeams";
+import { useTwitchSection } from "../../hook/useTwitchSection";
 import { SortKey } from "./leaderboard.types";
 import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from "./teamColors";
 import { LeaderboardFilters } from "./LeaderboardFilters";
@@ -12,6 +13,12 @@ export default function Leaderboard() {
     const { players } = usePlayers();
     const teams = useWololoTeams();
     const gamesMap = useWololoCurrentGames();
+    const twitchState = useTwitchSection();
+
+    const streamingLogins = useMemo(() => {
+        if (twitchState.status !== 'live') return new Set<string>();
+        return new Set(twitchState.streams.map(s => s.user_login.toLowerCase()));
+    }, [twitchState]);
     const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
     const [search, setSearch] = useState('');
     const [sortBy, setSortBy] = useState<SortKey>('winrate');
@@ -80,6 +87,7 @@ export default function Leaderboard() {
                                 openTooltipIndex={openTooltipIndex}
                                 onTooltipToggle={handleTooltipToggle}
                                 currentGame={gamesMap.get(player.name.toLowerCase())}
+                                isStreaming={!!player.twitchLogin && streamingLogins.has(player.twitchLogin.toLowerCase())}
                             />
                         ))}
                     </div>

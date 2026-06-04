@@ -4,3 +4,5 @@ export { CivFlag } from './components/CivFlag/CivFlag';
 export type { CivFlagProps } from './components/CivFlag/CivFlag';
 export { PlayerLink } from './components/PlayerLink/PlayerLink';
 export type { PlayerLinkProps } from './components/PlayerLink/PlayerLink';
+export { LiveTwitch } from './components/LiveTwitch/LiveTwitch';
+export type { LiveTwitchProps } from './components/LiveTwitch/LiveTwitch';
