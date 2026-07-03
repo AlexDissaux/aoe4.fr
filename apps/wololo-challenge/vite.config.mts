@@ -6,6 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig(() => ({
   root: import.meta.dirname,
   cacheDir: '../../node_modules/.vite/apps/wololo-challenge',
+  resolve: {
+    conditions: ['@aoe4.fr/source'],
+  },
   plugins: [react(), tailwindcss()],
   server: {
     port: 4201,
