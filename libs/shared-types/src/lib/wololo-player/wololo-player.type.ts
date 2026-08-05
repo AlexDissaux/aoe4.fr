@@ -6,8 +6,7 @@ export type WololoPlayer = {
     isCap: boolean;
     gamesCount: number;
     wins: number;
-    losses: number;
-    winRate: number;
     civsWon: string[];
+    mapsWon: string[];
     twitchLogin: string | null;
 }
