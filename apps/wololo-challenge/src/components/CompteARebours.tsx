@@ -35,6 +35,12 @@ export default function CompteARebours() {
 
     return (
         <div className="flex flex-col items-center justify-center text-center px-4 py-12 sm:py-20">
+            <img
+                src="/wololo-challenge-logo.png"
+                alt="Wololo Challenge"
+                className="w-40 h-40 sm:w-56 sm:h-56 mb-6 drop-shadow-[0_0_35px_rgba(251,191,36,0.35)] animate-pulse-subtle"
+            />
+
             <div className="flex items-center justify-center space-x-2 mb-6">
                 <div className="h-1 w-16 sm:w-24 bg-gradient-to-r from-transparent via-yellow-400 to-orange-500"></div>
                 <div className="w-3 h-3 bg-yellow-400 rotate-45 animate-spin-slow"></div>
