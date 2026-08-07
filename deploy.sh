@@ -23,6 +23,9 @@ npx nx run backend:prune
 echo "▶ Build du frontend…"
 npx nx build frontend --prod
 
+echo "▶ Build de wololo-challenge…"
+npx nx build wololo-challenge --prod
+
 # ── Déploiement sur le VPS ─────────────────────────────────────────────────────
 echo "▶ Déploiement sur ${VPS_HOST}…"
 
@@ -30,7 +33,7 @@ echo "▶ Déploiement sur ${VPS_HOST}…"
 ssh ${SSH_OPTS} -Nf "${VPS_USER}@${VPS_HOST}"
 
 # Créer la structure distante si nécessaire
-ssh ${SSH_OPTS} "${VPS_USER}@${VPS_HOST}" "mkdir -p ${REMOTE_DIR}/apps/backend ${REMOTE_DIR}/dist/apps/frontend"
+ssh ${SSH_OPTS} "${VPS_USER}@${VPS_HOST}" "mkdir -p ${REMOTE_DIR}/apps/backend ${REMOTE_DIR}/dist/apps/frontend ${REMOTE_DIR}/dist/apps/wololo-challenge"
 
 # Sync backend (dist compilé + package.json + package-lock.json générés par prune)
 rsync -az --delete \
@@ -49,6 +52,12 @@ rsync -az --delete \
   -e "ssh ${SSH_OPTS}" \
   dist/apps/frontend/ \
   "${VPS_USER}@${VPS_HOST}:${REMOTE_DIR}/dist/apps/frontend/"
+
+# Sync wololo-challenge (fichiers statiques, servis sur ordreduwololo.fr)
+rsync -az --delete \
+  -e "ssh ${SSH_OPTS}" \
+  dist/apps/wololo-challenge/ \
+  "${VPS_USER}@${VPS_HOST}:${REMOTE_DIR}/dist/apps/wololo-challenge/"
 
 # Sync fichiers de config PM2 et Nginx
 rsync -az \

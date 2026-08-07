@@ -158,9 +158,10 @@ Self-contained React app/library for the ODW tournament. Static team/player data
 ```bash
 npm run serve:back:dev   # Backend with HMR
 npm run serve:front      # Frontend dev server
+npm run serve:wololo     # Wololo Challenge dev server
 nx test                  # Run all tests
 nx lint                  # Lint
-npm run deploy           # Build & deploy frontend (gh-pages)
+npm run deploy:vps       # Build & deploy backend + frontend + wololo-challenge to the VPS
 ```
 
 ---

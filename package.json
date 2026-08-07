@@ -9,7 +9,6 @@
     "serve:back": "nx serve backend",
     "serve:back:dev": "cd apps/backend && webpack --config webpack-hmr.config.js --watch",
     "serve:wololo": "nx serve wololo-challenge",
-    "deploy:wololo": "nx build wololo-challenge --prod && gh-pages -d dist/apps/wololo-challenge",
     "deploy:vps": "bash deploy.sh",
 
     "test": "nx test",
@@ -75,7 +74,6 @@
     "eslint-plugin-playwright": "^1.6.2",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "5.0.0",
-    "gh-pages": "^6.3.0",
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
     "jest-environment-node": "^30.0.2",
