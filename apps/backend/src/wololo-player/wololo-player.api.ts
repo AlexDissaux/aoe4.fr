@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { sinceDate, wololoPlayersData } from "./wololo-player.data";
+import { sinceDate, wololoPlayersData } from "./entities/wololo-player.data";
 import { WOLOLO_TEAMS_SEED } from "../wololo-team/wololo-team.data";
 import { delay } from "../common/utils";
 
@@ -77,6 +77,11 @@ export class WololoPlayerApi {
         if (firstPage.total_count === 0) return [];
 
         const games = [...firstPage.games];
+        if (games[0].ongoing) {
+            // Remove the first game if it's ongoing
+            games.shift();
+        }
+
         const totalPages = Math.ceil(firstPage.total_count / 50);
 
         for (let page = 2; page <= totalPages; page++) {

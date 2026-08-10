@@ -1,14 +1,18 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Inject } from "@nestjs/common";
 import { WololoPlayerService } from "./wololo-player.service";
+import { WololoPlayerRepository } from "./wololo-player.repository";
 
 
 @Controller('wololoPlayer')
 export class WololoPlayerController {
-    constructor(private wololoPlayerService: WololoPlayerService) {}
+    @Inject(WololoPlayerService)
+    private readonly wololoPlayerService: WololoPlayerService;
+    @Inject(WololoPlayerRepository)
+    private readonly wololoPlayerRepository: WololoPlayerRepository;
 
     @Get()
     getWololoPlayer() {
-        return this.wololoPlayerService.getWololoPlayers();
+        return this.wololoPlayerRepository.findAll();
     }
 
     @Get('streams')
