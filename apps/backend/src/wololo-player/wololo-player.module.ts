@@ -5,10 +5,11 @@ import { WololoPlayerService } from './wololo-player.service';
 import { WololoPlayerApi } from './wololo-player.api';
 import { WololoPlayerRepository } from './wololo-player.repository';
 import { WololoPlayerEntity } from './entities/wololo-player.entity';
+import { WololoTeamEntity } from 'src/wololo-team/entities/wololo-team.entity';
 import { TwitchModule } from '../twitch/twitch.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([WololoPlayerEntity]), TwitchModule],
+  imports: [TypeOrmModule.forFeature([WololoPlayerEntity, WololoTeamEntity]), TwitchModule],
   controllers: [WololoPlayerController],
   providers: [WololoPlayerService, WololoPlayerApi, WololoPlayerRepository],
   exports: [WololoPlayerRepository],

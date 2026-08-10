@@ -23,7 +23,7 @@ export class WololoPlayerEntity {
   @Column({ name: 'civs_won', type: 'simple-array', nullable: true })
   civsWon: string[];
 
-  @Column({ name: 'civs_won', type: 'simple-array', nullable: true })
+  @Column({ name: 'maps_won', type: 'simple-array', nullable: true })
   mapsWon: string[];
 
   @Column({ type: 'int' })
