@@ -9,16 +9,16 @@ import { WololoTeamEntity } from 'src/wololo-team/entities/wololo-team.entity';
 export class WololoPlayerRepository {
   constructor(
     @InjectRepository(WololoPlayerEntity)
-    private readonly repo: Repository<WololoPlayerEntity>,
+    private readonly WololoPlayerRepo: Repository<WololoPlayerEntity>,
     @InjectRepository(WololoTeamEntity)
-    private readonly teamRepo: Repository<WololoTeamEntity>,
+    private readonly WololoTeamRepo: Repository<WololoTeamEntity>,
   ) {}
 
   async findAll(): Promise<WololoPlayer[]> {
     // get all team to get name for each player
-    const teams = new Map((await this.teamRepo.find()).map(team => [team.id, team.name]));
+    const teams = new Map((await this.WololoTeamRepo.find()).map(team => [team.id, team.name]));
 
-    const entities = await this.repo.find();
+    const entities = await this.WololoPlayerRepo.find();
     return entities.map((e) => ({
       profileId: e.profileId,
       name: e.name,
@@ -45,11 +45,11 @@ export class WololoPlayerRepository {
       mapsWon: p.mapsWon,
       twitchLogin: p.twitchLogin,
     }));
-    await this.repo.upsert(entities, ['profileId']);
+    await this.WololoPlayerRepo.upsert(entities, ['profileId']);
 
     // On supprime les joueurs qui ne sont plus dans la liste
     const activeProfileIds = players.map((p) => p.profileId);
-    await this.repo
+    await this.WololoPlayerRepo
       .createQueryBuilder()
       .delete()
       .where('profile_id NOT IN (:...ids)', { ids: activeProfileIds })

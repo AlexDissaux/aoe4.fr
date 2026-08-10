@@ -59,12 +59,17 @@ export class WololoPlayerApi {
         return results;
     }
 
-    private async fetchPlayerInfo(playerId: string): Promise<any> {
-        const response = await fetch(`${API_BASE_URL}/players/${playerId}`);
-        return response.json();
+    public async fetchPlayerInfo(playerId: number): Promise<any> {
+        try {
+            const response = await fetch(`${API_BASE_URL}/players/${playerId}`);
+            return response.json();
+        } catch (err) {
+            this.logger.error(`Failed to fetch player info for ${playerId}: ${err}`);
+            throw err;
+        }
     }
 
-    private async fetchPlayerGames(playerId: string): Promise<any[]> {
+    public async fetchPlayerGames(playerId: number): Promise<any[]> {
         const firstPage = await (await fetch(
             `${API_BASE_URL}/players/${playerId}/games?since=${sinceDate}&leaderboard=rm_solo&page=1`
         )).json() as PlayerGamesResponse;
