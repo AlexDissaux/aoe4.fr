@@ -5,8 +5,8 @@ export class WololoPlayerEntity {
   @PrimaryColumn({ name: 'profile_id' })
   profileId: number;
 
-  @Column({ type: 'varchar' })
-  name: string;
+  @Column({ type: 'varchar', nullable: true })
+  name: string | null;
 
   @Column({ name: 'twitch_login', type: 'varchar', nullable: true })
   twitchLogin: string | null;
@@ -14,11 +14,11 @@ export class WololoPlayerEntity {
   @Column({ name: 'is_cap', type: 'boolean' })
   isCap: boolean;
 
-  @Column({ name: 'team_id', type: 'varchar', nullable: true })
+  @Column({ name: 'team_id', type: 'varchar' })
   teamId: string;
 
-  @Column({ name: 'games_count', type: 'int' })
-  gamesCount: number;
+  @Column({ name: 'games_count', type: 'int', nullable: true })
+  gamesCount: number | null;
 
   @Column({ name: 'civs_won', type: 'simple-array', nullable: true })
   civsWon: string[];
@@ -26,8 +26,8 @@ export class WololoPlayerEntity {
   @Column({ name: 'maps_won', type: 'simple-array', nullable: true })
   mapsWon: string[];
 
-  @Column({ type: 'int' })
-  wins: number;
+  @Column({ type: 'int', nullable: true })
+  wins: number | null;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
