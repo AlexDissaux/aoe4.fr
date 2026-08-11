@@ -13,7 +13,6 @@ export { useTeams } from './hook/useTeams';
 
 // Export services
 export * from './api/player.service';
-export * from './api/team.service';
 
 // Export data
 export * from './db/data';

@@ -31,15 +31,15 @@ export default function Podium() {
             {/* Podium visuel top 3 */}
             <div className="flex items-end justify-center gap-3 sm:gap-6">
                 {top3.map((team, i) => (
-                    <PodiumCard key={team.name} team={team} rank={i} />
+                    <PodiumCard key={team.teamId} team={team} rank={i} />
                 ))}
             </div>
 
             {/* Reste du classement */}
             {rest.length > 0 && (
                 <div className="space-y-2">
-                    {rest.map((team, i) => (
-                        <RankedRow key={team.name} team={team} rank={i + 4} />
+                    {rest.map((team) => (
+                        <RankedRow key={team.teamId} team={team} rank={team.rank} />
                     ))}
                 </div>
             )}

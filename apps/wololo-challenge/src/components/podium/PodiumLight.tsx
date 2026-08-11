@@ -1,10 +1,8 @@
 import { useTeams } from '../../hook/useTeams';
-import { useWololoTeams } from '../../hook/useWololoTeams';
 import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColors';
 
 export default function PodiumLight() {
     const { teams } = useTeams();
-    const wololoTeams = useWololoTeams();
 
     if (!teams || teams.length === 0) {
         return (
@@ -14,8 +12,7 @@ export default function PodiumLight() {
         );
     }
 
-    const teamColorMap = new Map(wololoTeams.map(t => [t.id, COLOR_PALETTE_HEX[t.color] ?? DEFAULT_TEAM_COLOR_HEX]));
-    const maxPoints = Math.max(...teams.map((team) => team.rankingPoints), 1);
+    const maxPoints = Math.max(...teams.map((team) => team.totalPoints), 1);
 
     return (
         <div className="max-w-4xl mx-auto space-y-8 px-4 py-6">
@@ -29,8 +26,8 @@ export default function PodiumLight() {
 
             <div className="space-y-0">
                 {teams.map((team) => {
-                    const accent = teamColorMap.get(team.teamId) ?? DEFAULT_TEAM_COLOR_HEX;
-                    const widthPercent = Math.max(28, (team.rankingPoints / maxPoints) * 100);
+                    const accent = COLOR_PALETTE_HEX[team.color] ?? DEFAULT_TEAM_COLOR_HEX;
+                    const widthPercent = Math.max(28, (team.totalPoints / maxPoints) * 100);
 
                     return (
                         <div
@@ -42,7 +39,7 @@ export default function PodiumLight() {
                             }}
                         >
                             <span className="text-sm font-semibold truncate" style={{ color: accent }}>{team.name}</span>
-                            <span className="text-sm font-black tabular-nums ml-3 shrink-0" style={{ color: accent }}>{team.rankingPoints}</span>
+                            <span className="text-sm font-black tabular-nums ml-3 shrink-0" style={{ color: accent }}>{team.totalPoints}</span>
                         </div>
                     );
                 })}

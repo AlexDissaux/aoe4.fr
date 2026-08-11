@@ -1,4 +1,4 @@
-import { IWololoTeam } from '@aoe4.fr/shared-types';
+import { IWololoTeam, IWololoTeamScore } from '@aoe4.fr/shared-types';
 
 const API_BASE =
     import.meta.env.VITE_API_BASE_URL ||
@@ -7,5 +7,11 @@ const API_BASE =
 export async function fetchWololoTeams(): Promise<IWololoTeam[]> {
     const response = await fetch(`${API_BASE}/wololo-teams`);
     if (!response.ok) throw new Error('Failed to fetch wololo teams');
+    return response.json();
+}
+
+export async function fetchWololoTeamScores(): Promise<IWololoTeamScore[]> {
+    const response = await fetch(`${API_BASE}/wololo-teams/scores`);
+    if (!response.ok) throw new Error('Failed to fetch wololo team scores');
     return response.json();
 }

@@ -1,6 +1,6 @@
-import type { Team } from '../../api/team.service';
+import type { IWololoTeamScore } from '@aoe4.fr/shared-types';
 import { StatPill } from './StatPill';
-import { getTeamAccent } from './teamAccent';
+import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColors';
 
 
 const RANK_CONFIG = [
@@ -10,10 +10,9 @@ const RANK_CONFIG = [
 ];
 
 
-export function PodiumCard({ team, rank }: { team: Team; rank: number }) {
+export function PodiumCard({ team, rank }: { team: IWololoTeamScore; rank: number }) {
     const cfg = RANK_CONFIG[rank];
-    const accent = getTeamAccent(team.name);
-    const captain = team.players.find((p: any) => p.isCap);
+    const accent = COLOR_PALETTE_HEX[team.color] ?? DEFAULT_TEAM_COLOR_HEX;
 
     return (
         <div className={`flex flex-col items-center gap-2 ${cfg.order} w-full max-w-[180px]`}>
@@ -25,21 +24,21 @@ export function PodiumCard({ team, rank }: { team: Team; rank: number }) {
                 <div className="text-2xl">{cfg.medal}</div>
                 <div className="text-center">
                     <div className="font-black text-base leading-tight" style={{ color: accent }}>{team.name}</div>
-                    {captain && (
-                        <div className="text-[11px] text-gray-500 mt-0.5">👑 {captain.name}</div>
+                    {team.captainName && (
+                        <div className="text-[11px] text-gray-500 mt-0.5">👑 {team.captainName}</div>
                     )}
                 </div>
                 <div
                     className="text-3xl font-black tabular-nums"
                     style={{ color: cfg.scoreColor }}
                 >
-                    {team.rankingPoints}
+                    {team.totalPoints}
                     <span className="text-xs font-normal text-gray-500 ml-1">pts</span>
                 </div>
                 <div className="w-full border-t border-white/5 pt-2 flex justify-around">
-                    <StatPill label="WR" value={`${team.teamWinrate.winRate}%`} />
-                    <StatPill label="Games" value={team.totalGames} />
-                    <StatPill label="Civs" value={team.totalCivsWon} sub="" />
+                    <StatPill label="Wins" value={team.categories.wins.total} />
+                    <StatPill label="Civs" value={team.categories.civs.total} />
+                    <StatPill label="Maps" value={team.categories.maps.total} />
                 </div>
             </div>
             {/* Podium bar */}

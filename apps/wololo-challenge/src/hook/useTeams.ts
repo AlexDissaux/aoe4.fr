@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
-import { getAllTeams, Team } from '../api/team.service';
-
+import { IWololoTeamScore } from '@aoe4.fr/shared-types';
+import { fetchWololoTeamScores } from '../api/wololoTeam.api';
 
 export function useTeams() {
-    const [teams, setTeams] = useState<Team[]>([]);
+    const [teams, setTeams] = useState<IWololoTeamScore[]>([]);
 
     useEffect(() => {
-        const fillTeams = (async() => {
-            setTeams(await getAllTeams())
-        })
-        fillTeams()
+        fetchWololoTeamScores()
+            .then(setTeams)
+            .catch(console.error);
     }, [])
 
     return { teams };

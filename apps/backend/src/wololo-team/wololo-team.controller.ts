@@ -9,4 +9,9 @@ export class WololoTeamController {
     getAll() {
         return this.wololoTeamService.getAll();
     }
+
+    @Get('scores')
+    getScores() {
+        return this.wololoTeamService.getTeamScores();
+    }
 }

@@ -46,13 +46,5 @@ export class WololoPlayerRepository {
       twitchLogin: p.twitchLogin,
     }));
     await this.WololoPlayerRepo.upsert(entities, ['profileId']);
-
-    // On supprime les joueurs qui ne sont plus dans la liste
-    const activeProfileIds = players.map((p) => p.profileId);
-    await this.WololoPlayerRepo
-      .createQueryBuilder()
-      .delete()
-      .where('profile_id NOT IN (:...ids)', { ids: activeProfileIds })
-      .execute();
   }
 }
