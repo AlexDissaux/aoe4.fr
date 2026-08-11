@@ -4,7 +4,7 @@ import { CivFlag, PlayerLink } from '@aoe4.fr/ui';
 import { useWololoCurrentGames } from '../../hook/useWololoCurrentGames';
 import { usePlayers } from '../../hook/usePlayers';
 import { useWololoTeams } from '../../hook/useWololoTeams';
-import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from '../leaderboard/teamColors';
+import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from '../../common/teamColors';
 
 function formatLeaderboard(leaderboard: string): string {
     return leaderboard.replace(/_/g, ' ').toUpperCase();

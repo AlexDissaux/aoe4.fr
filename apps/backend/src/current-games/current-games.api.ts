@@ -1,7 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { delay } from "../common/utils";
-
-export const API_BASE_URL = 'https://aoe4world.com/api/v0';
+import { API_BASE_URL } from "src/config/api.config";
 
 const PROFILE_IDS_BATCH_SIZE = 50;
 

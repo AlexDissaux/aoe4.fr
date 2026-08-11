@@ -1,6 +1,6 @@
 import { useTeams } from '../../hook/useTeams';
 import { useWololoTeams } from '../../hook/useWololoTeams';
-import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../leaderboard/teamColors';
+import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColors';
 
 export default function PodiumLight() {
     const { teams } = useTeams();

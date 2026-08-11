@@ -1,12 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { sinceDate, wololoPlayersData } from "./entities/wololo-player.data";
-import { WOLOLO_TEAMS_SEED } from "../wololo-team/wololo-team.data";
 import { delay } from "../common/utils";
-
-const TEAM_NAME_BY_ID = new Map(WOLOLO_TEAMS_SEED.map(t => [t.id, t.name]));
-
-const API_BASE_URL = 'https://aoe4world.com/api/v0';
-
+import { API_BASE_URL } from "src/config/api.config";
 interface PlayerGamesResponse {
     total_count: number;
     games: any[];
@@ -25,39 +20,6 @@ export interface WololoPlayerRaw {
 @Injectable()
 export class WololoPlayerApi {
     private readonly logger = new Logger(WololoPlayerApi.name);
-
-    async fetchAllWololoPlayers(): Promise<WololoPlayerRaw[]> {
-        const results: WololoPlayerRaw[] = [];
-
-        for (const playerEntry of wololoPlayersData) {
-            await delay(300);
-            try {
-                const [playerData, games] = await Promise.all([
-                    this.fetchPlayerInfo(playerEntry.id),
-                    this.fetchPlayerGames(playerEntry.id),
-                ]);
-
-                const twitchUrl: string | null = playerData.social?.twitch ?? null;
-                const twitchLogin = twitchUrl
-                    ? twitchUrl.replace(/.*twitch\.tv\//, '').replace(/\/.*$/, '').toLowerCase() || null
-                    : null;
-
-                results.push({
-                    profileId: Number(playerEntry.id),
-                    name: playerData.name ?? `Player ${playerEntry.id}`,
-                    teamId: playerEntry.teamId,
-                    team: TEAM_NAME_BY_ID.get(playerEntry.teamId) ?? playerEntry.teamId,
-                    isCap: playerEntry.isCap,
-                    games,
-                    twitchLogin,
-                });
-            } catch (err) {
-                this.logger.error(`Failed to fetch player ${playerEntry.id}: ${err}`);
-            }
-        }
-
-        return results;
-    }
 
     public async fetchPlayerInfo(playerId: number): Promise<any> {
         try {

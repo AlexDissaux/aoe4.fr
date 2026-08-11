@@ -4,7 +4,7 @@ import { useWololoCurrentGames } from "../../hook/useWololoCurrentGames";
 import { useWololoTeams } from "../../hook/useWololoTeams";
 import { useTwitchSection } from "../../hook/useTwitchSection";
 import { SortKey } from "./leaderboard.types";
-import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from "./teamColors";
+import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from "../../common/teamColors";
 import { LeaderboardFilters } from "./LeaderboardFilters";
 import { LeaderboardTableHeader } from "./LeaderboardTableHeader";
 import { PlayerRow } from "./PlayerRow";

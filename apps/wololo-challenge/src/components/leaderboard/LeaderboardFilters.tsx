@@ -1,6 +1,6 @@
 import { IWololoTeam } from '@aoe4.fr/shared-types';
 import { SortKey } from './leaderboard.types';
-import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from './teamColors';
+import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from '../../common/teamColors';
 
 interface LeaderboardFiltersProps {
     teams: IWololoTeam[];
