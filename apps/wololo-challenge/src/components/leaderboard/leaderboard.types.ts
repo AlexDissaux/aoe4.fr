@@ -1,4 +1,4 @@
-export type SortKey = 'winrate' | 'games' | 'civs';
+export type SortKey = 'wins' | 'civs' | 'maps';
 
 export type TeamColor = {
     border: string;

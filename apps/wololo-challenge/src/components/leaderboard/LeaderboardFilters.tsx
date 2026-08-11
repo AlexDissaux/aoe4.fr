@@ -89,9 +89,9 @@ export function LeaderboardFilters({
 
             {/* Mobile sort */}
             <div className="flex gap-2 mb-4 overflow-x-auto pb-1 justify-center lg:hidden">
-                <SortButton label="Winrate" value="winrate" color="border-yellow-400 text-yellow-400" sortBy={sortBy} onSortChange={onSortChange} />
-                <SortButton label="Games"   value="games"   color="border-blue-400 text-blue-400"     sortBy={sortBy} onSortChange={onSortChange} />
-                <SortButton label="Civs"    value="civs"    color="border-amber-400 text-amber-400"   sortBy={sortBy} onSortChange={onSortChange} />
+                <SortButton label="Wins" value="wins" color="border-green-400 text-green-400" sortBy={sortBy} onSortChange={onSortChange} />
+                <SortButton label="Civs" value="civs" color="border-amber-400 text-amber-400" sortBy={sortBy} onSortChange={onSortChange} />
+                <SortButton label="Maps" value="maps" color="border-cyan-400 text-cyan-400"   sortBy={sortBy} onSortChange={onSortChange} />
             </div>
         </>
     );

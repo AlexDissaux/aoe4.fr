@@ -2,31 +2,22 @@ import { CurrentGame, WololoPlayer } from '@aoe4.fr/shared-types';
 import { PlayerLink, LiveTwitch } from '@aoe4.fr/ui';
 import { TeamColor } from './leaderboard.types';
 import { LiveIndicator } from './LiveIndicator';
+import { WonListTooltip } from './WonListTooltip';
 
 interface PlayerRowProps {
     player: WololoPlayer;
     index: number;
     teamColor: TeamColor;
-    openTooltipIndex: number | null;
-    onTooltipToggle: (index: number) => void;
+    openTooltipKey: string | null;
+    onTooltipToggle: (key: string) => void;
     currentGame?: CurrentGame;
     isStreaming?: boolean;
 }
 
-function CivsTooltip({ civs }: { civs: string[] }) {
-    return (
-        <div className="bg-gray-900 border-2 border-amber-500/50 rounded shadow-xl p-2">
-            <div className="text-amber-400 font-bold text-xs uppercase mb-1 text-center">Won civs</div>
-            <div className="space-y-0.5 max-h-48 overflow-y-auto">
-                {civs.map((civ, i) => (
-                    <div key={i} className="text-gray-300 text-xs px-2 py-0.5 bg-gray-800/50">{civ}</div>
-                ))}
-            </div>
-        </div>
-    );
-}
+export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipToggle, currentGame, isStreaming }: PlayerRowProps) {
+    const civsKey = `${index}-civs`;
+    const mapsKey = `${index}-maps`;
 
-export function PlayerRow({ player, index, teamColor, openTooltipIndex, onTooltipToggle, currentGame, isStreaming }: PlayerRowProps) {
     return (
         <div
             className={`px-3 sm:px-4 hover:bg-white/5 transition-colors duration-150 ${
@@ -50,29 +41,32 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                 </div>
 
                 {/* Stats row */}
-                <div className="grid grid-cols-4 pl-7 text-xs">
+                <div className="grid grid-cols-3 pl-7 text-xs">
                     <div>
-                        <span className="text-gray-500">WR </span>
-                        <span className="text-yellow-400 font-bold tabular-nums">{player.winRate}%</span>
-                    </div>
-                    <div>
-                        <span className="text-blue-400 font-bold tabular-nums">{player.gamesCount}</span>
-                        <span className="text-gray-500"> games</span>
-                    </div>
-                    <div>
-                        <span className="text-green-400 font-bold tabular-nums">{player.wins}V</span>
-                        <span className="text-gray-600 mx-0.5">/</span>
-                        <span className="text-red-400 font-bold tabular-nums">{player.losses}D</span>
+                        <span className="text-green-400 font-bold tabular-nums">{player.wins}</span>
+                        <span className="text-gray-500"> wins</span>
                     </div>
                     <div
                         className="relative cursor-pointer"
-                        onClick={() => onTooltipToggle(index)}
+                        onClick={() => onTooltipToggle(civsKey)}
                     >
                         <span className="text-amber-400 font-bold tabular-nums">{player.civsWon?.length ?? 0}</span>
                         <span className="text-gray-500"> civs</span>
-                        {player.civsWon?.length > 0 && openTooltipIndex === index && (
+                        {player.civsWon?.length > 0 && openTooltipKey === civsKey && (
                             <div className="absolute bottom-full left-0 mb-2 z-50 w-44">
-                                <CivsTooltip civs={player.civsWon} />
+                                <WonListTooltip title="Won civs" items={player.civsWon} />
+                            </div>
+                        )}
+                    </div>
+                    <div
+                        className="relative cursor-pointer"
+                        onClick={() => onTooltipToggle(mapsKey)}
+                    >
+                        <span className="text-cyan-400 font-bold tabular-nums">{player.mapsWon?.length ?? 0}</span>
+                        <span className="text-gray-500"> maps</span>
+                        {player.mapsWon?.length > 0 && openTooltipKey === mapsKey && (
+                            <div className="absolute bottom-full left-0 mb-2 z-50 w-44">
+                                <WonListTooltip title="Won maps" items={player.mapsWon} />
                             </div>
                         )}
                     </div>
@@ -84,7 +78,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                 <div className="col-span-1 text-center">
                     <span className="text-gray-500 font-bold">{index + 1}</span>
                 </div>
-                <div className="col-span-3 flex items-center gap-2">
+                <div className="col-span-4 flex items-center gap-2">
                     {player.isCap && <span className="text-yellow-400 flex-shrink-0">👑</span>}
                     <span className={`font-bold truncate ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
                         <PlayerLink profileId={player.profileId} name={player.name} className="hover:underline" />
@@ -92,27 +86,27 @@ export function PlayerRow({ player, index, teamColor, openTooltipIndex, onToolti
                     {currentGame && <LiveIndicator game={currentGame} />}
                     {isStreaming && player.twitchLogin && <LiveTwitch twitchLogin={player.twitchLogin} />}
                 </div>
-                <div className="col-span-2 flex items-center">
+                <div className="col-span-3 flex items-center">
                     <span className={`text-xs font-bold px-2 py-0.5 border ${teamColor.border} ${teamColor.text}`}>
                         {player.team}
                     </span>
                 </div>
                 <div className="col-span-2 text-center">
-                    <span className="text-yellow-400 font-bold">{player.winRate}%</span>
-                </div>
-                <div className="col-span-1 text-center">
-                    <span className="text-blue-400 font-semibold">{player.gamesCount}</span>
-                </div>
-                <div className="col-span-2 text-center">
-                    <span className="text-green-400 font-bold">{player.wins}V</span>
-                    <span className="text-gray-600 mx-1">/</span>
-                    <span className="text-red-400 font-bold">{player.losses}D</span>
+                    <span className="text-green-400 font-bold">{player.wins}</span>
                 </div>
                 <div className="col-span-1 text-center relative group">
                     <span className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}</span>
                     {player.civsWon?.length > 0 && (
                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 w-44">
-                            <CivsTooltip civs={player.civsWon} />
+                            <WonListTooltip title="Won civs" items={player.civsWon} />
+                        </div>
+                    )}
+                </div>
+                <div className="col-span-1 text-center relative group">
+                    <span className="text-cyan-400 font-bold">{player.mapsWon?.length ?? 0}</span>
+                    {player.mapsWon?.length > 0 && (
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 w-44">
+                            <WonListTooltip title="Won maps" items={player.mapsWon} />
                         </div>
                     )}
                 </div>

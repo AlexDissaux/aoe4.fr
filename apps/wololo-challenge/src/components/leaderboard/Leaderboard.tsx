@@ -21,8 +21,8 @@ export default function Leaderboard() {
     }, [twitchState]);
     const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
     const [search, setSearch] = useState('');
-    const [sortBy, setSortBy] = useState<SortKey>('winrate');
-    const [openTooltipIndex, setOpenTooltipIndex] = useState<number | null>(null);
+    const [sortBy, setSortBy] = useState<SortKey>('wins');
+    const [openTooltipKey, setOpenTooltipKey] = useState<string | null>(null);
 
     const filteredAndSorted = useMemo(() => {
         if (!players) return [];
@@ -34,17 +34,17 @@ export default function Leaderboard() {
         }
         list.sort((a, b) => {
             switch (sortBy) {
-                case 'winrate': return b.winRate - a.winRate;
-                case 'games':   return b.gamesCount - a.gamesCount;
-                case 'civs':    return (b.civsWon?.length ?? 0) - (a.civsWon?.length ?? 0);
-                default:        return 0;
+                case 'wins': return b.wins - a.wins;
+                case 'civs': return (b.civsWon?.length ?? 0) - (a.civsWon?.length ?? 0);
+                case 'maps': return (b.mapsWon?.length ?? 0) - (a.mapsWon?.length ?? 0);
+                default:     return 0;
             }
         });
         return list;
     }, [players, selectedTeam, search, sortBy]);
 
-    function handleTooltipToggle(index: number) {
-        setOpenTooltipIndex(prev => prev === index ? null : index);
+    function handleTooltipToggle(key: string) {
+        setOpenTooltipKey(prev => prev === key ? null : key);
     }
 
     return (
@@ -84,7 +84,7 @@ export default function Leaderboard() {
                                 player={player}
                                 index={index}
                                 teamColor={COLOR_PALETTE[teams.find(t => t.id === player.teamId)?.color ?? ''] ?? DEFAULT_TEAM_COLOR}
-                                openTooltipIndex={openTooltipIndex}
+                                openTooltipKey={openTooltipKey}
                                 onTooltipToggle={handleTooltipToggle}
                                 currentGame={gamesMap.get(player.name.toLowerCase())}
                                 isStreaming={!!player.twitchLogin && streamingLogins.has(player.twitchLogin.toLowerCase())}
