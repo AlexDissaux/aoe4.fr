@@ -21,12 +21,12 @@ export class WololoPlayerRepository {
     const entities = await this.WololoPlayerRepo.find();
     return entities.map((e) => ({
       profileId: e.profileId,
-      name: e.name,
+      name: e.name ?? '',
       teamId: e.teamId ?? '',
       team: teams.get(e.teamId) ?? '',
       isCap: e.isCap,
-      gamesCount: e.gamesCount,
-      wins: e.wins,
+      gamesCount: e.gamesCount ?? 0,
+      wins: e.wins ?? 0,
       civsWon: e.civsWon ?? [],
       mapsWon: e.mapsWon ?? [],
       twitchLogin: e.twitchLogin ?? null,
@@ -37,9 +37,9 @@ export class WololoPlayerRepository {
     const entities: Partial<WololoPlayerEntity>[] = players.map((p) => ({
       profileId: p.profileId,
       name: p.name,
+      gamesCount: p.gamesCount,
       teamId: p.teamId,
       isCap: p.isCap,
-      gamesCount: p.gamesCount,
       wins: p.wins,
       civsWon: p.civsWon,
       mapsWon: p.mapsWon,

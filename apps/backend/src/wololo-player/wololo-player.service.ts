@@ -50,7 +50,7 @@ export class WololoPlayerService {
             ? twitchUrl.replace(/.*twitch\.tv\//, '').replace(/\/.*$/, '').toLowerCase() || null
             : null;
         wololoPlayer.twitchLogin = twitchLogin;
-        wololoPlayer.name = wololoPlayerInfo.name ?? wololoPlayer.name;
+        wololoPlayer.name = wololoPlayerInfo.name;
         return wololoPlayer;
     }
 
