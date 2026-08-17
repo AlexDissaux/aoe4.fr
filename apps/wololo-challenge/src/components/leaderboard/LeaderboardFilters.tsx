@@ -1,8 +1,9 @@
 import { IWololoTeam } from '@aoe4.fr/shared-types';
-import { SortKey } from './leaderboard.types';
-import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from '../../common/teamColors';
+import { LeaderboardView, SortKey, TeamSortKey } from './leaderboard.types';
+import { TeamFilterDropdown } from './TeamFilterDropdown';
 
 interface LeaderboardFiltersProps {
+    view: LeaderboardView;
     teams: IWololoTeam[];
     selectedTeam: string | null;
     onTeamChange: (team: string | null) => void;
@@ -10,14 +11,16 @@ interface LeaderboardFiltersProps {
     onSearchChange: (value: string) => void;
     sortBy: SortKey;
     onSortChange: (key: SortKey) => void;
+    teamSortBy: TeamSortKey;
+    onTeamSortChange: (key: TeamSortKey) => void;
 }
 
-function SortButton({ label, value, color, sortBy, onSortChange }: {
+function SortButton<T extends string>({ label, value, color, sortBy, onSortChange }: {
     label: string;
-    value: SortKey;
+    value: T;
     color: string;
-    sortBy: SortKey;
-    onSortChange: (key: SortKey) => void;
+    sortBy: T;
+    onSortChange: (key: T) => void;
 }) {
     return (
         <button
@@ -34,6 +37,7 @@ function SortButton({ label, value, color, sortBy, onSortChange }: {
 }
 
 export function LeaderboardFilters({
+    view,
     teams,
     selectedTeam,
     onTeamChange,
@@ -41,37 +45,15 @@ export function LeaderboardFilters({
     onSearchChange,
     sortBy,
     onSortChange,
+    teamSortBy,
+    onTeamSortChange,
 }: LeaderboardFiltersProps) {
     return (
         <>
             {/* Team filter */}
-            <div className="flex flex-wrap gap-2 justify-center mb-4">
-                <button
-                    onClick={() => onTeamChange(null)}
-                    className={`px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider border transition-all ${
-                        selectedTeam === null
-                            ? 'border-white text-white bg-white/10'
-                            : 'border-gray-600 text-gray-400 hover:border-gray-400 hover:text-gray-300'
-                    }`}
-                >
-                    All teams
-                </button>
-                {teams.map(team => {
-                    const c = COLOR_PALETTE[team.color] ?? DEFAULT_TEAM_COLOR;
-                    const isActive = selectedTeam === team.id;
-                    return (
-                        <button
-                            key={team.id}
-                            onClick={() => onTeamChange(isActive ? null : team.id)}
-                            className={`px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider border transition-all ${c.border} ${c.text} ${
-                                isActive ? c.activeBg : `bg-transparent ${c.bg}`
-                            }`}
-                        >
-                            {team.name}
-                        </button>
-                    );
-                })}
-            </div>
+            {view === 'players' && (
+                <TeamFilterDropdown teams={teams} selectedTeam={selectedTeam} onTeamChange={onTeamChange} />
+            )}
 
             {/* Search */}
             <div className="flex justify-center mb-6">
@@ -79,7 +61,7 @@ export function LeaderboardFilters({
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
                     <input
                         type="text"
-                        placeholder="Search a player..."
+                        placeholder={view === 'players' ? 'Search a player...' : 'Search a team...'}
                         value={search}
                         onChange={e => onSearchChange(e.target.value)}
                         className="w-full bg-gray-900 border border-gray-600 text-white placeholder-gray-500 pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors"
@@ -89,9 +71,20 @@ export function LeaderboardFilters({
 
             {/* Mobile sort */}
             <div className="flex gap-2 mb-4 overflow-x-auto pb-1 justify-center lg:hidden">
-                <SortButton label="Wins" value="wins" color="border-green-400 text-green-400" sortBy={sortBy} onSortChange={onSortChange} />
-                <SortButton label="Civs" value="civs" color="border-amber-400 text-amber-400" sortBy={sortBy} onSortChange={onSortChange} />
-                <SortButton label="Maps" value="maps" color="border-cyan-400 text-cyan-400"   sortBy={sortBy} onSortChange={onSortChange} />
+                {view === 'players' ? (
+                    <>
+                        <SortButton label="Wins" value="wins" color="border-green-400 text-green-400" sortBy={sortBy} onSortChange={onSortChange} />
+                        <SortButton label="Civs" value="civs" color="border-amber-400 text-amber-400" sortBy={sortBy} onSortChange={onSortChange} />
+                        <SortButton label="Maps" value="maps" color="border-cyan-400 text-cyan-400"   sortBy={sortBy} onSortChange={onSortChange} />
+                    </>
+                ) : (
+                    <>
+                        <SortButton label="Wins" value="wins" color="border-green-400 text-green-400" sortBy={teamSortBy} onSortChange={onTeamSortChange} />
+                        <SortButton label="Civs" value="civs" color="border-amber-400 text-amber-400" sortBy={teamSortBy} onSortChange={onTeamSortChange} />
+                        <SortButton label="Maps" value="maps" color="border-cyan-400 text-cyan-400"   sortBy={teamSortBy} onSortChange={onTeamSortChange} />
+                        <SortButton label="Total" value="total" color="border-white text-white"       sortBy={teamSortBy} onSortChange={onTeamSortChange} />
+                    </>
+                )}
             </div>
         </>
     );

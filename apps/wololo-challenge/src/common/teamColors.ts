@@ -1,18 +1,18 @@
 import { TeamColor } from '../components/leaderboard/leaderboard.types';
 
 export const COLOR_PALETTE_HEX: Record<string, string> = {
-    'orange': '#f97316',
-    'slate':  '#94a3b8',
-    'green':  '#22c55e',
-    'cyan':   '#06b6d4',
-    'purple': '#a855f7',
+    'orange': '#f97316', // free
+    'slate':  '#94a3b8', // free
+    'green':  '#22c55e', // free
+    'cyan':   '#06b6d4', // free
+    'purple': '#a855f7', // free
     'yellow': '#eab308',
     'red':    '#f43f5e', 
-    'pink':   '#ec4899', // used until here
+    'pink':   '#ec4899', 
 
     // additional base colors (shade 500)
     'gray':     '#6b7280',
-    'zinc':     '#71717a',
+    'zinc':     '#71717a', // used until here
     'neutral':  '#737373',
     'stone':    '#78716c',
     'amber':    '#f59e0b',
