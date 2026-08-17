@@ -7,8 +7,8 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'cyan':   '#06b6d4',
     'purple': '#a855f7',
     'yellow': '#eab308',
-    'red':    '#f43f5e',
-    'pink':   '#ec4899',
+    'red':    '#f43f5e', 
+    'pink':   '#ec4899', // used until here
 
     // additional base colors (shade 500)
     'gray':     '#6b7280',
