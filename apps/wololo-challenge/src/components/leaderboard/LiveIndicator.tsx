@@ -100,9 +100,11 @@ export function LiveIndicator({ game }: LiveIndicatorProps) {
                         <PopupContent game={game} />
                     </div>
 
-                    {/* Desktop: absolute above the button */}
-                    <div className="hidden sm:block absolute bottom-full right-0 mb-2 z-50 w-64 bg-gray-950 border border-green-500/30 shadow-xl shadow-black/60 text-xs">
-                        <PopupContent game={game} />
+                    {/* Desktop: absolute above the button, pb-2 keeps the gap inside the hoverable box */}
+                    <div className="hidden sm:block absolute bottom-full right-0 pb-2 z-50 w-64">
+                        <div className="bg-gray-950 border border-green-500/30 shadow-xl shadow-black/60 text-xs">
+                            <PopupContent game={game} />
+                        </div>
                     </div>
                 </>
             )}

@@ -97,7 +97,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipT
                 <div className="col-span-1 text-center relative group">
                     <span className="text-amber-400 font-bold">{player.civsWon?.length ?? 0}</span>
                     {player.civsWon?.length > 0 && (
-                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 w-44">
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2 hidden group-hover:block z-50 w-44">
                             <WonListTooltip title="Won civs" items={player.civsWon} />
                         </div>
                     )}
@@ -105,7 +105,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipT
                 <div className="col-span-1 text-center relative group">
                     <span className="text-cyan-400 font-bold">{player.mapsWon?.length ?? 0}</span>
                     {player.mapsWon?.length > 0 && (
-                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 w-44">
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2 hidden group-hover:block z-50 w-44">
                             <WonListTooltip title="Won maps" items={player.mapsWon} />
                         </div>
                     )}

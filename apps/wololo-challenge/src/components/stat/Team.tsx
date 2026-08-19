@@ -205,7 +205,7 @@ export default function Teams() {
                                                         
                                                         {/* Tooltip */}
                                                         {player.modes.rm_solo.civilizations && player.modes.rm_solo.civilizations.length > 0 && (
-                                                            <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 z-50 w-48 ${openTooltipIndex === `${teamIndex}-${playerIndex}` ? 'block' : 'hidden'} lg:hidden lg:group-hover:block`}>
+                                                            <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 pb-2 z-50 w-48 ${openTooltipIndex === `${teamIndex}-${playerIndex}` ? 'block' : 'hidden'} lg:hidden lg:group-hover:block`}>
                                                                 <div className="bg-gray-900 border-2 border-amber-500/50 rounded-lg shadow-xl p-3">
                                                                     <div className="text-amber-400 font-bold text-xs uppercase mb-2 text-center">Civilisations jouées</div>
                                                                     <div className="space-y-1 max-h-64 overflow-y-auto">
