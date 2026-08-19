@@ -32,8 +32,16 @@ export class WololoPlayerApi {
     }
 
     public async fetchPlayerGames(playerId: number): Promise<any[]> {
+        const soloGames = await this.fetchPlayerGamesForLeaderboard(playerId, "rm_solo");
+        await delay(200);
+        const teamGames = await this.fetchPlayerGamesForLeaderboard(playerId, "rm_team");
+
+        return [...soloGames, ...teamGames];
+    }
+
+    private async fetchPlayerGamesForLeaderboard(playerId: number, leaderboard: "rm_solo" | "rm_team"): Promise<any[]> {
         const firstPage = await (await fetch(
-            `${API_BASE_URL}/players/${playerId}/games?since=${sinceDate}&leaderboard=rm_solo&page=1`
+            `${API_BASE_URL}/players/${playerId}/games?since=${sinceDate}&leaderboard=${leaderboard}&page=1`
         )).json() as PlayerGamesResponse;
 
         if (firstPage.total_count === 0) return [];
@@ -49,7 +57,7 @@ export class WololoPlayerApi {
         for (let page = 2; page <= totalPages; page++) {
             await delay(200);
             const pageData = await (await fetch(
-                `${API_BASE_URL}/players/${playerId}/games?since=${sinceDate}&leaderboard=rm_solo&page=${page}`
+                `${API_BASE_URL}/players/${playerId}/games?since=${sinceDate}&leaderboard=${leaderboard}&page=${page}`
             )).json() as PlayerGamesResponse;
             games.push(...pageData.games);
         }
