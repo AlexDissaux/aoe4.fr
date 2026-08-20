@@ -75,3 +75,20 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11441466, 'Dies
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25434943, 'Dies Gloriae', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1721157, 'Dies Gloriae', false);
 
+
+
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('LGP','les Gardiens du Péloponnèse', 'cyan');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (863196, 'LGP', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6540749, 'LGP', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22145868, 'LGP', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (16252411, 'LGP', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (17594012, 'LGP', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('WFE', 'WololoForEver', 'purple');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11575115, 'WFE', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1421448, 'WFE', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (15289018, 'WFE', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (2103888, 'WFE', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (4350135, 'WFE', false);
+
