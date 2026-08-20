@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { IWololoTeam, IWololoTeamScore } from '@aoe4.fr/shared-types';
+import { IWololoTeam, IWololoTeamScore, IWololoTierBadgeStanding } from '@aoe4.fr/shared-types';
 import { WololoTeamRepository } from './wololo-team.repository';
 import { WololoPlayerRepository } from '../wololo-player/wololo-player.repository';
-import { computeWololoTeamScores } from './wololo-team.scoring';
+import { computeWololoTeamScores, computeWololoTierStandings } from './wololo-team.scoring';
 
 @Injectable()
 export class WololoTeamService {
@@ -21,5 +21,13 @@ export class WololoTeamService {
             this.wololoPlayerRepository.findAll(),
         ]);
         return computeWololoTeamScores(teams, players);
+    }
+
+    async getTierStandings(): Promise<IWololoTierBadgeStanding[]> {
+        const [teams, players] = await Promise.all([
+            this.wololoTeamRepository.findAll(),
+            this.wololoPlayerRepository.findAll(),
+        ]);
+        return computeWololoTierStandings(teams, players);
     }
 }

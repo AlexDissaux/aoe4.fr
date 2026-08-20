@@ -14,4 +14,9 @@ export class WololoTeamController {
     getScores() {
         return this.wololoTeamService.getTeamScores();
     }
+
+    @Get('tiers')
+    getTiers() {
+        return this.wololoTeamService.getTierStandings();
+    }
 }

@@ -9,4 +9,5 @@ export type WololoPlayer = {
     civsWon: string[];
     mapsWon: string[];
     twitchLogin: string | null;
+    winDates: string[];
 }

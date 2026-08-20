@@ -1,5 +1,7 @@
 import { IWololoTeamScore } from '@aoe4.fr/shared-types';
 import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColors';
+import { getTierBadge } from '../../common/tierBadges';
+import { TierBadge } from './TierBadge';
 
 interface TeamRowProps {
     team: IWololoTeamScore;
@@ -11,6 +13,19 @@ function CategoryCell({ points, total }: { points: number; total: number }) {
         <span className="font-bold tabular-nums">
             {points} <span className="text-gray-500 font-normal">pts ({total})</span>
         </span>
+    );
+}
+
+function TeamBadges({ badges }: { badges: number[] }) {
+    if (badges.length === 0) return <span className="text-gray-600">—</span>;
+    return (
+        <div className="flex items-center gap-1 flex-wrap">
+            {badges.map((threshold) => {
+                const badge = getTierBadge(threshold);
+                if (!badge) return null;
+                return <TierBadge key={threshold} badge={badge} size={20} />;
+            })}
+        </div>
     );
 }
 
@@ -34,6 +49,9 @@ export function TeamRow({ team, index }: TeamRowProps) {
                     <div className="text-cyan-400"><CategoryCell points={team.categories.maps.points} total={team.categories.maps.total} /></div>
                     <div className="text-white font-black">{team.totalPoints}</div>
                 </div>
+                <div className="pl-7">
+                    <TeamBadges badges={team.tiers.badges} />
+                </div>
             </div>
 
             {/* Desktop */}
@@ -41,18 +59,21 @@ export function TeamRow({ team, index }: TeamRowProps) {
                 <div className="col-span-1 text-center">
                     <span className="text-gray-500 font-bold">{team.rank}</span>
                 </div>
-                <div className="col-span-4 flex items-center gap-2 min-w-0">
+                <div className="col-span-3 flex items-center gap-2 min-w-0">
                     <span className="font-bold truncate" style={{ color: accent }}>{team.name}</span>
                     {team.captainName && <span className="text-[11px] text-gray-500 truncate">👑 {team.captainName}</span>}
                 </div>
-                <div className="col-span-2 text-center text-green-400">
+                <div className="col-span-1 text-center text-green-400">
                     <CategoryCell points={team.categories.wins.points} total={team.categories.wins.total} />
                 </div>
-                <div className="col-span-2 text-center text-amber-400">
+                <div className="col-span-1 text-center text-amber-400">
                     <CategoryCell points={team.categories.civs.points} total={team.categories.civs.total} />
                 </div>
                 <div className="col-span-1 text-center text-cyan-400">
                     <CategoryCell points={team.categories.maps.points} total={team.categories.maps.total} />
+                </div>
+                <div className="col-span-3 flex items-center justify-center">
+                    <TeamBadges badges={team.tiers.badges} />
                 </div>
                 <div className="col-span-2 text-center">
                     <span className="text-white font-black tabular-nums">{team.totalPoints}</span>

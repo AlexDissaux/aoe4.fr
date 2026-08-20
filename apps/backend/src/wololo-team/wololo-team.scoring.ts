@@ -1,4 +1,4 @@
-import { IWololoTeam, IWololoTeamCategoryScore, IWololoTeamScore, WololoPlayer } from '@aoe4.fr/shared-types';
+import { IWololoTeam, IWololoTeamCategoryScore, IWololoTeamScore, IWololoTierBadgeStanding, IWololoTierClaim, WololoPlayer } from '@aoe4.fr/shared-types';
 
 interface TeamAggregate {
     teamId: string;
@@ -8,7 +8,13 @@ interface TeamAggregate {
     totalWins: number;
     totalCivs: number;
     totalMaps: number;
+    winDates: string[];
 }
+
+// Win-count thresholds that award a team badge, worth flat points each.
+export const WIN_TIERS = [25, 100, 200, 300, 400, 500, 700, 1000] as const;
+export const TIER_BADGE_POINTS = 10;
+export const MAX_BADGES_PER_TIER = 10;
 
 export function computeWololoTeamScores(teams: IWololoTeam[], players: WololoPlayer[]): IWololoTeamScore[] {
     const aggregates = aggregateByTeam(teams, players);
@@ -16,19 +22,22 @@ export function computeWololoTeamScores(teams: IWololoTeam[], players: WololoPla
     const winsRanking = rankByCategory(aggregates, (a) => a.totalWins);
     const civsRanking = rankByCategory(aggregates, (a) => a.totalCivs);
     const mapsRanking = rankByCategory(aggregates, (a) => a.totalMaps);
+    const tierScores = computeTierScores(aggregates);
 
     const scores: IWololoTeamScore[] = aggregates.map((agg) => {
         const wins = winsRanking.get(agg.teamId) as IWololoTeamCategoryScore;
         const civs = civsRanking.get(agg.teamId) as IWololoTeamCategoryScore;
         const maps = mapsRanking.get(agg.teamId) as IWololoTeamCategoryScore;
+        const tiers = tierScores.get(agg.teamId) ?? { points: 0, badges: [] };
         return {
             teamId: agg.teamId,
             name: agg.name,
             color: agg.color,
             captainName: agg.captainName,
-            totalPoints: wins.points + civs.points + maps.points,
+            totalPoints: wins.points + civs.points + maps.points + tiers.points,
             rank: 0,
             categories: { wins, civs, maps },
+            tiers,
         };
     });
 
@@ -36,6 +45,50 @@ export function computeWololoTeamScores(teams: IWololoTeam[], players: WololoPla
     assignStandardRanks(scores, (s) => s.totalPoints, (s, rank) => { s.rank = rank; });
 
     return scores;
+}
+
+// For each win-tier, finds the date a team reached it (Nth win's finish date) and awards
+// a badge to the first MAX_BADGES_PER_TIER teams to reach it, ranked by that date.
+export function computeWololoTierStandings(teams: IWololoTeam[], players: WololoPlayer[]): IWololoTierBadgeStanding[] {
+    const aggregates = aggregateByTeam(teams, players);
+
+    return WIN_TIERS.map((threshold) => {
+        const reached = aggregates
+            .map((agg) => ({ agg, reachedAt: agg.winDates[threshold - 1] }))
+            .filter((r): r is { agg: TeamAggregate; reachedAt: string } => !!r.reachedAt)
+            .sort((a, b) => a.reachedAt.localeCompare(b.reachedAt) || a.agg.teamId.localeCompare(b.agg.teamId));
+
+        const claimed: IWololoTierClaim[] = reached.slice(0, MAX_BADGES_PER_TIER).map(({ agg, reachedAt }) => ({
+            teamId: agg.teamId,
+            name: agg.name,
+            color: agg.color,
+            reachedAt,
+        }));
+
+        return { threshold, claimed, remaining: MAX_BADGES_PER_TIER - claimed.length };
+    });
+}
+
+function computeTierScores(aggregates: TeamAggregate[]): Map<string, { points: number; badges: number[] }> {
+    const result = new Map<string, { points: number; badges: number[] }>(
+        aggregates.map((agg) => [agg.teamId, { points: 0, badges: [] }]),
+    );
+
+    for (const threshold of WIN_TIERS) {
+        const reached = aggregates
+            .map((agg) => ({ teamId: agg.teamId, reachedAt: agg.winDates[threshold - 1] }))
+            .filter((r): r is { teamId: string; reachedAt: string } => !!r.reachedAt)
+            .sort((a, b) => a.reachedAt.localeCompare(b.reachedAt) || a.teamId.localeCompare(b.teamId));
+
+        for (const { teamId } of reached.slice(0, MAX_BADGES_PER_TIER)) {
+            const teamTiers = result.get(teamId);
+            if (!teamTiers) continue;
+            teamTiers.badges.push(threshold);
+            teamTiers.points += TIER_BADGE_POINTS;
+        }
+    }
+
+    return result;
 }
 
 function aggregateByTeam(teams: IWololoTeam[], players: WololoPlayer[]): TeamAggregate[] {
@@ -56,6 +109,7 @@ function aggregateByTeam(teams: IWololoTeam[], players: WololoPlayer[]): TeamAgg
             totalWins: teamPlayers.reduce((sum, p) => sum + p.wins, 0),
             totalCivs: teamPlayers.reduce((sum, p) => sum + (p.civsWon?.length ?? 0), 0),
             totalMaps: teamPlayers.reduce((sum, p) => sum + (p.mapsWon?.length ?? 0), 0),
+            winDates: teamPlayers.flatMap((p) => p.winDates ?? []).sort(),
         };
     });
 }

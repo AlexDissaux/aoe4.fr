@@ -23,6 +23,7 @@ export function TeamLeaderboard({ teams, search, sortBy, onSortChange }: TeamLea
                 case 'wins': return b.categories.wins.points - a.categories.wins.points;
                 case 'civs': return b.categories.civs.points - a.categories.civs.points;
                 case 'maps': return b.categories.maps.points - a.categories.maps.points;
+                case 'tiers': return b.tiers.points - a.tiers.points;
                 default: return b.totalPoints - a.totalPoints;
             }
         });

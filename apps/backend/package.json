@@ -2,6 +2,12 @@
   "name": "@aoe4.fr/backend",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "typeorm": "typeorm-ts-node-commonjs -d src/database/data-source.ts",
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:revert": "npm run typeorm -- migration:revert",
+    "migration:generate": "npm run typeorm -- migration:generate -p"
+  },
   "nx": {
     "name": "backend",
     "targets": {

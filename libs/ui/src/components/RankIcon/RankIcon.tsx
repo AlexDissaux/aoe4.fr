@@ -22,23 +22,26 @@ export interface RankIconProps {
   size?: number;
   className?: string;
   style?: CSSProperties;
+  /** Overrides the default alt/title text (which otherwise falls back to rankLevel) */
+  title?: string;
 }
 
 /**
  * Displays the icon corresponding to an AoE4 rank level string.
  * Falls back to plain text when the rank is unknown or absent.
  */
-export function RankIcon({ rankLevel, size = 32, className, style }: RankIconProps) {
+export function RankIcon({ rankLevel, size = 32, className, style, title }: RankIconProps) {
   if (!rankLevel) return null;
 
   const src = RANK_ICONS[rankLevel];
-  if (!src) return <span title={rankLevel}>{rankLevel}</span>;
+  const label = title ?? rankLevel;
+  if (!src) return <span title={label}>{label}</span>;
 
   return (
     <img
       src={src}
-      alt={rankLevel}
-      title={rankLevel}
+      alt={label}
+      title={label}
       width={size}
       height={size}
       className={className}

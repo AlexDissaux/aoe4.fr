@@ -82,6 +82,7 @@ export function LeaderboardFilters({
                         <SortButton label="Wins" value="wins" color="border-green-400 text-green-400" sortBy={teamSortBy} onSortChange={onTeamSortChange} />
                         <SortButton label="Civs" value="civs" color="border-amber-400 text-amber-400" sortBy={teamSortBy} onSortChange={onTeamSortChange} />
                         <SortButton label="Maps" value="maps" color="border-cyan-400 text-cyan-400"   sortBy={teamSortBy} onSortChange={onTeamSortChange} />
+                        <SortButton label="Badges" value="tiers" color="border-yellow-300 text-yellow-300" sortBy={teamSortBy} onSortChange={onTeamSortChange} />
                         <SortButton label="Total" value="total" color="border-white text-white"       sortBy={teamSortBy} onSortChange={onTeamSortChange} />
                     </>
                 )}

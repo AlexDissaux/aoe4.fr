@@ -30,6 +30,7 @@ export class WololoPlayerRepository {
       civsWon: e.civsWon ?? [],
       mapsWon: e.mapsWon ?? [],
       twitchLogin: e.twitchLogin ?? null,
+      winDates: e.winDates ?? [],
     }));
   }
 
@@ -44,6 +45,7 @@ export class WololoPlayerRepository {
       civsWon: p.civsWon,
       mapsWon: p.mapsWon,
       twitchLogin: p.twitchLogin,
+      winDates: p.winDates,
     }));
     await this.WololoPlayerRepo.upsert(entities, ['profileId']);
   }

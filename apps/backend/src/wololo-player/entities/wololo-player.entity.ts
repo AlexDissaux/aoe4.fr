@@ -29,6 +29,9 @@ export class WololoPlayerEntity {
   @Column({ type: 'int', nullable: true })
   wins: number | null;
 
+  @Column({ name: 'win_dates', type: 'simple-array', nullable: true })
+  winDates: string[];
+
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }
