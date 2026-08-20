@@ -12,28 +12,8 @@ export default function Rules() {
 
             <div className="space-y-6 text-sm text-gray-300 leading-relaxed">
                 <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">1. Teams</h3>
-                    <p>The challenge opposes several teams of players. Each team must designate a captain before the start of the competition.</p>
-                </section>
-
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">2. Ladder games</h3>
-                    <p>Points are earned through ranked 1v1 games played during the challenge period. Only games played in the <span className="text-amber-300 font-semibold">rm_solo</span> queue count toward the team score.</p>
-                </section>
-
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">3. Scoring</h3>
-                    <p>Each win earns points for your team. The exact scoring formula will be detailed here. Team rankings are updated in real time on the podium.</p>
-                </section>
-
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">4. Eligibility</h3>
-                    <p>All registered players must be part of the French-speaking community. Only games played during the official challenge window are counted.</p>
-                </section>
-
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">5. Fair play</h3>
-                    <p>Any form of cheating, smurfing, or unsportsmanlike behavior will result in disqualification. The organizers reserve the right to amend these rules at any time.</p>
+                    <h3 className="font-bold uppercase tracking-wider text-white">1. Coming soon</h3>
+                    <p>The rules coming at the speed of the light and will be there in a predictable time.</p>
                 </section>
             </div>
 
