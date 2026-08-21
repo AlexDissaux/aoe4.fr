@@ -32,6 +32,9 @@ export class WololoPlayerEntity {
   @Column({ name: 'win_dates', type: 'simple-array', nullable: true })
   winDates: string[];
 
+  @Column({ name: 'civ_wins', type: 'simple-json', nullable: true })
+  civWins: Record<string, number>;
+
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }

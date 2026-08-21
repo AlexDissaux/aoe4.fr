@@ -16,6 +16,8 @@ for (const [filePath, url] of Object.entries(flagModules)) {
   }
 }
 
+export const ALL_CIVILIZATIONS: string[] = Object.keys(CIV_FLAGS).sort();
+
 export interface CivFlagProps {
   /** Civilization key, e.g. "english", "ayyubids" */
   civilization: string | null | undefined;

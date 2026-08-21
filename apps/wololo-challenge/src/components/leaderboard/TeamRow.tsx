@@ -2,6 +2,7 @@ import { IWololoTeamScore } from '@aoe4.fr/shared-types';
 import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColors';
 import { getTierBadge } from '../../common/tierBadges';
 import { TierBadge } from './TierBadge';
+import { KingBadge } from './KingBadge';
 
 interface TeamRowProps {
     team: IWololoTeamScore;
@@ -16,8 +17,8 @@ function CategoryCell({ points, total }: { points: number; total: number }) {
     );
 }
 
-function TeamBadges({ badges }: { badges: number[] }) {
-    if (badges.length === 0) return <span className="text-gray-600">—</span>;
+function TeamBadges({ badges, civs }: { badges: number[]; civs: string[] }) {
+    if (badges.length === 0 && civs.length === 0) return <span className="text-gray-600">—</span>;
     return (
         <div className="flex items-center gap-1 flex-wrap">
             {badges.map((threshold) => {
@@ -25,6 +26,9 @@ function TeamBadges({ badges }: { badges: number[] }) {
                 if (!badge) return null;
                 return <TierBadge key={threshold} badge={badge} size={20} />;
             })}
+            {civs.map((civ) => (
+                <KingBadge key={civ} civ={civ} size={20} />
+            ))}
         </div>
     );
 }
@@ -50,7 +54,7 @@ export function TeamRow({ team, index }: TeamRowProps) {
                     <div className="text-white font-black">{team.totalPoints}</div>
                 </div>
                 <div className="pl-7">
-                    <TeamBadges badges={team.tiers.badges} />
+                    <TeamBadges badges={team.tiers.badges} civs={team.kings.civs} />
                 </div>
             </div>
 
@@ -73,7 +77,7 @@ export function TeamRow({ team, index }: TeamRowProps) {
                     <CategoryCell points={team.categories.maps.points} total={team.categories.maps.total} />
                 </div>
                 <div className="col-span-3 flex items-center justify-center">
-                    <TeamBadges badges={team.tiers.badges} />
+                    <TeamBadges badges={team.tiers.badges} civs={team.kings.civs} />
                 </div>
                 <div className="col-span-2 text-center">
                     <span className="text-white font-black tabular-nums">{team.totalPoints}</span>

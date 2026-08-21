@@ -19,4 +19,9 @@ export class WololoTeamController {
     getTiers() {
         return this.wololoTeamService.getTierStandings();
     }
+
+    @Get('kings')
+    getKings() {
+        return this.wololoTeamService.getCivKingStandings();
+    }
 }

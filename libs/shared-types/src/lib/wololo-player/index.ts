@@ -1,3 +1,4 @@
 export * from './wololo-player.type'
 export * from './wololo-team.type'
 export * from './wololo-team-score.type'
+export * from './wololo-civ-king.type'

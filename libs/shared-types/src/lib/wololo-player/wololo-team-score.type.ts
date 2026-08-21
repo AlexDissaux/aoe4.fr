@@ -10,6 +10,12 @@ export interface IWololoTeamTierScore {
     badges: number[];
 }
 
+export interface IWololoTeamKingsScore {
+    points: number;
+    /** Civilization keys this team currently holds the crown for */
+    civs: string[];
+}
+
 export interface IWololoTeamScore {
     teamId: string;
     name: string;
@@ -23,6 +29,7 @@ export interface IWololoTeamScore {
         maps: IWololoTeamCategoryScore;
     };
     tiers: IWololoTeamTierScore;
+    kings: IWololoTeamKingsScore;
 }
 
 export interface IWololoTierClaim {

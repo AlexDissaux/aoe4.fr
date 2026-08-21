@@ -24,6 +24,22 @@ export function getWonCivs(games: any[], profileId: number): string[] {
     return Array.from(civs).sort();
 }
 
+// Win count per civilization, used to determine a player's "king" civilization.
+export function getCivWinCounts(games: any[], profileId: number): Record<string, number> {
+    const civWins: Record<string, number> = {};
+    for (const game of games) {
+        for (const team of game.teams ?? []) {
+            for (const entry of team) {
+                if (entry.player?.profile_id === profileId && entry.player.result === 'win') {
+                    const civ = entry.player.civilization;
+                    if (civ) civWins[civ] = (civWins[civ] ?? 0) + 1;
+                }
+            }
+        }
+    }
+    return civWins;
+}
+
 // Finish date of each won game, used to determine when a team reaches a win-tier.
 export function getWonGameDates(games: any[], profileId: number): string[] {
     const dates: string[] = [];

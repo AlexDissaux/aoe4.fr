@@ -1,4 +1,4 @@
-import { IWololoTeam, IWololoTeamScore, IWololoTierBadgeStanding } from '@aoe4.fr/shared-types';
+import { IWololoCivKingStanding, IWololoTeam, IWololoTeamScore, IWololoTierBadgeStanding } from '@aoe4.fr/shared-types';
 
 const API_BASE =
     import.meta.env.VITE_API_BASE_URL ||
@@ -19,5 +19,11 @@ export async function fetchWololoTeamScores(): Promise<IWololoTeamScore[]> {
 export async function fetchWololoTierStandings(): Promise<IWololoTierBadgeStanding[]> {
     const response = await fetch(`${API_BASE}/wololo-teams/tiers`);
     if (!response.ok) throw new Error('Failed to fetch wololo tier standings');
+    return response.json();
+}
+
+export async function fetchWololoCivKingStandings(): Promise<IWololoCivKingStanding[]> {
+    const response = await fetch(`${API_BASE}/wololo-teams/kings`);
+    if (!response.ok) throw new Error('Failed to fetch wololo civ king standings');
     return response.json();
 }

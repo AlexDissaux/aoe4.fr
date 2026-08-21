@@ -3,6 +3,7 @@ import { PlayerLink, LiveTwitch } from '@aoe4.fr/ui';
 import { TeamColor } from './leaderboard.types';
 import { LiveIndicator } from './LiveIndicator';
 import { WonListTooltip } from './WonListTooltip';
+import { KingBadge } from './KingBadge';
 
 interface PlayerRowProps {
     player: WololoPlayer;
@@ -12,9 +13,10 @@ interface PlayerRowProps {
     onTooltipToggle: (key: string) => void;
     currentGame?: CurrentGame;
     isStreaming?: boolean;
+    kingCiv?: string | null;
 }
 
-export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipToggle, currentGame, isStreaming }: PlayerRowProps) {
+export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipToggle, currentGame, isStreaming, kingCiv }: PlayerRowProps) {
     const civsKey = `${index}-civs`;
     const mapsKey = `${index}-maps`;
 
@@ -33,6 +35,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipT
                     <span className={`font-bold text-sm truncate flex-1 ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
                         <PlayerLink profileId={player.profileId} name={player.name} className="hover:underline" />
                     </span>
+                    {kingCiv && <KingBadge civ={kingCiv} size={20} />}
                     {currentGame && <LiveIndicator game={currentGame} />}
                     {isStreaming && player.twitchLogin && <LiveTwitch twitchLogin={player.twitchLogin} />}
                     <span className={`text-[11px] font-bold px-2 py-0.5 border flex-shrink-0 ${teamColor.border} ${teamColor.text}`}>
@@ -83,6 +86,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipT
                     <span className={`font-bold truncate ${player.isCap ? 'text-yellow-300' : 'text-white'}`}>
                         <PlayerLink profileId={player.profileId} name={player.name} className="hover:underline" />
                     </span>
+                    {kingCiv && <KingBadge civ={kingCiv} size={20} />}
                     {currentGame && <LiveIndicator game={currentGame} />}
                     {isStreaming && player.twitchLogin && <LiveTwitch twitchLogin={player.twitchLogin} />}
                 </div>

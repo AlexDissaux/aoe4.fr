@@ -5,7 +5,7 @@ import { WololoPlayerApi } from "./wololo-player.api";
 import { WololoPlayerRepository } from "./wololo-player.repository";
 import { TwitchApiService } from "../twitch/twitch-api.service";
 import { delay } from "src/common/utils/delay.service";
-import { getPlayerResult, getWonCivs, getWonGameDates } from "src/common/utils/games.utils";
+import { getPlayerResult, getWonCivs, getWonGameDates, getCivWinCounts } from "src/common/utils/games.utils";
 
 @Injectable()
 export class WololoPlayerService {
@@ -41,6 +41,7 @@ export class WololoPlayerService {
         wololoPlayer.civsWon = getWonCivs(wololoPlayerGames, wololoPlayer.profileId);
         wololoPlayer.mapsWon = Array.from(new Set(gamesWon.map(g => g.map)));
         wololoPlayer.winDates = getWonGameDates(wololoPlayerGames, wololoPlayer.profileId);
+        wololoPlayer.civWins = getCivWinCounts(wololoPlayerGames, wololoPlayer.profileId);
         return wololoPlayer;
     }
 

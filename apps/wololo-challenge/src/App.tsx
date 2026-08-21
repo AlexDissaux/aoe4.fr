@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Podium from './components/podium/Podium'
 import Leaderboard from './components/leaderboard/Leaderboard'
 import Milestones from './components/milestones/Milestones'
+import Kings from './components/kings/Kings'
 import Rules from './components/Rules'
 import LiveGames from './components/live-games/LiveGames'
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/podium" element={<Podium />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/milestones" element={<Milestones />} />
+          <Route path="/kings" element={<Kings />} />
           <Route path="/live" element={<LiveGames />} />
           <Route path="/rules" element={<Rules />} />
         </Routes>

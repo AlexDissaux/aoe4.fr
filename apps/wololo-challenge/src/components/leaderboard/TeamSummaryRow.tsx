@@ -2,6 +2,7 @@ import { IWololoTeamScore } from '@aoe4.fr/shared-types';
 import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColors';
 import { getTierBadge } from '../../common/tierBadges';
 import { TierBadge } from './TierBadge';
+import { KingBadge } from './KingBadge';
 
 function CategoryCell({ points, total, type }: { points: number; total: number; type?: string }) {
     return (
@@ -22,12 +23,15 @@ export function TeamSummaryRow({ team }: { team: IWololoTeamScore }) {
                 <div className="text-green-400"><CategoryCell points={team.categories.wins.points} total={team.categories.wins.total} type="wins" /></div>
                 <div className="text-amber-400"><CategoryCell points={team.categories.civs.points} total={team.categories.civs.total} type="civs" /></div>
                 <div className="text-cyan-400"><CategoryCell points={team.categories.maps.points} total={team.categories.maps.total} type="maps" /></div>
-                {team.tiers.badges.length > 0 && (
+                {(team.tiers.badges.length > 0 || team.kings.civs.length > 0) && (
                     <div className="flex items-center gap-1">
                         {team.tiers.badges.map((threshold) => {
                             const badge = getTierBadge(threshold);
                             return badge ? <TierBadge key={threshold} badge={badge} size={18} /> : null;
                         })}
+                        {team.kings.civs.map((civ) => (
+                            <KingBadge key={civ} civ={civ} size={18} />
+                        ))}
                     </div>
                 )}
                 <div className="text-white font-black">{team.totalPoints}<span className="text-s font-normal text-gray-600 ml-1">pts</span></div>

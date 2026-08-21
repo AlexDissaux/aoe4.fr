@@ -4,6 +4,7 @@ import { useWololoCurrentGames } from "../../hook/useWololoCurrentGames";
 import { useWololoTeams } from "../../hook/useWololoTeams";
 import { useTeams } from "../../hook/useTeams";
 import { useTwitchSection } from "../../hook/useTwitchSection";
+import { useCivKingStandings } from "../../hook/useCivKingStandings";
 import { LeaderboardView, SortKey, TeamSortKey } from "./leaderboard.types";
 import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from "../../common/teamColors";
 import { LeaderboardFilters } from "./LeaderboardFilters";
@@ -19,6 +20,12 @@ export default function Leaderboard() {
     const { teams: teamScores } = useTeams();
     const gamesMap = useWololoCurrentGames();
     const twitchState = useTwitchSection();
+    const { standings: kingStandings } = useCivKingStandings();
+
+    const kingByProfileId = useMemo(
+        () => new Map(kingStandings.filter(s => s.king).map(s => [s.king!.profileId, s.civ])),
+        [kingStandings],
+    );
 
     const streamingLogins = useMemo(() => {
         if (twitchState.status !== 'live') return new Set<string>();
@@ -108,6 +115,7 @@ export default function Leaderboard() {
                                         onTooltipToggle={handleTooltipToggle}
                                         currentGame={gamesMap.get(player.name.toLowerCase())}
                                         isStreaming={!!player.twitchLogin && streamingLogins.has(player.twitchLogin.toLowerCase())}
+                                        kingCiv={kingByProfileId.get(player.profileId) ?? null}
                                     />
                                 ))}
                             </div>
