@@ -76,7 +76,7 @@ export function computeCivKingStandings(players: WololoPlayer[], teams: IWololoT
             return {
                 civ,
                 king: kingBid ? toContender(kingBid, civ) : null,
-                leaderboard: sorted.slice(0, 10).map((bid) => toContender(bid, civ)),
+                leaderboard: sorted.slice(0, 30).map((bid) => toContender(bid, civ)),
             };
         })
         .sort((a, b) => a.civ.localeCompare(b.civ));

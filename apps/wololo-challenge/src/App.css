@@ -70,3 +70,12 @@
   background-size: 200% 200%;
   animation: wave-gradient 3s ease-in-out infinite;
 }
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,91 +1,129 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useCivKingStandings } from '../../hook/useCivKingStandings';
-import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColors';
-import { formatCivLabel } from '../../common/kingBadges';
-import { ALL_CIVILIZATIONS, CivFlag, PlayerLink } from '@aoe4.fr/ui';
+import { ALL_CIVILIZATIONS } from '@aoe4.fr/ui';
 import { IWololoCivKingStanding } from '@aoe4.fr/shared-types';
-
-const EMPTY_STANDING: Omit<IWololoCivKingStanding, 'civ'> = { king: null, leaderboard: [] };
+import { CivSelector } from './CivSelector';
+import { CivCard } from './CivCard';
 
 export default function Kings() {
     const { standings } = useCivKingStandings();
+    const civs = ALL_CIVILIZATIONS;
+
+    const standingByCiv = useMemo(() => new Map(standings.map((s) => [s.civ, s])), [standings]);
+
+    const [activeCiv, setActiveCiv] = useState(civs[0]);
+    const trackRef = useRef<HTMLDivElement>(null);
+    const itemRefs = useRef(new Map<string, HTMLDivElement>());
+    const rafRef = useRef<number | null>(null);
+
+    function updateActiveFromScroll() {
+        const track = trackRef.current;
+        if (!track) return;
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let closest = activeCiv;
+        let closestDist = Infinity;
+        for (const [civ, el] of itemRefs.current) {
+            const dist = Math.abs(el.offsetLeft + el.offsetWidth / 2 - center);
+            if (dist < closestDist) {
+                closestDist = dist;
+                closest = civ;
+            }
+        }
+        setActiveCiv(closest);
+    }
+
+    function handleScroll() {
+        if (rafRef.current !== null) return;
+        rafRef.current = requestAnimationFrame(() => {
+            rafRef.current = null;
+            updateActiveFromScroll();
+        });
+    }
+
+    function scrollToCiv(civ: string, behavior: ScrollBehavior = 'smooth') {
+        itemRefs.current.get(civ)?.scrollIntoView({ behavior, inline: 'center', block: 'nearest' });
+    }
+
+    function goDelta(delta: number) {
+        const i = civs.indexOf(activeCiv);
+        scrollToCiv(civs[(i + delta + civs.length) % civs.length]);
+    }
+
+    useEffect(() => {
+        // Center the initial civ without animating on first paint.
+        scrollToCiv(civs[0], 'auto');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if (standings.length === 0) {
+        return <div className="text-white text-center py-24">Loading kings...</div>;
+    }
 
     return (
-        <div className="max-w-4xl mx-auto px-4 py-6 space-y-8">
-            <div className="mb-1 text-center">
+        <div className="py-6 space-y-6">
+            <div className="mb-1 text-center px-4">
                 <div className="flex items-center justify-center gap-4">
                     <div className="h-px w-10 sm:w-16 bg-linear-to-r from-transparent to-amber-300/70" />
                     <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-[0.08em] text-stone-100">Civ Kings</h2>
                     <div className="h-px w-10 sm:w-16 bg-linear-to-l from-transparent to-amber-300/70" />
                 </div>
-                <p className="mt-3 text-sm text-gray-500">
+                <p className="mt-3 text-sm text-gray-500 max-w-2xl mx-auto">
                     The player with the most wins on a civilization becomes its king (+15 pts for their team).
                     A player can only hold one crown — their best civilization.
                 </p>
             </div>
 
-            {standings.length === 0 ? (
-                <div className="text-white text-center py-12">Loading kings...</div>
-            ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {ALL_CIVILIZATIONS.map((civ) => {
-                        const standing = standings.find((s) => s.civ === civ) ?? EMPTY_STANDING;
-                        const { king, leaderboard } = standing;
+            <CivSelector civs={civs} activeCiv={activeCiv} onSelect={(civ) => scrollToCiv(civ)} />
 
+            <div className="relative">
+                <div
+                    ref={trackRef}
+                    onScroll={handleScroll}
+                    className="flex items-stretch gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar py-4"
+                >
+                    {/* Spacers so the first/last cards can still scroll to dead center, without shrinking card width like container padding would */}
+                    <div aria-hidden className="shrink-0 w-[9%] sm:w-[20%] md:w-[27%]" />
+                    {civs.map((civ) => {
+                        const standing: IWololoCivKingStanding = standingByCiv.get(civ) ?? { civ, king: null, leaderboard: [] };
+                        const isActive = civ === activeCiv;
                         return (
-                            <div key={civ} className="bg-gray-900/60 border border-gray-700/50 p-4">
-                                <div className="flex items-center gap-4">
-                                    <CivFlag civilization={civ} size={64} />
-                                    <div>
-                                        <div className="text-lg font-black text-stone-100">{formatCivLabel(civ)}</div>
-                                        {king ? (
-                                            <div className="text-sm text-gray-400">
-                                                <span className="font-bold" style={{ color: COLOR_PALETTE_HEX[king.teamColor] ?? DEFAULT_TEAM_COLOR_HEX }}>
-                                                    <PlayerLink profileId={king.profileId} name={king.name} className="hover:underline" />
-                                                </span>
-                                                {' — '}
-                                                <span style={{ color: COLOR_PALETTE_HEX[king.teamColor] ?? DEFAULT_TEAM_COLOR_HEX }}>{king.teamName}</span>
-                                                {' '}
-                                                <span className="text-amber-300 font-bold">{king.wins}</span> wins
-                                            </div>
-                                        ) : (
-                                            <div className="text-sm text-gray-600">Unclaimed — be the first!</div>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {leaderboard.length > 0 ? (
-                                    <ol className="mt-4 space-y-1.5 text-sm">
-                                        {leaderboard.map((contender, i) => {
-                                            const isSkipped = !!contender.alreadyKingOf;
-                                            return (
-                                                <li key={contender.profileId} className={`flex items-center gap-2 ${isSkipped ? 'opacity-40' : ''}`}>
-                                                    <span className={`font-bold text-xs w-4 text-right flex-shrink-0 ${i === 0 && !isSkipped ? 'text-amber-300' : 'text-gray-600'}`}>
-                                                        {i + 1}
-                                                    </span>
-                                                    <span
-                                                        className={`truncate flex-1 ${isSkipped ? 'line-through' : i === 0 ? 'font-black' : 'font-bold'}`}
-                                                        style={{ color: isSkipped ? undefined : (COLOR_PALETTE_HEX[contender.teamColor] ?? DEFAULT_TEAM_COLOR_HEX) }}
-                                                    >
-                                                        <PlayerLink profileId={contender.profileId} name={contender.name} className="hover:underline" />
-                                                    </span>
-                                                    {isSkipped && (
-                                                        <span className="text-gray-600 text-xs italic flex-shrink-0">
-                                                            (already king of {formatCivLabel(contender.alreadyKingOf as string)})
-                                                        </span>
-                                                    )}
-                                                    <span className="text-gray-500 text-xs flex-shrink-0">{contender.wins} wins</span>
-                                                </li>
-                                            );
-                                        })}
-                                    </ol>
-                                ) : (
-                                    <div className="mt-4 text-xs text-gray-600">No recorded wins yet</div>
-                                )}
+                            <div
+                                key={civ}
+                                ref={(el) => {
+                                    if (el) itemRefs.current.set(civ, el);
+                                    else itemRefs.current.delete(civ);
+                                }}
+                                className="snap-center shrink-0 w-[82%] sm:w-[60%] md:w-[46%] h-[440px] sm:h-[500px] transition-all duration-500 ease-out"
+                                style={{ transform: isActive ? 'scale(1)' : 'scale(0.82)', opacity: isActive ? 1 : 0.35 }}
+                            >
+                                <CivCard standing={standing} active={isActive} onClick={() => scrollToCiv(civ)} />
                             </div>
                         );
                     })}
+                    <div aria-hidden className="shrink-0 w-[9%] sm:w-[20%] md:w-[27%]" />
                 </div>
-            )}
+
+                {/* Edge fades hinting at more civs on each side */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-black/90 to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-black/90 to-transparent" />
+
+                <button
+                    type="button"
+                    onClick={() => goDelta(-1)}
+                    aria-label="Previous civilization"
+                    className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 border border-amber-300/30 text-amber-300 text-xl flex items-center justify-center opacity-60 hover:opacity-100 hover:border-amber-300/70 transition"
+                >
+                    ‹
+                </button>
+                <button
+                    type="button"
+                    onClick={() => goDelta(1)}
+                    aria-label="Next civilization"
+                    className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 border border-amber-300/30 text-amber-300 text-xl flex items-center justify-center opacity-60 hover:opacity-100 hover:border-amber-300/70 transition"
+                >
+                    ›
+                </button>
+            </div>
         </div>
     );
 }
