@@ -55,20 +55,28 @@ export default function Kings() {
 
                                 {leaderboard.length > 0 ? (
                                     <ol className="mt-4 space-y-1.5 text-sm">
-                                        {leaderboard.map((contender, i) => (
-                                            <li key={contender.profileId} className="flex items-center gap-2">
-                                                <span className={`font-bold text-xs w-4 text-right flex-shrink-0 ${i === 0 ? 'text-amber-300' : 'text-gray-600'}`}>
-                                                    {i + 1}
-                                                </span>
-                                                <span
-                                                    className={`truncate flex-1 ${i === 0 ? 'font-black' : 'font-bold'}`}
-                                                    style={{ color: COLOR_PALETTE_HEX[contender.teamColor] ?? DEFAULT_TEAM_COLOR_HEX }}
-                                                >
-                                                    <PlayerLink profileId={contender.profileId} name={contender.name} className="hover:underline" />
-                                                </span>
-                                                <span className="text-gray-500 text-xs flex-shrink-0">{contender.wins} wins</span>
-                                            </li>
-                                        ))}
+                                        {leaderboard.map((contender, i) => {
+                                            const isSkipped = !!contender.alreadyKingOf;
+                                            return (
+                                                <li key={contender.profileId} className={`flex items-center gap-2 ${isSkipped ? 'opacity-40' : ''}`}>
+                                                    <span className={`font-bold text-xs w-4 text-right flex-shrink-0 ${i === 0 && !isSkipped ? 'text-amber-300' : 'text-gray-600'}`}>
+                                                        {i + 1}
+                                                    </span>
+                                                    <span
+                                                        className={`truncate flex-1 ${isSkipped ? 'line-through' : i === 0 ? 'font-black' : 'font-bold'}`}
+                                                        style={{ color: isSkipped ? undefined : (COLOR_PALETTE_HEX[contender.teamColor] ?? DEFAULT_TEAM_COLOR_HEX) }}
+                                                    >
+                                                        <PlayerLink profileId={contender.profileId} name={contender.name} className="hover:underline" />
+                                                    </span>
+                                                    {isSkipped && (
+                                                        <span className="text-gray-600 text-xs italic flex-shrink-0">
+                                                            (already king of {formatCivLabel(contender.alreadyKingOf as string)})
+                                                        </span>
+                                                    )}
+                                                    <span className="text-gray-500 text-xs flex-shrink-0">{contender.wins} wins</span>
+                                                </li>
+                                            );
+                                        })}
                                     </ol>
                                 ) : (
                                     <div className="mt-4 text-xs text-gray-600">No recorded wins yet</div>

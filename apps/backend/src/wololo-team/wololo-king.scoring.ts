@@ -51,9 +51,12 @@ export function computeCivKingStandings(players: WololoPlayer[], teams: IWololoT
         remaining = bids.filter((b) => !assignedPlayer.has(b.profileId) && !resolvedCiv.has(b.civ));
     }
 
-    function toContender(bid: CivBid): IWololoCivContender {
+    const kingCivByProfileId = new Map(assignedPlayer);
+
+    function toContender(bid: CivBid, civ: string): IWololoCivContender {
         const player = playersById.get(bid.profileId) as WololoPlayer;
         const team = teamsById.get(player.teamId);
+        const kingCiv = kingCivByProfileId.get(bid.profileId);
         return {
             profileId: player.profileId,
             name: player.name,
@@ -61,10 +64,9 @@ export function computeCivKingStandings(players: WololoPlayer[], teams: IWololoT
             teamName: team?.name ?? '',
             teamColor: team?.color ?? '',
             wins: bid.wins,
+            alreadyKingOf: kingCiv && kingCiv !== civ ? kingCiv : null,
         };
     }
-
-    const kingCivByProfileId = new Map(assignedPlayer);
 
     return Array.from(perCivContenders.entries())
         .map(([civ, contenders]) => {
@@ -73,8 +75,8 @@ export function computeCivKingStandings(players: WololoPlayer[], teams: IWololoT
             const kingBid = kingProfileId !== undefined ? sorted.find((b) => b.profileId === kingProfileId) : undefined;
             return {
                 civ,
-                king: kingBid ? toContender(kingBid) : null,
-                leaderboard: sorted.slice(0, 10).map(toContender),
+                king: kingBid ? toContender(kingBid, civ) : null,
+                leaderboard: sorted.slice(0, 10).map((bid) => toContender(bid, civ)),
             };
         })
         .sort((a, b) => a.civ.localeCompare(b.civ));

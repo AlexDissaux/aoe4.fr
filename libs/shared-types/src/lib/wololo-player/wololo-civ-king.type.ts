@@ -5,6 +5,8 @@ export interface IWololoCivContender {
     teamName: string;
     teamColor: string;
     wins: number;
+    /** Set when this contender already holds the crown of another civ, so they don't count for this one */
+    alreadyKingOf?: string | null;
 }
 
 export interface IWololoCivKingStanding {
