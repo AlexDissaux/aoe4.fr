@@ -92,3 +92,9 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (15289018, 'WFE'
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (2103888, 'WFE', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (4350135, 'WFE', false);
 
+INSERT INTO wololo_teams (id, name, color) VALUES ('1K', 'Ruon-nous sur 1000$', 'amber');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (435266, '1K', true);	
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9649893, '1K', false);	
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (23647789, '1K', false);	
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (7672975, '1K', false);	
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8415007, '1K', false);

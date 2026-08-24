@@ -12,10 +12,8 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
 
     // additional base colors (shade 500)
     'gray':     '#6b7280',
-    'zinc':     '#71717a', // used until here
-    'neutral':  '#737373',
-    'stone':    '#78716c',
-    'amber':    '#f59e0b',
+    'zinc':     '#71717a',
+    'amber':    '#f59e0b', // used until here
     'lime':     '#84cc16',
     'emerald':  '#10b981',
     'teal':     '#14b8a6',
@@ -25,6 +23,8 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'violet':   '#8b5cf6',
     'fuchsia':  '#d946ef',
     'rose':     '#f43f5e',
+    'neutral':  '#737373',
+    'stone':    '#78716c',
 
     // darker variants (shade 700)
     'orange-dark':  '#c2410c',
