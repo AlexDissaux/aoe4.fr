@@ -13,8 +13,8 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     // additional base colors (shade 500)
     'gray':     '#6b7280',
     'zinc':     '#71717a',
-    'amber':    '#f59e0b', // used until here
-    'lime':     '#84cc16',
+    'amber':    '#f59e0b', 
+    'lime':     '#84cc16', // used until here
     'emerald':  '#10b981',
     'teal':     '#14b8a6',
     'sky':      '#0ea5e9',

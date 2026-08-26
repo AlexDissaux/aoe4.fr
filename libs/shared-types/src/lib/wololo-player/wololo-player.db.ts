@@ -98,3 +98,11 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9649893, '1K', 
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (23647789, '1K', false);	
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (7672975, '1K', false);	
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8415007, '1K', false);
+
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('Ws', 'Waffles Slaughterhouse', 'lime');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (19869372, 'Ws', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11960419, 'Ws', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (773023, 'Ws', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (21170971, 'Ws', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9569223, 'Ws', false);
