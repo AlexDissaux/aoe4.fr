@@ -30,9 +30,15 @@ export function TeamLeaderboardHeader({ sortBy, onSortChange }: TeamLeaderboardH
             </button>
             <button
                 onClick={() => onSortChange('tiers')}
-                className={`col-span-3 text-center hover:text-yellow-300 transition-colors ${sortBy === 'tiers' ? 'text-yellow-300' : ''}`}
+                className={`col-span-2 text-center hover:text-yellow-300 transition-colors ${sortBy === 'tiers' ? 'text-yellow-300' : ''}`}
             >
                 Badges {sortBy === 'tiers' && '▼'}
+            </button>
+            <button
+                onClick={() => onSortChange('challenges')}
+                className={`col-span-1 text-center hover:text-purple-400 transition-colors ${sortBy === 'challenges' ? 'text-purple-400' : ''}`}
+            >
+                Challenges {sortBy === 'challenges' && '▼'}
             </button>
             <button
                 onClick={() => onSortChange('total')}

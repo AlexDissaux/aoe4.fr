@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IWololoTeam, IWololoTeamScore, IWololoTierBadgeStanding, IWololoCivKingStanding } from '@aoe4.fr/shared-types';
 import { WololoTeamRepository } from './wololo-team.repository';
 import { WololoPlayerRepository } from '../wololo-player/wololo-player.repository';
+import { WololoChallengePointRepository } from '../wololo-challenge-point/wololo-challenge-point.repository';
 import { computeWololoTeamScores, computeWololoTierStandings } from './wololo-team.scoring';
 import { computeCivKingStandings } from './wololo-king.scoring';
 
@@ -10,6 +11,7 @@ export class WololoTeamService {
     constructor(
         private readonly wololoTeamRepository: WololoTeamRepository,
         private readonly wololoPlayerRepository: WololoPlayerRepository,
+        private readonly wololoChallengePointRepository: WololoChallengePointRepository,
     ) {}
 
     async getAll(): Promise<IWololoTeam[]> {
@@ -17,12 +19,13 @@ export class WololoTeamService {
     }
 
     async getTeamScores(): Promise<IWololoTeamScore[]> {
-        const [teams, players] = await Promise.all([
+        const [teams, players, challengeEntries] = await Promise.all([
             this.wololoTeamRepository.findAll(),
             this.wololoPlayerRepository.findAll(),
+            this.wololoChallengePointRepository.findAll(),
         ]);
         const civKingStandings = computeCivKingStandings(players, teams);
-        return computeWololoTeamScores(teams, players, civKingStandings);
+        return computeWololoTeamScores(teams, players, civKingStandings, challengeEntries);
     }
 
     async getTierStandings(): Promise<IWololoTierBadgeStanding[]> {

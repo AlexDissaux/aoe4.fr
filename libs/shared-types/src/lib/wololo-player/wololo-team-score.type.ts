@@ -1,3 +1,5 @@
+import { IWololoChallengePointEntry } from './wololo-challenge-point.type';
+
 export interface IWololoTeamCategoryScore {
     total: number;
     points: number;
@@ -16,6 +18,11 @@ export interface IWololoTeamKingsScore {
     civs: string[];
 }
 
+export interface IWololoTeamChallengeScore {
+    points: number;
+    entries: IWololoChallengePointEntry[];
+}
+
 export interface IWololoTeamScore {
     teamId: string;
     name: string;
@@ -30,6 +37,7 @@ export interface IWololoTeamScore {
     };
     tiers: IWololoTeamTierScore;
     kings: IWololoTeamKingsScore;
+    challenges: IWololoTeamChallengeScore;
 }
 
 export interface IWololoTierClaim {

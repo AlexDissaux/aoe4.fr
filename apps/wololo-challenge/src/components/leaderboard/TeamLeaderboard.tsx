@@ -24,6 +24,7 @@ export function TeamLeaderboard({ teams, search, sortBy, onSortChange }: TeamLea
                 case 'civs': return b.categories.civs.points - a.categories.civs.points;
                 case 'maps': return b.categories.maps.points - a.categories.maps.points;
                 case 'tiers': return (b.tiers.points + b.kings.points) - (a.tiers.points + a.kings.points);
+                case 'challenges': return b.challenges.points - a.challenges.points;
                 default: return b.totalPoints - a.totalPoints;
             }
         });

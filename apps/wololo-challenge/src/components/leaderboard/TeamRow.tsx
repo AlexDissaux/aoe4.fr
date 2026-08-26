@@ -3,6 +3,7 @@ import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColo
 import { getTierBadge } from '../../common/tierBadges';
 import { TierBadge } from './TierBadge';
 import { KingBadge } from './KingBadge';
+import { WonListTooltip } from './WonListTooltip';
 
 interface TeamRowProps {
     team: IWololoTeamScore;
@@ -33,6 +34,20 @@ function TeamBadges({ badges, civs }: { badges: number[]; civs: string[] }) {
     );
 }
 
+function ChallengePointsCell({ team }: { team: IWololoTeamScore }) {
+    const items = team.challenges.entries.map(e => `${e.playerName}: ${e.label} (+${e.points})`);
+    return (
+        <span className="relative group cursor-default text-purple-400 font-bold tabular-nums">
+            {team.challenges.points}
+            {items.length > 0 && (
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2 hidden group-hover:block z-50 w-56">
+                    <WonListTooltip title="Challenge points" items={items} />
+                </div>
+            )}
+        </span>
+    );
+}
+
 export function TeamRow({ team, index }: TeamRowProps) {
     const accent = COLOR_PALETTE_HEX[team.color] ?? DEFAULT_TEAM_COLOR_HEX;
 
@@ -53,8 +68,9 @@ export function TeamRow({ team, index }: TeamRowProps) {
                     <div className="text-cyan-400"><CategoryCell points={team.categories.maps.points} total={team.categories.maps.total} /></div>
                     <div className="text-white font-black">{team.totalPoints}</div>
                 </div>
-                <div className="pl-7">
+                <div className="pl-7 flex items-center gap-3">
                     <TeamBadges badges={team.tiers.badges} civs={team.kings.civs} />
+                    <span className="text-[11px]"><ChallengePointsCell team={team} /> <span className="text-gray-500">challenges</span></span>
                 </div>
             </div>
 
@@ -76,8 +92,11 @@ export function TeamRow({ team, index }: TeamRowProps) {
                 <div className="col-span-1 text-center text-cyan-400">
                     <CategoryCell points={team.categories.maps.points} total={team.categories.maps.total} />
                 </div>
-                <div className="col-span-3 flex items-center justify-center">
+                <div className="col-span-2 flex items-center justify-center">
                     <TeamBadges badges={team.tiers.badges} civs={team.kings.civs} />
+                </div>
+                <div className="col-span-1 text-center">
+                    <ChallengePointsCell team={team} />
                 </div>
                 <div className="col-span-2 text-center">
                     <span className="text-white font-black tabular-nums">{team.totalPoints}</span>

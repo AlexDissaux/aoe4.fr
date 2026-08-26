@@ -1,4 +1,4 @@
-import { CurrentGame, WololoPlayer } from '@aoe4.fr/shared-types';
+import { CurrentGame, IWololoChallengePointEntry, WololoPlayer } from '@aoe4.fr/shared-types';
 import { PlayerLink, LiveTwitch } from '@aoe4.fr/ui';
 import { TeamColor } from './leaderboard.types';
 import { LiveIndicator } from './LiveIndicator';
@@ -14,11 +14,15 @@ interface PlayerRowProps {
     currentGame?: CurrentGame;
     isStreaming?: boolean;
     kingCiv?: string | null;
+    challengePoints: number;
+    challengeEntries: IWololoChallengePointEntry[];
 }
 
-export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipToggle, currentGame, isStreaming, kingCiv }: PlayerRowProps) {
+export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipToggle, currentGame, isStreaming, kingCiv, challengePoints, challengeEntries }: PlayerRowProps) {
     const civsKey = `${index}-civs`;
     const mapsKey = `${index}-maps`;
+    const challengesKey = `${index}-challenges`;
+    const challengeItems = challengeEntries.map(e => `${e.label} (+${e.points})`);
 
     return (
         <div
@@ -44,7 +48,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipT
                 </div>
 
                 {/* Stats row */}
-                <div className="grid grid-cols-3 pl-7 text-xs">
+                <div className="grid grid-cols-4 pl-7 text-xs">
                     <div>
                         <span className="text-green-400 font-bold tabular-nums">{player.wins}</span>
                         <span className="text-gray-500"> wins</span>
@@ -73,6 +77,18 @@ export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipT
                             </div>
                         )}
                     </div>
+                    <div
+                        className="relative cursor-pointer"
+                        onClick={() => onTooltipToggle(challengesKey)}
+                    >
+                        <span className="text-purple-400 font-bold tabular-nums">{challengePoints}</span>
+                        <span className="text-gray-500"> challenges</span>
+                        {challengeItems.length > 0 && openTooltipKey === challengesKey && (
+                            <div className="absolute bottom-full left-0 mb-2 z-50 w-44">
+                                <WonListTooltip title="Challenge points" items={challengeItems} />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -90,7 +106,7 @@ export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipT
                     {currentGame && <LiveIndicator game={currentGame} />}
                     {isStreaming && player.twitchLogin && <LiveTwitch twitchLogin={player.twitchLogin} />}
                 </div>
-                <div className="col-span-3 flex items-center">
+                <div className="col-span-2 flex items-center">
                     <span className={`text-xs font-bold px-2 py-0.5 border ${teamColor.border} ${teamColor.text}`}>
                         {player.team}
                     </span>
@@ -111,6 +127,14 @@ export function PlayerRow({ player, index, teamColor, openTooltipKey, onTooltipT
                     {player.mapsWon?.length > 0 && (
                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2 hidden group-hover:block z-50 w-44">
                             <WonListTooltip title="Won maps" items={player.mapsWon} />
+                        </div>
+                    )}
+                </div>
+                <div className="col-span-1 text-center relative group">
+                    <span className="text-purple-400 font-bold">{challengePoints}</span>
+                    {challengeItems.length > 0 && (
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2 hidden group-hover:block z-50 w-44">
+                            <WonListTooltip title="Challenge points" items={challengeItems} />
                         </div>
                     )}
                 </div>

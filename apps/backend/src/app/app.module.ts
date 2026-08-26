@@ -11,6 +11,7 @@ import { YouTubeModule } from '../youtube';
 import { DiscordModule } from '../discord';
 import { WololoPlayerModule } from '../wololo-player/wololo-player.module';
 import { WololoTeamModule } from '../wololo-team/wololo-team.module';
+import { WololoChallengePointModule } from '../wololo-challenge-point/wololo-challenge-point.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { WololoTeamModule } from '../wololo-team/wololo-team.module';
     DiscordModule,
     WololoPlayerModule,
     WololoTeamModule,
+    WololoChallengePointModule,
   ],
   controllers: [AppController],
   providers: [AppService],

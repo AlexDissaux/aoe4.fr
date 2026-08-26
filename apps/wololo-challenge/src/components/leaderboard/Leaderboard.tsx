@@ -5,6 +5,7 @@ import { useWololoTeams } from "../../hook/useWololoTeams";
 import { useTeams } from "../../hook/useTeams";
 import { useTwitchSection } from "../../hook/useTwitchSection";
 import { useCivKingStandings } from "../../hook/useCivKingStandings";
+import { useChallengeSummaries } from "../../hook/useChallengeSummaries";
 import { LeaderboardView, SortKey, TeamSortKey } from "./leaderboard.types";
 import { COLOR_PALETTE, DEFAULT_TEAM_COLOR } from "../../common/teamColors";
 import { LeaderboardFilters } from "./LeaderboardFilters";
@@ -21,10 +22,16 @@ export default function Leaderboard() {
     const gamesMap = useWololoCurrentGames();
     const twitchState = useTwitchSection();
     const { standings: kingStandings } = useCivKingStandings();
+    const { summaries: challengeSummaries } = useChallengeSummaries();
 
     const kingByProfileId = useMemo(
         () => new Map(kingStandings.filter(s => s.king).map(s => [s.king!.profileId, s.civ])),
         [kingStandings],
+    );
+
+    const challengeByProfileId = useMemo(
+        () => new Map(challengeSummaries.map(s => [s.profileId, s])),
+        [challengeSummaries],
     );
 
     const streamingLogins = useMemo(() => {
@@ -56,11 +63,12 @@ export default function Leaderboard() {
                 case 'wins': return b.wins - a.wins;
                 case 'civs': return (b.civsWon?.length ?? 0) - (a.civsWon?.length ?? 0);
                 case 'maps': return (b.mapsWon?.length ?? 0) - (a.mapsWon?.length ?? 0);
+                case 'challenges': return (challengeByProfileId.get(b.profileId)?.totalPoints ?? 0) - (challengeByProfileId.get(a.profileId)?.totalPoints ?? 0);
                 default:     return 0;
             }
         });
         return list;
-    }, [players, selectedTeam, search, sortBy]);
+    }, [players, selectedTeam, search, sortBy, challengeByProfileId]);
 
     function handleTooltipToggle(key: string) {
         setOpenTooltipKey(prev => prev === key ? null : key);
@@ -116,6 +124,8 @@ export default function Leaderboard() {
                                         currentGame={gamesMap.get(player.name.toLowerCase())}
                                         isStreaming={!!player.twitchLogin && streamingLogins.has(player.twitchLogin.toLowerCase())}
                                         kingCiv={kingByProfileId.get(player.profileId) ?? null}
+                                        challengePoints={challengeByProfileId.get(player.profileId)?.totalPoints ?? 0}
+                                        challengeEntries={challengeByProfileId.get(player.profileId)?.entries ?? []}
                                     />
                                 ))}
                             </div>

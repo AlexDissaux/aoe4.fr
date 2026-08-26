@@ -1,4 +1,4 @@
-import { IWololoTeam, IWololoTeamCategoryScore, IWololoTeamScore, IWololoTierBadgeStanding, IWololoTierClaim, IWololoCivKingStanding, WololoPlayer } from '@aoe4.fr/shared-types';
+import { IWololoTeam, IWololoTeamCategoryScore, IWololoTeamScore, IWololoTierBadgeStanding, IWololoTierClaim, IWololoCivKingStanding, IWololoChallengePointEntry, WololoPlayer } from '@aoe4.fr/shared-types';
 import { KING_POINTS } from './wololo-king.scoring';
 
 interface TeamAggregate {
@@ -21,6 +21,7 @@ export function computeWololoTeamScores(
     teams: IWololoTeam[],
     players: WololoPlayer[],
     civKingStandings: IWololoCivKingStanding[],
+    challengeEntries: IWololoChallengePointEntry[],
 ): IWololoTeamScore[] {
     const aggregates = aggregateByTeam(teams, players);
 
@@ -29,6 +30,7 @@ export function computeWololoTeamScores(
     const mapsRanking = rankByCategory(aggregates, (a) => a.totalMaps);
     const tierScores = computeTierScores(aggregates);
     const kingScores = computeKingScores(aggregates, civKingStandings);
+    const challengeScores = computeChallengeScores(players, challengeEntries);
 
     const scores: IWololoTeamScore[] = aggregates.map((agg) => {
         const wins = winsRanking.get(agg.teamId) as IWololoTeamCategoryScore;
@@ -36,16 +38,18 @@ export function computeWololoTeamScores(
         const maps = mapsRanking.get(agg.teamId) as IWololoTeamCategoryScore;
         const tiers = tierScores.get(agg.teamId) ?? { points: 0, badges: [] };
         const kings = kingScores.get(agg.teamId) ?? { points: 0, civs: [] };
+        const challenges = challengeScores.get(agg.teamId) ?? { points: 0, entries: [] };
         return {
             teamId: agg.teamId,
             name: agg.name,
             color: agg.color,
             captainName: agg.captainName,
-            totalPoints: wins.points + civs.points + maps.points + tiers.points + kings.points,
+            totalPoints: wins.points + civs.points + maps.points + tiers.points + kings.points + challenges.points,
             rank: 0,
             categories: { wins, civs, maps },
             tiers,
             kings,
+            challenges,
         };
     });
 
@@ -69,6 +73,26 @@ function computeKingScores(
         if (!teamKings) continue;
         teamKings.civs.push(standing.civ);
         teamKings.points += KING_POINTS;
+    }
+
+    return result;
+}
+
+// Sums admin-awarded challenge points per team, resolving each entry's team via its player.
+function computeChallengeScores(
+    players: WololoPlayer[],
+    challengeEntries: IWololoChallengePointEntry[],
+): Map<string, { points: number; entries: IWololoChallengePointEntry[] }> {
+    const teamIdByProfileId = new Map(players.map((p) => [p.profileId, p.teamId]));
+    const result = new Map<string, { points: number; entries: IWololoChallengePointEntry[] }>();
+
+    for (const entry of challengeEntries) {
+        const teamId = teamIdByProfileId.get(entry.profileId);
+        if (!teamId) continue;
+        const teamChallenges = result.get(teamId) ?? { points: 0, entries: [] };
+        teamChallenges.points += entry.points;
+        teamChallenges.entries.push(entry);
+        result.set(teamId, teamChallenges);
     }
 
     return result;

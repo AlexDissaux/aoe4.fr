@@ -7,6 +7,7 @@ const TABS = [
     { to: '/leaderboard', label: 'Leaderboard', end: false },
     { to: '/milestones',  label: 'Milestones',  end: false },
     { to: '/kings',       label: 'Kings',        end: false },
+    { to: '/challenges',  label: 'Challenges',  end: false },
     { to: '/live',        label: 'Live',        end: false },
     { to: '/rules',       label: 'Rules',       end: false },
 ];
