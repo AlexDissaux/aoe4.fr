@@ -106,3 +106,24 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11960419, 'Ws',
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (773023, 'Ws', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (21170971, 'Ws', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9569223, 'Ws', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('Only Noobs', 'FS TEAM', 'red');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25106587, 'Only Noobs', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (7053830, 'Only Noobs', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (13602779, 'Only Noobs', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9925139, 'Only Noobs', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (15552209, 'Only Noobs', false);
+
+	
+	
+	
+	
+	
+
+
+
+/25106587	
+/7053830	
+/13602779	
+/9925139	
+/15552209
