@@ -9,7 +9,7 @@ export interface CivSelectorProps {
 
 export function CivSelector({ civs, activeCiv, onSelect }: CivSelectorProps) {
     return (
-        <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 sm:px-[10%] pb-1">
+        <div className="flex gap-2 overflow-x-auto thin-scrollbar px-4 sm:px-[10%] pb-1">
             {civs.map((civ) => {
                 const isActive = civ === activeCiv;
                 return (
