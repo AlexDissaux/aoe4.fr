@@ -14,9 +14,9 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'gray':     '#6b7280',
     'zinc':     '#71717a',
     'amber':    '#f59e0b', 
-    'lime':     '#84cc16', // used until here
-    'emerald':  '#10b981',
-    'teal':     '#14b8a6',
+    'lime':     '#84cc16', 
+    'emerald':  '#10b981', 
+    'teal':     '#14b8a6',// used until here
     'sky':      '#0ea5e9',
     'blue':     '#3b82f6',
     'indigo':   '#6366f1',

@@ -114,8 +114,19 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (13602779, 'Only
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9925139, 'Only Noobs', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (15552209, 'Only Noobs', false);
 
-	
-	
+INSERT INTO wololo_teams (id, name, color) VALUES ('AGN', 'Les Agneaux', 'emerald');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (17440542, 'AGN', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3380403, 'AGN', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (10605002, 'AGN', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (7138069, 'AGN', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3129213, 'AGN', false);
+    
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('EBS', 'Elyo Boosting Services', 'teal');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3388442, 'EBS', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3625707, 'EBS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (520130, 'EBS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (15218890, 'EBS', false);
 	
 	
 	
