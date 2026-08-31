@@ -27,6 +27,7 @@ export class WololoPlayerApi {
             if (!response.ok) {
                 throw new Error(`API request failed: ${response.status} ${response.statusText}`);
             }
+            this.logger.log(`Fetched player info for ${playerId}`);
             return response.json();
         } catch (err) {
             this.logger.error(`Failed to fetch player info for ${playerId}: ${err}`);
@@ -35,6 +36,7 @@ export class WololoPlayerApi {
     }
 
     public async fetchPlayerGames(playerId: number): Promise<any[]> {
+        this.logger.log(`Fetching player games for ${playerId}`);
         const soloGames = await this.fetchPlayerGamesForLeaderboard(playerId, "rm_solo");
         await delay(200);
         const teamGames = await this.fetchPlayerGamesForLeaderboard(playerId, "rm_team");
