@@ -78,14 +78,15 @@ export default function CompteARebours() {
                         ))}
                     </div>
 
-                    <button
-                        type="button"
-                        onClick={() => setDismissed(true)}
-                        className="btn-wave group mt-10 inline-flex items-center gap-2 px-8 py-3 border-amber-300/20 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-black font-black uppercase tracking-widest text-sm shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 active:scale-95 transition-transform duration-200 cursor-pointer"
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfP4rJwcrpYSZ3JyUEXA5D0nYuq7an0-edm5Vl_59bbnnhACg/viewform"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group mt-10 inline-flex items-center gap-2 px-10 py-4 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-black font-black uppercase tracking-widest text-base shadow-lg shadow-orange-500/40 hover:shadow-orange-500/60 hover:scale-105 active:scale-95 transition-transform duration-200 cursor-pointer animate-pulse-subtle"
                     >
-                        Go to the preview
+                        Register Now
                         <svg
-                            className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+                            className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
@@ -96,6 +97,14 @@ export default function CompteARebours() {
                             <path d="M5 12h14" />
                             <path d="M13 6l6 6-6 6" />
                         </svg>
+                    </a>
+
+                    <button
+                        type="button"
+                        onClick={() => setDismissed(true)}
+                        className="mt-4 inline-flex items-center gap-2 px-6 py-2 text-gray-400 hover:text-white font-bold uppercase tracking-widest text-xs transition-colors cursor-pointer"
+                    >
+                        Go to the preview
                     </button>
                 </div>
             </div>
