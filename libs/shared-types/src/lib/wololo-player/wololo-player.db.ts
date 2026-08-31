@@ -131,10 +131,32 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (15218890, 'EBS'
 	
 	
 
+INSERT INTO wololo_teams (id, name, color) VALUES ('PMR', 'Pimp My Ram', 'sky');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22099089, 'PMR', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22092035, 'PMR', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (738035, 'PMR', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25439089, 'PMR', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8800916, 'PMR', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('ALED', 'ALED', 'blue');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11218983, 'ALED', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (12240360, 'ALED', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (16735118, 'ALED', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9644349, 'ALED', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22553861, 'ALED', false);
 
 
-/25106587	
-/7053830	
-/13602779	
-/9925139	
-/15552209
+INSERT INTO wololo_teams (id, name, color) VALUES ('NSG', 'NightshiftGaming', 'indigo');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11831473, 'NSG', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8117235, 'NSG', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (24748120, 'NSG', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22916735, 'NSG', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6592588, 'NSG', false);
+
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('OuT', 'the OuTsiders', 'violet');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8275065, 'OuT', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1712108, 'OuT', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (18963110, 'OuT', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (14400153, 'OuT', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (10179951, 'OuT', false);
