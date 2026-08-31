@@ -22,7 +22,7 @@ export class WololoPlayerService {
         const wololoPlayers = await this.wololoPlayerRepository.findAll();
         for (let wololoPlayer of wololoPlayers) {
 
-            await delay(300);            
+            await delay(500);            
 
             wololoPlayer = await this.updateWololoPlayerInfo(wololoPlayer);
             wololoPlayer = await this.updateWololoPlayerScores(wololoPlayer);
