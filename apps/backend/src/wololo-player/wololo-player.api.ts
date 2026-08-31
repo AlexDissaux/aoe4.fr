@@ -24,6 +24,9 @@ export class WololoPlayerApi {
     public async fetchPlayerInfo(playerId: number): Promise<any> {
         try {
             const response = await fetch(`${API_BASE_URL}/players/${playerId}`);
+            if (!response.ok) {
+                throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+            }
             return response.json();
         } catch (err) {
             this.logger.error(`Failed to fetch player info for ${playerId}: ${err}`);
@@ -40,9 +43,7 @@ export class WololoPlayerApi {
     }
 
     private async fetchPlayerGamesForLeaderboard(playerId: number, leaderboard: "rm_solo" | "rm_team"): Promise<any[]> {
-        const firstPage = await (await fetch(
-            `${API_BASE_URL}/players/${playerId}/games?since=${sinceDate}&leaderboard=${leaderboard}&page=1`
-        )).json() as PlayerGamesResponse;
+        const firstPage = await this.fetchGamesPage(playerId, leaderboard, 1);
 
         if (firstPage.total_count === 0) return [];
 
@@ -56,12 +57,20 @@ export class WololoPlayerApi {
 
         for (let page = 2; page <= totalPages; page++) {
             await delay(200);
-            const pageData = await (await fetch(
-                `${API_BASE_URL}/players/${playerId}/games?since=${sinceDate}&leaderboard=${leaderboard}&page=${page}`
-            )).json() as PlayerGamesResponse;
+            const pageData = await this.fetchGamesPage(playerId, leaderboard, page);
             games.push(...pageData.games);
         }
 
         return games;
+    }
+
+    private async fetchGamesPage(playerId: number, leaderboard: "rm_solo" | "rm_team", page: number): Promise<PlayerGamesResponse> {
+        const response = await fetch(
+            `${API_BASE_URL}/players/${playerId}/games?since=${sinceDate}&leaderboard=${leaderboard}&page=${page}`
+        );
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+        return response.json() as Promise<PlayerGamesResponse>;
     }
 }
