@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, OnApplicationBootstrap } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import { WololoPlayer } from "@aoe4.fr/shared-types";
 import { ITwitchStream, ITwitchVod } from "@aoe4.fr/shared-types";
 import { WololoPlayerApi } from "./wololo-player.api";
@@ -35,7 +35,6 @@ export class WololoPlayerService {
 
     private async updateWololoPlayerScores(wololoPlayer: WololoPlayer): Promise<WololoPlayer> {
          this.logger.log(`Updating scores for wololo player: ${wololoPlayer.profileId}`);
-        const wololoPlayerGames = await this.wololoPlayerApi.fetchPlayerGames(wololoPlayer.profileId);
         const gamesWon = wololoPlayerGames.filter(g => getPlayerResult(g, wololoPlayer.profileId) === 'win');            
         wololoPlayer.gamesCount = wololoPlayerGames.length;
         wololoPlayer.wins = gamesWon.length;
