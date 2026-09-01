@@ -8,12 +8,12 @@ export class WololoPlayerScheduler {
 
   constructor(private readonly wololoPlayerService: WololoPlayerService) {}
 
-  @Cron('*/4 * * * *')
-  async handleWololoPlayersSync(): Promise<void> {
-    try {
-      await this.wololoPlayerService.syncWololoPlayers();
-    } catch (error) {
-      this.logger.error('Scheduled wololo players sync failed:', error);
-    }
-  }
+  // @Cron('*/4 * * * *')
+  // async handleWololoPlayersSync(): Promise<void> {
+  //   try {
+  //     await this.wololoPlayerService.syncWololoPlayers();
+  //   } catch (error) {
+  //     this.logger.error('Scheduled wololo players sync failed:', error);
+  //   }
+  // }
 }
