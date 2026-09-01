@@ -28,7 +28,7 @@ const NAV: NavSection[] = [
             { to: '/challenges', label: 'Challenges' },
         ],
     },
-    { key: 'live', label: 'Live', to: '/live', live: true },
+    { key: 'live', label: 'Live Games', to: '/live-games', live: true },
     { key: 'twitch', label: 'Twitch', to: '/twitch' },
     {
         key: 'info',

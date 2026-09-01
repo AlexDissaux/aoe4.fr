@@ -26,7 +26,7 @@ function App() {
           <Route path="/milestones" element={<Milestones />} />
           <Route path="/kings" element={<Kings />} />
           <Route path="/challenges" element={<Challenges />} />
-          <Route path="/live" element={<LiveGames />} />
+          <Route path="/live-games" element={<LiveGames />} />
           <Route path="/twitch" element={<Twitch />} />
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/rules" element={<Rules />} />
