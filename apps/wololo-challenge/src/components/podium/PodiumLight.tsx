@@ -1,6 +1,8 @@
 import { useTeams } from '../../hook/useTeams';
 import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColors';
 
+const MAX_TEAMS_DISPLAYED = 10;
+
 export default function PodiumLight() {
     const { teams } = useTeams();
 
@@ -12,7 +14,8 @@ export default function PodiumLight() {
         );
     }
 
-    const maxPoints = Math.max(...teams.map((team) => team.totalPoints), 1);
+    const topTeams = teams.slice(0, MAX_TEAMS_DISPLAYED);
+    const maxPoints = Math.max(...topTeams.map((team) => team.totalPoints), 1);
 
     return (
         <div className="max-w-4xl mx-auto space-y-8 px-4 py-6">
@@ -25,7 +28,7 @@ export default function PodiumLight() {
             </div>
 
             <div className="space-y-0">
-                {teams.map((team) => {
+                {topTeams.map((team) => {
                     const accent = COLOR_PALETTE_HEX[team.color] ?? DEFAULT_TEAM_COLOR_HEX;
                     const widthPercent = Math.max(28, (team.totalPoints / maxPoints) * 100);
 
