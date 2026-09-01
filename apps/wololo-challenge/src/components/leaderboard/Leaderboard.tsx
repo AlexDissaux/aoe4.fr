@@ -38,7 +38,7 @@ export default function Leaderboard() {
         if (twitchState.status !== 'live') return new Set<string>();
         return new Set(twitchState.streams.map(s => s.user_login.toLowerCase()));
     }, [twitchState]);
-    const [view, setView] = useState<LeaderboardView>('players');
+    const [view, setView] = useState<LeaderboardView>('teams');
     const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
     const [search, setSearch] = useState('');
     const [sortBy, setSortBy] = useState<SortKey>('wins');
