@@ -9,6 +9,7 @@ import Kings from './components/kings/Kings'
 import Challenges from './components/challenges/Challenges'
 import Rules from './components/Rules'
 import LiveGames from './components/live-games/LiveGames'
+import Sponsors from './components/Sponsors'
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/kings" element={<Kings />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/live" element={<LiveGames />} />
+          <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/rules" element={<Rules />} />
         </Routes>
       </div>

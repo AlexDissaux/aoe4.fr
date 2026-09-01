@@ -9,6 +9,7 @@ const TABS = [
     { to: '/kings',       label: 'Kings',        end: false },
     { to: '/challenges',  label: 'Challenges',  end: false },
     { to: '/live',        label: 'Live',        end: false },
+    { to: '/sponsors',    label: 'Sponsors',    end: false },
     { to: '/rules',       label: 'Rules',       end: false },
 ];
 
