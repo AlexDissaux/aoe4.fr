@@ -8,6 +8,7 @@ import { WonListTooltip } from './WonListTooltip';
 interface TeamRowProps {
     team: IWololoTeamScore;
     index: number;
+    onToggleExpand: () => void;
 }
 
 function CategoryCell({ points, total }: { points: number; total: number }) {
@@ -37,7 +38,7 @@ function TeamBadges({ badges, civs }: { badges: number[]; civs: string[] }) {
 function ChallengePointsCell({ team }: { team: IWololoTeamScore }) {
     const items = team.challenges.entries.map(e => `${e.playerName}: ${e.label} (+${e.points})`);
     return (
-        <span className="relative group cursor-default text-purple-400 font-bold tabular-nums">
+        <span className="relative group cursor-pointer text-purple-400 font-bold tabular-nums">
             {team.challenges.points}
             {items.length > 0 && (
                 <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2 hidden group-hover:block z-50 w-56">
@@ -48,16 +49,22 @@ function ChallengePointsCell({ team }: { team: IWololoTeamScore }) {
     );
 }
 
-export function TeamRow({ team, index }: TeamRowProps) {
+export function TeamRow({ team, index, onToggleExpand }: TeamRowProps) {
     const accent = COLOR_PALETTE_HEX[team.color] ?? DEFAULT_TEAM_COLOR_HEX;
 
     return (
-        <div className={`px-3 sm:px-4 hover:bg-white/5 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white/[0.02]' : ''}`}>
+        <div
+            onClick={onToggleExpand}
+            className={`px-3 sm:px-4 hover:bg-white/5 transition-colors duration-150 cursor-pointer ${index % 2 === 0 ? 'bg-white/[0.02]' : ''}`}
+        >
             {/* Mobile */}
             <div className="lg:hidden py-3 space-y-1.5">
                 <div className="flex items-center gap-2">
                     <span className="text-gray-600 font-bold text-xs w-5 text-right flex-shrink-0">{team.rank}</span>
-                    <span className="font-bold text-sm truncate flex-1" style={{ color: accent }}>
+                    <span
+                        className="font-bold text-sm truncate flex-1"
+                        style={{ color: accent }}
+                    >
                         {team.name}
                     </span>
                     {team.captainName && <span className="text-[11px] text-gray-500 flex-shrink-0">👑 {team.captainName}</span>}
@@ -80,7 +87,12 @@ export function TeamRow({ team, index }: TeamRowProps) {
                     <span className="text-gray-500 font-bold">{team.rank}</span>
                 </div>
                 <div className="col-span-3 flex items-center gap-2 min-w-0">
-                    <span className="font-bold truncate" style={{ color: accent }}>{team.name}</span>
+                    <span
+                        className="font-bold truncate min-w-0"
+                        style={{ color: accent }}
+                    >
+                        {team.name}
+                    </span>
                     {team.captainName && <span className="text-[11px] text-gray-500 truncate">👑 {team.captainName}</span>}
                 </div>
                 <div className="col-span-1 text-center text-green-400">

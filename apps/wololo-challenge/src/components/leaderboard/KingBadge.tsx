@@ -28,7 +28,7 @@ export function KingBadge({ civ, size = 20 }: KingBadgeProps) {
 
     return (
         <div ref={containerRef} className="relative inline-flex">
-            <button type="button" onClick={() => setOpen((o) => !o)} aria-label={title} className="relative cursor-pointer leading-none">
+            <button type="button" onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); }} aria-label={title} className="relative cursor-pointer leading-none">
                 <CivFlag civilization={civ} size={size} />
                 <span className="absolute -top-1.5 -right-1.5 text-[10px] leading-none">👑</span>
             </button>

@@ -28,7 +28,7 @@ export function TierBadge({ badge, size = 20 }: TierBadgeProps) {
 
     return (
         <div ref={containerRef} className="relative inline-flex">
-            <button type="button" onClick={() => setOpen((o) => !o)} aria-label={title} className="cursor-pointer leading-none">
+            <button type="button" onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); }} aria-label={title} className="cursor-pointer leading-none">
                 <RankIcon rankLevel={badge.rankLevel} title={title} size={size} />
             </button>
             {open && (

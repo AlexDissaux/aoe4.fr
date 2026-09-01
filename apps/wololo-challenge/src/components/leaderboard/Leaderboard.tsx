@@ -137,7 +137,17 @@ export default function Leaderboard() {
                     </div>
                 </>
             ) : (
-                <TeamLeaderboard teams={teamScores} search={search} sortBy={teamSortBy} onSortChange={setTeamSortBy} />
+                <TeamLeaderboard
+                    teams={teamScores}
+                    players={players ?? []}
+                    search={search}
+                    sortBy={teamSortBy}
+                    onSortChange={setTeamSortBy}
+                    gamesMap={gamesMap}
+                    streamingLogins={streamingLogins}
+                    kingByProfileId={kingByProfileId}
+                    challengeByProfileId={challengeByProfileId}
+                />
             )}
         </div>
     );
