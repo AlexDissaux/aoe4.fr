@@ -38,7 +38,6 @@ export class WololoGamesService {
 
             const wololoPlayerGamesFiltered = wololoPlayerGames.filter(game => this.filterTeamGames(game, playerProfileIds));
             
-            // Process the fetched games and save them to the database
             for (const game of wololoPlayerGamesFiltered) {
                 const gameEntity = this.wololoGameRepository.create({
                     gameId: game.game_id,
