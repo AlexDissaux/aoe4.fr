@@ -4,6 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 interface NavLeaf {
     to: string;
     label: string;
+    external?: boolean;
 }
 
 interface NavSection {
@@ -36,6 +37,7 @@ const NAV: NavSection[] = [
         children: [
             { to: '/sponsors', label: 'Sponsors' },
             { to: '/rules', label: 'Rules' },
+            { to: 'https://www.helloasso.com/associations/l-ordre-du-wololo/formulaires/3', label: 'Donate', external: true },
         ],
     },
 ];
@@ -188,14 +190,27 @@ export function Header() {
                                         }`}
                                     >
                                         {section.children.map(leaf => (
-                                            <NavLink
-                                                key={leaf.to}
-                                                to={leaf.to}
-                                                onClick={() => setOpenGroup(null)}
-                                                className={dropdownItemClass}
-                                            >
-                                                {leaf.label}
-                                            </NavLink>
+                                            leaf.external ? (
+                                                <a
+                                                    key={leaf.to}
+                                                    href={leaf.to}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={() => setOpenGroup(null)}
+                                                    className={dropdownItemClass({ isActive: false })}
+                                                >
+                                                    {leaf.label}
+                                                </a>
+                                            ) : (
+                                                <NavLink
+                                                    key={leaf.to}
+                                                    to={leaf.to}
+                                                    onClick={() => setOpenGroup(null)}
+                                                    className={dropdownItemClass}
+                                                >
+                                                    {leaf.label}
+                                                </NavLink>
+                                            )
                                         ))}
                                     </div>
                                 </div>
@@ -246,14 +261,27 @@ export function Header() {
                                     >
                                         <div className="overflow-hidden">
                                             {section.children.map(leaf => (
-                                                <NavLink
-                                                    key={leaf.to}
-                                                    to={leaf.to}
-                                                    onClick={() => setMenuOpen(false)}
-                                                    className={mobileSubClass}
-                                                >
-                                                    {leaf.label}
-                                                </NavLink>
+                                                leaf.external ? (
+                                                    <a
+                                                        key={leaf.to}
+                                                        href={leaf.to}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        onClick={() => setMenuOpen(false)}
+                                                        className={mobileSubClass({ isActive: false })}
+                                                    >
+                                                        {leaf.label}
+                                                    </a>
+                                                ) : (
+                                                    <NavLink
+                                                        key={leaf.to}
+                                                        to={leaf.to}
+                                                        onClick={() => setMenuOpen(false)}
+                                                        className={mobileSubClass}
+                                                    >
+                                                        {leaf.label}
+                                                    </NavLink>
+                                                )
                                             ))}
                                         </div>
                                     </div>
