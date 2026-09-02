@@ -4,9 +4,9 @@ import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColo
 
 
 const RANK_CONFIG = [
-    { medal: '🥇', podiumColor: '#ca8a04', scoreColor: '#fbbf24', barHeight: 'h-20', order: 'order-2' },
-    { medal: '🥈', podiumColor: '#6b7280', scoreColor: '#d1d5db', barHeight: 'h-14', order: 'order-1' },
-    { medal: '🥉', podiumColor: '#b45309', scoreColor: '#fb923c', barHeight: 'h-10', order: 'order-3' },
+    { medal: '🥇', podiumColor: '#ca8a04', scoreColor: '#fbbf24', barHeight: 'h-20', order: 'order-2', prize: '$500' },
+    { medal: '🥈', podiumColor: '#6b7280', scoreColor: '#d1d5db', barHeight: 'h-14', order: 'order-1', prize: '$300' },
+    { medal: '🥉', podiumColor: '#b45309', scoreColor: '#fb923c', barHeight: 'h-10', order: 'order-3', prize: '$200' },
 ];
 
 
@@ -34,6 +34,12 @@ export function PodiumCard({ team, rank }: { team: IWololoTeamScore; rank: numbe
                 >
                     {team.totalPoints}
                     <span className="text-xs font-normal text-gray-500 ml-1">pts</span>
+                </div>
+                <div
+                    className="text-sm font-bold px-2 py-0.5 rounded-full border"
+                    style={{ color: cfg.scoreColor, borderColor: `${accent}40`, background: `${accent}10` }}
+                >
+                    💰 {cfg.prize}
                 </div>
                 <div className="w-full border-t border-white/5 pt-2 flex justify-around">
                     <StatPill label="Wins" value={team.categories.wins.total} />
