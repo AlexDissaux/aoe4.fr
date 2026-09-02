@@ -1,5 +1,5 @@
-export const sinceDate = '2026-05-07T23:00:00.000Z'
-export const endDate = '2026-05-12T21:00:00.000Z'
+export const sinceDate = '2026-09-01T23:00:00.000Z'
+export const endDate = '2026-09-20T21:00:00.000Z'
 
 export const wololoPlayersData = [
     {id: '15218890', teamId: 'odw', isCap: true},

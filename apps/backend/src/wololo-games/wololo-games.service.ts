@@ -4,12 +4,11 @@ import { WololoGamesApi } from "./wololo-games.api";
 import { WololoPlayerEntity } from "src/wololo-player/entities/wololo-player.entity";
 import { WololoGameEntity } from "./wololo-games.entity";
 import { sinceDate } from "src/wololo-player/entities/wololo-player.data";
-
-
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, OnApplicationBootstrap } from "@nestjs/common";
+import { Cron } from "@nestjs/schedule";
 
 @Injectable()
-export class WololoGamesService {
+export class WololoGamesService implements OnApplicationBootstrap {
 
     @InjectRepository(WololoPlayerEntity)
     private readonly wololoPlayerRepository: Repository<WololoPlayerEntity>;
@@ -19,6 +18,15 @@ export class WololoGamesService {
 
     @Inject(WololoGamesApi)
     private readonly wololoGamesApi: WololoGamesApi;
+
+    @Cron('0 */3 * * * *') // Runs every 3 minutes
+    handleSynchronizeGames() {
+        this.synchronizeGames();
+    }
+
+    async onApplicationBootstrap() {
+        await this.synchronizeGames();
+    }
 
 
     async synchronizeGames() {

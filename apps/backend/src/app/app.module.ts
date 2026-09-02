@@ -12,6 +12,7 @@ import { DiscordModule } from '../discord';
 import { WololoPlayerModule } from '../wololo-player/wololo-player.module';
 import { WololoTeamModule } from '../wololo-team/wololo-team.module';
 import { WololoChallengePointModule } from '../wololo-challenge-point/wololo-challenge-point.module';
+import { WololoGamesModule } from '../wololo-games/wololo-games.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { WololoChallengePointModule } from '../wololo-challenge-point/wololo-cha
     WololoPlayerModule,
     WololoTeamModule,
     WololoChallengePointModule,
+    WololoGamesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
