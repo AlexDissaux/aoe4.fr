@@ -7,7 +7,7 @@ export class CurrentGamesWololoPlayerScheduler implements OnApplicationBootstrap
 
     constructor(private readonly currentGamesWololoPlayerService: CurrentGamesWololoPlayerService) {}
 
-    @Cron('0 */3 * * * *')
+    @Cron('0 */2 * * * *')
     async handleCurrentGamesWololoPlayerSync() {
         console.log('Syncing wololo player current games...');
         await this.currentGamesWololoPlayerService.setCurrentGamesFromWololoPlayers();
