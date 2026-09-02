@@ -1,3 +1,3 @@
-INSERT INTO wololo_challenge_points (profile_id, points, label) VALUES (1712108, 2, 'test');
+INSERT INTO wololo_challenge_points (profile_id, points, label) VALUES (1712108, 0, 'Stay tuned to take part in various challenges and score points in this category.');
 
-INSERT INTO wololo_challenge_points (profile_id, points, label) VALUES (1712108, 9999999, 'I have a lot of points because I do whatever I want.');
+DELETE FROM wololo_challenge_points WHERE profile_id = 1712108;
