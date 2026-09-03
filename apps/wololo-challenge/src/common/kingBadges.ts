@@ -1,5 +1,5 @@
 // Points awarded to a team for each civ crown it currently holds.
-export const KING_POINTS = 15;
+export const KING_POINTS = 10;
 
 export function formatCivLabel(civ: string): string {
     return civ

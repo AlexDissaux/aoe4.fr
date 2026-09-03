@@ -17,7 +17,7 @@ export const TIER_BADGES: TierBadgeDef[] = [
 ];
 
 export const MAX_BADGES_PER_TIER = 10;
-export const TIER_BADGE_POINTS = 10;
+export const TIER_BADGE_POINTS = 5;
 
 export function getTierBadge(threshold: number): TierBadgeDef | undefined {
     return TIER_BADGES.find((t) => t.threshold === threshold);

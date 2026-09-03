@@ -1,6 +1,6 @@
 import { IWololoTeam, IWololoCivContender, IWololoCivKingStanding, WololoPlayer } from '@aoe4.fr/shared-types';
 
-export const KING_POINTS = 15;
+export const KING_POINTS = 10;
 
 interface CivBid {
     profileId: number;

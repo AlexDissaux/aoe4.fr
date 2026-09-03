@@ -68,7 +68,7 @@ export default function Kings() {
                     <div className="h-px w-10 sm:w-16 bg-linear-to-l from-transparent to-amber-300/70" />
                 </div>
                 <p className="mt-3 text-sm text-gray-500 max-w-2xl mx-auto">
-                    The player with the most wins on a civilization becomes its king (+15 pts for their team).
+                    The player with the most wins on a civilization becomes its king (+10 pts for their team).
                     A player can only hold one crown — their best civilization.
                 </p>
             </div>

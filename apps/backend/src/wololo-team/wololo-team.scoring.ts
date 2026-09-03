@@ -14,7 +14,7 @@ interface TeamAggregate {
 
 // Win-count thresholds that award a team badge, worth flat points each.
 export const WIN_TIERS = [25, 100, 200, 300, 400, 500, 700, 1000] as const;
-export const TIER_BADGE_POINTS = 10;
+export const TIER_BADGE_POINTS = 5;
 export const MAX_BADGES_PER_TIER = 10;
 
 export function computeWololoTeamScores(
