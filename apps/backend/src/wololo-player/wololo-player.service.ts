@@ -53,10 +53,10 @@ export class WololoPlayerService {
     private async updateWololoPlayerInfo(wololoPlayer: WololoPlayer): Promise<WololoPlayer> {
         const wololoPlayerInfo = await this.wololoPlayerApi.fetchPlayerInfo(wololoPlayer.profileId);
         const twitchUrl: string | null = wololoPlayerInfo.social?.twitch ?? null;
-        const twitchLogin = twitchUrl
-            ? twitchUrl.replace(/.*twitch\.tv\//, '').replace(/\/.*$/, '').toLowerCase() || null
-            : null;
-        wololoPlayer.twitchLogin = twitchLogin;
+        if (twitchUrl !== null) {
+            const twitchLogin = twitchUrl.replace(/.*twitch\.tv\//, '').replace(/\/.*$/, '').toLowerCase();
+            wololoPlayer.twitchLogin = twitchLogin;
+        }
         wololoPlayer.name = wololoPlayerInfo.name;
         return wololoPlayer;
     }
