@@ -31,11 +31,11 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'slate-dark':   '#334155',
     'green-dark':   '#15803d',
     'cyan-dark':    '#0e7490',
-    'purple-dark':  '#7e22ce', // used until here
+    'purple-dark':  '#7e22ce',
     'yellow-dark':  '#a16207',
     'red-dark':     '#b91c1c',
     'pink-dark':    '#be185d',
-    'gray-dark':    '#374151',
+    'gray-dark':    '#374151',// used until here
     'zinc-dark':    '#3f3f46',
     'neutral-dark': '#404040',
     'stone-dark':   '#44403c',

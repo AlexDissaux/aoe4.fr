@@ -20,8 +20,8 @@ interface NavSection {
 const NAV: NavSection[] = [
     { key: 'home', label: 'Home', to: '/', end: true },
     {
-        key: 'competition',
-        label: 'Competition',
+        key: 'points-breakdown',
+        label: 'Points Breakdown',
         children: [
             { to: '/podium', label: 'Podium' },
             { to: '/leaderboard', label: 'Leaderboard' },

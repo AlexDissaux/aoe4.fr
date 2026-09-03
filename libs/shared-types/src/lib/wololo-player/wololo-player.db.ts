@@ -218,3 +218,28 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8432378, 'VES',
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (769187, 'VES', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9298419, 'VES', false);
 
+INSERT INTO wololo_teams (id, name, color) VALUES ('LTWINR', 'La team des wiener', 'yellow-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (7584002, 'LTWINR', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (18776460, 'LTWINR', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (24829117, 'LTWINR', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('DAC', 'The Dry Arabia Cartel', 'red-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (12432735, 'DAC', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (387963, 'DAC', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (7008236, 'DAC', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8779715, 'DAC', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (17667530, 'DAC', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('5heep', 'Five Sheep', 'pink-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3877183, '5heep', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6489303, '5heep', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (5762434, '5heep', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (12263305, '5heep', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (17517519, '5heep', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('ZERO', 'bande de nuls', 'gray-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (669640, 'ZERO', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8175120, 'ZERO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (132424, 'ZERO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3066008, 'ZERO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6300763, 'ZERO', false);
