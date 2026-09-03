@@ -76,4 +76,13 @@ export class WololoGamesService {
         const playerProfileIdSet = new Set(playerProfileIds.map(p => p.profileId));
         return game.teams.some(team => team.every(player => playerProfileIdSet.has(player.player.profile_id)));
     }
+
+    // Rows are duplicated per tracked player in a game, so count distinct game ids.
+    async getTotalGamesCount(): Promise<number> {
+        const { count } = await this.wololoGameRepository
+            .createQueryBuilder('game')
+            .select('COUNT(DISTINCT game.gameId)', 'count')
+            .getRawOne<{ count: string }>();
+        return Number(count);
+    }
 }

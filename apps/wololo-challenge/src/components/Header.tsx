@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useTotalGamesCount } from '../hook/useTotalGamesCount';
 
 interface NavLeaf {
     to: string;
@@ -125,10 +126,26 @@ function BurgerIcon({ open }: { open: boolean }) {
     );
 }
 
+function TotalGamesCounter({ totalGames }: { totalGames: number | null }) {
+    if (totalGames === null) return null;
+    const formatted = totalGames.toLocaleString('en-US');
+    return (
+        <div className="hidden sm:inline-flex items-center gap-2 mr-4 px-3 py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/15 via-amber-300/5 to-transparent shadow-[0_0_12px_rgba(251,191,36,0.15)] animate-[pulse_3s_ease-in-out_infinite]">
+            <span aria-hidden className="text-sm">⚔️</span>
+            <span className="text-sm font-black tracking-tight">
+                <span className="text-amber-300 tabular-nums drop-shadow-[0_0_6px_rgba(251,191,36,0.6)]">{formatted}</span>
+                <span className="hidden lg:inline text-gray-300 font-bold"> games played in the challenge so far!</span>
+                <span className="lg:hidden text-gray-300 font-bold"> games played!!!</span>
+            </span>
+        </div>
+    );
+}
+
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
     const navRef = useRef<HTMLElement>(null);
+    const totalGames = useTotalGamesCount();
 
     // Desktop: which group's floating dropdown is currently open (only one at a time).
     const [openGroup, setOpenGroup] = useState<string | null>(null);
@@ -226,14 +243,17 @@ export function Header() {
                     })}
                 </nav>
 
-                {/* Mobile burger */}
-                <button
-                    className="sm:hidden ml-auto p-2 text-white"
-                    onClick={() => setMenuOpen(o => !o)}
-                    aria-label="Toggle menu"
-                >
-                    <BurgerIcon open={menuOpen} />
-                </button>
+                {/* Right side: games counter + mobile burger */}
+                <div className="ml-auto flex items-center">
+                    <TotalGamesCounter totalGames={totalGames} />
+                    <button
+                        className="sm:hidden p-2 text-white"
+                        onClick={() => setMenuOpen(o => !o)}
+                        aria-label="Toggle menu"
+                    >
+                        <BurgerIcon open={menuOpen} />
+                    </button>
+                </div>
             </div>
 
             {/* Mobile dropdown */}
