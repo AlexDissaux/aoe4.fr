@@ -6,11 +6,16 @@ import { WololoPlayerRepository } from "./wololo-player.repository";
 import { TwitchApiService } from "../twitch/twitch-api.service";
 import { delay } from "src/common/utils/delay.service";
 import { getPlayerResult, getWonCivs, getWonGameDates, getCivWinCounts } from "src/common/utils/games.utils";
+import { InjectRepository } from "@nestjs/typeorm";
+import { WololoGameEntity } from "src/wololo-games/wololo-games.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class WololoPlayerService {
     @Inject(WololoPlayerRepository)
     private readonly wololoPlayerRepository: WololoPlayerRepository;
+    @InjectRepository(WololoGameEntity)
+    private readonly wololoGameRepository: Repository<WololoGameEntity>;
     private readonly logger = new Logger(WololoPlayerService.name);
 
     constructor(
@@ -21,9 +26,6 @@ export class WololoPlayerService {
     async syncWololoPlayers(): Promise<void> {
         const wololoPlayers = await this.wololoPlayerRepository.findAll();
         for (let wololoPlayer of wololoPlayers) {
-
-            await delay(500);            
-
             wololoPlayer = await this.updateWololoPlayerInfo(wololoPlayer);
             wololoPlayer = await this.updateWololoPlayerScores(wololoPlayer);
         }
@@ -34,7 +36,10 @@ export class WololoPlayerService {
     }
 
     private async updateWololoPlayerScores(wololoPlayer: WololoPlayer): Promise<WololoPlayer> {
-         this.logger.log(`Updating scores for wololo player: ${wololoPlayer.profileId}`);
+        this.logger.log(`Updating scores for wololo player: ${wololoPlayer.profileId}`);
+        const wololoPlayerGames = await this.wololoGameRepository.find({
+            where: { profileId: wololoPlayer.profileId },
+        });
         const gamesWon = wololoPlayerGames.filter(g => getPlayerResult(g, wololoPlayer.profileId) === 'win');            
         wololoPlayer.gamesCount = wololoPlayerGames.length;
         wololoPlayer.wins = gamesWon.length;

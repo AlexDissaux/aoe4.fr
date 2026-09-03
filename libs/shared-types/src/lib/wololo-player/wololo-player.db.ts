@@ -160,3 +160,5 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1712108, 'OuT',
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (18963110, 'OuT', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (14400153, 'OuT', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (10179951, 'OuT', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20622984, 'OuT', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (18941174, 'OuT', false);

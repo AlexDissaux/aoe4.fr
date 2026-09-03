@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
 export interface WololoGameTeamPlayer {
   profile_id: number;
@@ -18,7 +18,7 @@ export class WololoGameEntity {
   @PrimaryColumn({ name: 'profile_id' })
   profileId: number;
 
-  @Column({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })

@@ -4,11 +4,13 @@ import { WololoGamesApi } from "./wololo-games.api";
 import { WololoPlayerEntity } from "src/wololo-player/entities/wololo-player.entity";
 import { WololoGameEntity } from "./wololo-games.entity";
 import { sinceDate } from "src/wololo-player/entities/wololo-player.data";
-import { Inject, Injectable, OnApplicationBootstrap } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
+import { WololoPlayerService } from "src/wololo-player/wololo-player.service";
 
 @Injectable()
-export class WololoGamesService implements OnApplicationBootstrap {
+export class WololoGamesService {
+    private readonly logger = new Logger(WololoGamesService.name);
 
     @InjectRepository(WololoPlayerEntity)
     private readonly wololoPlayerRepository: Repository<WololoPlayerEntity>;
@@ -19,15 +21,13 @@ export class WololoGamesService implements OnApplicationBootstrap {
     @Inject(WololoGamesApi)
     private readonly wololoGamesApi: WololoGamesApi;
 
-    @Cron('0 */3 * * * *') // Runs every 3 minutes
+    @Inject(WololoPlayerService)
+    private readonly wololoPlayerService: WololoPlayerService;
+
+    @Cron('0 */2 * * * *') // Runs every 2 minutes
     handleSynchronizeGames() {
         this.synchronizeGames();
     }
-
-    async onApplicationBootstrap() {
-        await this.synchronizeGames();
-    }
-
 
     async synchronizeGames() {
         const playerProfileIds: WololoPlayerEntity[] = await this.wololoPlayerRepository.find({select: ["profileId"]});
@@ -50,7 +50,7 @@ export class WololoGamesService implements OnApplicationBootstrap {
                 const gameEntity = this.wololoGameRepository.create({
                     gameId: game.game_id,
                     profileId: player.profileId,
-                    createdAt: new Date(game.created_at),
+                    createdAt: new Date(),
                     updatedAt: new Date(),
                     startedAt: new Date(game.started_at),
                     map: game.map,
@@ -60,6 +60,13 @@ export class WololoGamesService implements OnApplicationBootstrap {
                 });
                 await this.wololoGameRepository.save(gameEntity);
             }
+        }
+
+        // Synchronize wololo players after synchronizing games
+        try {
+            await this.wololoPlayerService.syncWololoPlayers();
+        } catch (error) {
+            this.logger.error('Scheduled wololo players sync failed:', error);
         }
 
     }

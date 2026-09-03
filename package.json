@@ -9,10 +9,7 @@
     "serve:back": "nx serve backend",
     "serve:back:dev": "cd apps/backend && webpack --config webpack-hmr.config.js --watch",
     "serve:wololo": "nx serve wololo-challenge",
-    "deploy:vps": "bash deploy.sh",
-
-    "test": "nx test",
-    "lint": "nx lint"
+    "deploy:vps": "bash deploy.sh"
   },
   "private": true,
   "dependencies": {
