@@ -45,8 +45,8 @@ export function getWonGameDates(games: any[], profileId: number): string[] {
     const dates: string[] = [];
     for (const game of games) {
         if (getPlayerResult(game, profileId) !== 'win') continue;
-        // WololoGameEntity exposes these as camelCase TS properties (snake_case is only the DB column name).
-        const date = game.updatedAt ?? game.startedAt;
+        // Use the actual match date, not updatedAt (a DB bookkeeping timestamp set at sync/save time).
+        const date = game.startedAt;
         if (date) dates.push(date instanceof Date ? date.toISOString() : String(date));
     }
     return dates.sort();
