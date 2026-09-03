@@ -16,6 +16,6 @@ import { TwitchModule } from '../twitch/twitch.module';
   ],
   controllers: [WololoPlayerController],
   providers: [WololoPlayerService, WololoPlayerApi, WololoPlayerRepository],
-  exports: [WololoPlayerRepository],
+  exports: [WololoPlayerRepository, WololoPlayerService],
 })
 export class WololoPlayerModule {}

@@ -16,7 +16,7 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'amber':    '#f59e0b', 
     'lime':     '#84cc16', 
     'emerald':  '#10b981', 
-    'teal':     '#14b8a6',// used until here
+    'teal':     '#14b8a6',
     'sky':      '#0ea5e9',
     'blue':     '#3b82f6',
     'indigo':   '#6366f1',
@@ -31,7 +31,7 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'slate-dark':   '#334155',
     'green-dark':   '#15803d',
     'cyan-dark':    '#0e7490',
-    'purple-dark':  '#7e22ce',
+    'purple-dark':  '#7e22ce', // used until here
     'yellow-dark':  '#a16207',
     'red-dark':     '#b91c1c',
     'pink-dark':    '#be185d',

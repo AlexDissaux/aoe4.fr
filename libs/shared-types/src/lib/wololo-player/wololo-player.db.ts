@@ -161,3 +161,60 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (18963110, 'OuT'
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (14400153, 'OuT', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (10179951, 'OuT', false);
 
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('TES', 'TERCIOS ESPAÑOLES', 'fuchsia');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25429502, 'TES', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3616597, 'TES', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (2672597, 'TES', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6461643, 'TES', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (739186, 'TES', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('AMIGO', 'Amigos', 'rose');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1270139, 'AMIGO', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6924135, 'AMIGO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8354416, 'AMIGO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (5364911, 'AMIGO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20837980, 'AMIGO', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('3M', '3 Mousquetons', 'neutral');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8930509, '3M', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25284737, '3M', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (5590088, '3M', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('DDC', 'dynastie du camion', 'stone');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25250655, 'DDC', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25250655, 'DDC', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1849651, 'DDC', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3953084, 'DDC', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20497467, 'DDC', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('DP', 'Dark Pelican', 'orange-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22420368, 'DP', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (21814735, 'DP', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('PEONS', 'Les Péons du Dimanche', 'slate-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (222289, 'PEONS', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25440718, 'PEONS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3853900, 'PEONS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1448538, 'PEONS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9254518, 'PEONS', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('PED', 'Les Petits Pédestres', 'green-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (21608807, 'PED', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (686469, 'PED', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (2196660, 'PED', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25406314, 'PED', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6459278, 'PED', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('GIRLS', 'Who run the world ? GIRLS !', 'cyan-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6492127, 'GIRLS', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (14697531, 'GIRLS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6552004, 'GIRLS', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('VES', 'Volda Esport', 'purple-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (19131565, 'VES', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (7614140, 'VES', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8432378, 'VES', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (769187, 'VES', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9298419, 'VES', false);
+
