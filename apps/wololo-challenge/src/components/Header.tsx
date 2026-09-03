@@ -40,6 +40,8 @@ const NAV: NavSection[] = [
             { to: 'https://www.helloasso.com/associations/l-ordre-du-wololo/formulaires/3', label: 'Donate', external: true },
         ],
     },
+    { key: 'discord', label: 'Discord', to: 'http://discord.gg/odw' },
+
 ];
 
 // Finds which group (if any) owns the current route, so its sub-nav can stay expanded.

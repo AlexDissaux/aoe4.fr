@@ -182,7 +182,7 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25284737, '3M',
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (5590088, '3M', false);
 
 INSERT INTO wololo_teams (id, name, color) VALUES ('DDC', 'dynastie du camion', 'stone');
-INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25250655, 'DDC', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (4314006, 'DDC', true);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25250655, 'DDC', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1849651, 'DDC', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3953084, 'DDC', false);
