@@ -6,7 +6,7 @@ import { CivSelector } from './CivSelector';
 import { CivCard } from './CivCard';
 
 export default function Kings() {
-    const { standings } = useCivKingStandings();
+    const { standings, isLoading } = useCivKingStandings();
     const civs = ALL_CIVILIZATIONS;
 
     const standingByCiv = useMemo(() => new Map(standings.map((s) => [s.civ, s])), [standings]);
@@ -55,7 +55,7 @@ export default function Kings() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    if (standings.length === 0) {
+    if (isLoading) {
         return <div className="text-white text-center py-24">Loading kings...</div>;
     }
 

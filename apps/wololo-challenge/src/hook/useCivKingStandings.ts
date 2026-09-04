@@ -4,12 +4,14 @@ import { fetchWololoCivKingStandings } from '../api/wololoTeam.api';
 
 export function useCivKingStandings() {
     const [standings, setStandings] = useState<IWololoCivKingStanding[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         fetchWololoCivKingStandings()
             .then(setStandings)
-            .catch(console.error);
+            .catch(console.error)
+            .finally(() => setIsLoading(false));
     }, []);
 
-    return { standings };
+    return { standings, isLoading };
 }
