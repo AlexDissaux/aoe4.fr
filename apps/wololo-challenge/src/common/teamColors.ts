@@ -40,11 +40,11 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'teal-dark':    '#0f766e', 
     'sky-dark':     '#0369a1',
     'blue-dark':    '#1d4ed8',
-    'indigo-dark':  '#4338ca',  // used until here
+    'indigo-dark':  '#4338ca',  
     'violet-dark':  '#6d28d9',
     'fuchsia-dark': '#a21caf',
     'rose-dark':    '#be123c',
-    'zinc-dark':    '#3f3f46',
+    'zinc-dark':    '#3f3f46', // used until here
     'neutral-dark': '#404040',
     'stone-dark':   '#44403c',
     'amber-dark':   '#b45309',

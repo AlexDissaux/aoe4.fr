@@ -278,3 +278,28 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (240049, 'Pum', 
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (323836, 'Pum', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1510469, 'Pum', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1522503, 'Pum', false);
+
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('TUH', 'TUH', 'violet-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (17669130, 'TUH', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (18273939, 'TUH', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1536058, 'TUH', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('love', 'le couple', 'fuchsia-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11111683, 'love', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8402958, 'love', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (12255308, 'love', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('HMO', 'Wait Dorry, Just Hear Me Out', 'rose-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8923419, 'HMO', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (12156680, 'HMO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (326703, 'HMO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1195843, 'HMO', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (21992504, 'HMO', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('3fs', '3 fucking scout', 'zinc-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8889679, '3fs', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (24075535, '3fs', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (4231596, '3fs', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (5556271, '3fs', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1091161, '3fs', false);
