@@ -98,7 +98,7 @@ export function TeamLeaderboard({
                                     onToggleExpand={() => handleTeamToggle(team.teamId)}
                                 />
                                 {isExpanded && (
-                                    <div className="bg-black/20 border-t border-gray-700/30">
+                                    <div className={`bg-black/40 border-t border-gray-700/30 border-l-4 ${teamColor.border} ml-3 sm:ml-6`}>
                                         <LeaderboardTableHeader sortBy={playersSortBy} onSortChange={setPlayersSortBy} />
                                         {expandedTeamPlayers.length === 0 ? (
                                             <div className="text-gray-400 text-center py-8 text-sm">No players found</div>
