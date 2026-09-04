@@ -210,6 +210,7 @@ INSERT INTO wololo_teams (id, name, color) VALUES ('GIRLS', 'Who run the world ?
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6492127, 'GIRLS', true);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (14697531, 'GIRLS', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6552004, 'GIRLS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8824061, 'GIRLS', false);
 
 INSERT INTO wololo_teams (id, name, color) VALUES ('VES', 'Volda Esport', 'purple-dark');
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (19131565, 'VES', true);
