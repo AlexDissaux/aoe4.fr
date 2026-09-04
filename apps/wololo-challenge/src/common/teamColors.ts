@@ -35,13 +35,8 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'yellow-dark':  '#a16207',
     'red-dark':     '#b91c1c',
     'pink-dark':    '#be185d',
-    'gray-dark':    '#374151',// used until here
-    'zinc-dark':    '#3f3f46',
-    'neutral-dark': '#404040',
-    'stone-dark':   '#44403c',
-    'amber-dark':   '#b45309',
-    'lime-dark':    '#4d7c0f',
-    'emerald-dark': '#047857',
+    'gray-dark':    '#374151',
+    'emerald-dark': '#047857', // used until here
     'teal-dark':    '#0f766e',
     'sky-dark':     '#0369a1',
     'blue-dark':    '#1d4ed8',
@@ -49,6 +44,11 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'violet-dark':  '#6d28d9',
     'fuchsia-dark': '#a21caf',
     'rose-dark':    '#be123c',
+    'zinc-dark':    '#3f3f46',
+    'neutral-dark': '#404040',
+    'stone-dark':   '#44403c',
+    'amber-dark':   '#b45309',
+    'lime-dark':    '#4d7c0f',
 
     // lighter variants (shade 300)
     'red-light':    '#fca5a5',

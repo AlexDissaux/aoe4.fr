@@ -243,3 +243,10 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8175120, 'ZERO'
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (132424, 'ZERO', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3066008, 'ZERO', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6300763, 'ZERO', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('NOWOOD', 'Insufficient Wood', 'emerald-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (19999402, 'NOWOOD', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20335393, 'NOWOOD', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8867582, 'NOWOOD', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20331383, 'NOWOOD', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (4228931, 'NOWOOD', false);
