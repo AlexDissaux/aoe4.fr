@@ -251,3 +251,11 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20335393, 'NOWO
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8867582, 'NOWOOD', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20331383, 'NOWOOD', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (4228931, 'NOWOOD', false);
+
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('Waka', 'Los waka waka', 'teal-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3579048, 'Waka', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11709396, 'Waka', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6108944, 'Waka', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22968308, 'Waka', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (256150, 'Waka', false);
