@@ -1,3 +1,41 @@
+import { Link } from 'react-router-dom';
+
+function SectionCard({
+    icon,
+    number,
+    title,
+    linkTo,
+    linkLabel,
+    children,
+}: {
+    icon: string;
+    number: number;
+    title: string;
+    linkTo?: string;
+    linkLabel?: string;
+    children: React.ReactNode;
+}) {
+    return (
+        <section className="rounded-lg border border-white/5 bg-gray-900/40 p-5 space-y-3">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+                <h3 className="flex items-center gap-2 font-bold uppercase tracking-wider text-white text-sm sm:text-base">
+                    <span>{icon}</span>
+                    {number}. {title}
+                </h3>
+                {linkTo && (
+                    <Link
+                        to={linkTo}
+                        className="shrink-0 text-[11px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full border border-amber-300/40 text-amber-300 hover:bg-amber-300/10 transition-colors"
+                    >
+                        {linkLabel} →
+                    </Link>
+                )}
+            </div>
+            <div className="text-sm text-gray-300 leading-relaxed space-y-2">{children}</div>
+        </section>
+    );
+}
+
 export default function Rules() {
     return (
         <div className="max-w-3xl mx-auto px-4 py-10 space-y-8">
@@ -10,75 +48,62 @@ export default function Rules() {
                 <p className="text-gray-400 text-sm">Official rules of the Wololo Challenge</p>
             </div>
 
-            <div className="space-y-6 text-sm text-gray-300 leading-relaxed">
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">1. Overview</h3>
+            <div className="space-y-4">
+                <SectionCard icon="📋" number={1} title="Overview">
                     <p>
-                        The Wololo Challenge rewards activity and consistency as much as versatility: the more a team plays and wins matches,
-                        the better its chances of performing well — but diversity in civilizations and maps also plays a decisive role in
-                        aiming for the top of the rankings.
+                        The Wololo Challenge rewards activity and consistency as much as versatility: the more a team plays and wins
+                        matches, the better its chances — but diversity in civilizations and maps also plays a decisive role in aiming
+                        for the top of the rankings.
                     </p>
-                    <p>
-                        The overall ranking is calculated from several categories, detailed below. In each category, teams are ranked and
-                        awarded points based on their position: with N participating teams, 1st place earns N points, 2nd place earns
-                        N-1 points, and so on down to 1 point for last place. This way, every team scores at least one point in each
-                        category, even if they finish last — no one goes home empty-handed.
-                    </p>
-                </section>
+                    <p>The overall ranking is calculated from the categories below. In each one, teams are ranked and awarded points based on their position:</p>
+                    <div className="rounded-lg border border-amber-300/20 bg-amber-300/5 px-4 py-2 text-amber-100/90 text-sm">
+                        With <span className="font-bold text-amber-300">N</span> teams, 1st place earns <span className="font-bold text-amber-300">N</span> points,
+                        2nd earns <span className="font-bold text-amber-300">N-1</span>, down to 1 point for last place — everyone scores at least once.
+                    </div>
+                </SectionCard>
 
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">2. Game Wins</h3>
-                    <p>
-                        Each player's victories contribute to their team's total number of wins. The more wins a team has on its record,
-                        the higher it ranks in the Wins category, and the more points it earns.
-                    </p>
-                    <p>
-                        Wins are counted individually: every player taking part in a game contributes 1 win to their team if their side
-                        wins the game — even in mixed team games where players from different teams face each other. For a game to be
-                        valid, every player involved must be registered for the Wololo Challenge.
-                    </p>
-                </section>
+                <SectionCard icon="⚔️" number={2} title="Game Wins" linkTo="/leaderboard" linkLabel="View leaderboard">
+                    <ul className="list-disc list-inside space-y-1">
+                        <li>Every win contributes 1 win to a player's team, boosting the team's rank in the Wins category.</li>
+                        <li>Counted individually — even in mixed team games where players from different teams face each other.</li>
+                        <li>For a game to be valid, every player involved must be registered for the Wololo Challenge.</li>
+                    </ul>
+                </SectionCard>
 
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">3. Civilizations Played</h3>
-                    <p>
-                        This category rewards diversity of civilizations played and won with. Each time a player wins a game with a given
-                        civilization for the first time, their team earns 1 point toward this category — each civilization only counts once
-                        per player. With 23 civilizations available, a team's diversity score is used to rank it against the others.
-                    </p>
-                </section>
+                <SectionCard icon="🏛️" number={3} title="Civilizations Played" linkTo="/leaderboard" linkLabel="View leaderboard">
+                    <ul className="list-disc list-inside space-y-1">
+                        <li>Rewards diversity of civilizations played and won with.</li>
+                        <li>First win with a civilization earns the team 1 point — each civilization only counts once per player.</li>
+                        <li>23 civilizations available in total.</li>
+                    </ul>
+                </SectionCard>
 
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">4. Maps Won</h3>
-                    <p>
-                        This category rewards diversity of maps played and won on. Each time a player wins a game on a given map for the
-                        first time, their team earns 1 point toward this category — each map only counts once per player. With 18 maps in
-                        total, a team's diversity score is used to rank it against the others.
-                    </p>
-                </section>
+                <SectionCard icon="🗺️" number={4} title="Maps Won" linkTo="/leaderboard" linkLabel="View leaderboard">
+                    <ul className="list-disc list-inside space-y-1">
+                        <li>Rewards diversity of maps played and won on.</li>
+                        <li>First win on a map earns the team 1 point — each map only counts once per player.</li>
+                        <li>18 maps available in total.</li>
+                    </ul>
+                </SectionCard>
 
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">5. Civilization King 👑</h3>
-                    <p>
-                        The King of a civilization is the player who has the most wins with that civilization. If another player surpasses
-                        the current King's win count, they automatically become the new King. Holding a crown grants the King's team
-                        <span className="text-amber-300 font-bold"> 10 bonus points</span>.
-                    </p>
-                    <p>⚠️ A player can only be King of one civilization at a time — the crown of any other civilization stays up for grabs.</p>
-                </section>
+                <SectionCard icon="👑" number={5} title="Civilization King" linkTo="/kings" linkLabel="View kings">
+                    <ul className="list-disc list-inside space-y-1">
+                        <li>The King of a civilization is the player with the most wins with it.</li>
+                        <li>The crown automatically transfers if another player surpasses the current King's win count.</li>
+                        <li>Holding a crown grants the King's team <span className="text-amber-300 font-bold">10 bonus points</span>.</li>
+                    </ul>
+                    <p className="text-amber-200/70 text-xs">⚠️ A player can only be King of one civilization at a time — every other crown stays up for grabs.</p>
+                </SectionCard>
 
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">6. Team Milestones</h3>
-                    <p>
-                        Badges are awarded when a team reaches certain win milestones: 25, 100, 200, 300, 400, 500, 700 and 1000 wins.
-                        Each time a team reaches a new milestone, it earns <span className="text-amber-300 font-bold">5 points</span> and a
-                        badge for that milestone.
-                    </p>
-                    <p>⚠️ Only the first 10 teams to reach each milestone claim a badge — will your team be fast enough?</p>
-                </section>
+                <SectionCard icon="🏆" number={6} title="Team Milestones" linkTo="/milestones" linkLabel="View milestones">
+                    <ul className="list-disc list-inside space-y-1">
+                        <li>Badges are awarded at win milestones: 25, 100, 200, 300, 400, 500, 700 and 1000 wins.</li>
+                        <li>Each new milestone earns the team <span className="text-amber-300 font-bold">5 points</span> and a badge.</li>
+                    </ul>
+                    <p className="text-amber-200/70 text-xs">⚠️ Only the first 10 teams to reach each milestone claim a badge — will your team be fast enough?</p>
+                </SectionCard>
 
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">7. Special Events</h3>
+                <SectionCard icon="⭐" number={7} title="Special Events">
                     <p>Participating in certain special events held during the Wololo Challenge lets players earn bonus points for their team:</p>
                     <ul className="list-disc list-inside space-y-1">
                         <li><span className="font-bold text-white">The Multiplex</span> — an evening where one player per team joins a muted voice channel and tries to win as many games as possible during a 3-hour window.</li>
@@ -86,10 +111,9 @@ export default function Rules() {
                         <li><span className="font-bold text-white">Nightshift Gaming tournaments</span> — bonus points awarded according to the rules announced for each event.</li>
                     </ul>
                     <p>Points earned through these events are cumulative and added directly to the overall Wololo Challenge standings.</p>
-                </section>
+                </SectionCard>
 
-                <section className="border-l-2 border-amber-300/70 pl-4 space-y-2">
-                    <h3 className="font-bold uppercase tracking-wider text-white">8. The Challenge</h3>
+                <SectionCard icon="🎯" number={8} title="The Challenge" linkTo="/challenges" linkLabel="View challenges">
                     <p>Each player has the opportunity to earn 1 bonus point for their team by completing a personal challenge:</p>
                     <ul className="list-disc list-inside space-y-1">
                         <li>Play on <span className="font-bold text-white">Very Hard / Conqueror mode</span> on Contested Coastline.</li>
@@ -97,7 +121,7 @@ export default function Rules() {
                         <li>Post a screenshot of each successful run in the designated channel — a civilization only counts once confirmed.</li>
                     </ul>
                     <p>Each player can earn this bonus point only once, for a maximum of 5 bonus points per team (one per player).</p>
-                </section>
+                </SectionCard>
             </div>
 
             <div className="border border-amber-300/20 bg-amber-300/5 px-5 py-4 text-xs text-amber-200/70 text-center">
