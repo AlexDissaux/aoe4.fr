@@ -272,3 +272,9 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6151819, 'LGB',
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20322008, 'LGB', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8439530, 'LGB', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (23035741, 'LGB', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('Pum', 'Pummels', 'indigo-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (240049, 'Pum', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (323836, 'Pum', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1510469, 'Pum', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1522503, 'Pum', false);

@@ -39,8 +39,8 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'emerald-dark': '#047857', 
     'teal-dark':    '#0f766e', 
     'sky-dark':     '#0369a1',
-    'blue-dark':    '#1d4ed8', // used until here
-    'indigo-dark':  '#4338ca',
+    'blue-dark':    '#1d4ed8',
+    'indigo-dark':  '#4338ca',  // used until here
     'violet-dark':  '#6d28d9',
     'fuchsia-dark': '#a21caf',
     'rose-dark':    '#be123c',
