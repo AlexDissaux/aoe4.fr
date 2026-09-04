@@ -4,9 +4,9 @@ import { COLOR_PALETTE_HEX, DEFAULT_TEAM_COLOR_HEX } from '../../common/teamColo
 
 
 const RANK_CONFIG = [
-    { medal: '🥇', podiumColor: '#ca8a04', scoreColor: '#fbbf24', barHeight: 'h-20', order: 'order-2', prize: '$500' },
-    { medal: '🥈', podiumColor: '#6b7280', scoreColor: '#d1d5db', barHeight: 'h-14', order: 'order-1', prize: '$300' },
-    { medal: '🥉', podiumColor: '#b45309', scoreColor: '#fb923c', barHeight: 'h-10', order: 'order-3', prize: '$200' },
+    { medal: '🥇', podiumColor: '#ca8a04', scoreColor: '#fbbf24', barHeight: 'h-20', order: 'order-2', prize: '$1000' },
+    { medal: '🥈', podiumColor: '#6b7280', scoreColor: '#d1d5db', barHeight: 'h-14', order: 'order-1', prize: '$600' },
+    { medal: '🥉', podiumColor: '#b45309', scoreColor: '#fb923c', barHeight: 'h-10', order: 'order-3', prize: '$400' },
 ];
 
 
