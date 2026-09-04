@@ -42,7 +42,7 @@ export class WololoGamesApi {
 
         // A game can be non-ongoing yet still have a null result briefly while aoe4world finishes
         // processing it. Skip those too so they aren't permanently saved with an unresolved result —
-        // they'll simply be re-fetched on the next sync since they never advance the "last game" cursor.
+        // the caller re-checks a lookback window on every sync so they get picked up once resolved.
         return games.filter(isGameFullyProcessed);
     }
 
