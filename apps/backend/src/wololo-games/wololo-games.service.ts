@@ -24,7 +24,7 @@ export class WololoGamesService {
     @Inject(WololoPlayerService)
     private readonly wololoPlayerService: WololoPlayerService;
 
-    @Cron('0 */2 * * * *') // Runs every 2 minutes
+    @Cron('0 */3 * * * *') // Runs every 3 minutes
     handleSynchronizeGames() {
         this.synchronizeGames();
     }
