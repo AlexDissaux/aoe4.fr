@@ -63,7 +63,7 @@ function desktopClass({ isActive }: { isActive: boolean }) {
 }
 
 function groupTabClass(isActive: boolean) {
-    return `relative px-4 h-full inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-colors ${
+    return `relative px-4 h-full inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest cursor-pointer transition-colors ${
         isActive ? 'text-amber-300' : 'text-gray-400 hover:text-white'
     } after:absolute after:left-4 after:right-4 after:bottom-0 after:h-[2px] after:rounded-full after:transition-all after:duration-300 ${
         isActive
@@ -268,7 +268,7 @@ export function Header() {
                                     <button
                                         type="button"
                                         onClick={() => setOpenMobileGroup(prev => (prev === section.key ? null : section.key))}
-                                        className={`w-full flex items-center justify-between px-6 py-4 text-sm font-bold uppercase tracking-widest transition-colors ${
+                                        className={`w-full flex items-center justify-between px-6 py-4 text-sm font-bold uppercase tracking-widest cursor-pointer transition-colors ${
                                             isActive ? 'text-amber-300' : 'text-gray-400 hover:text-white'
                                         }`}
                                         aria-expanded={isOpen}
