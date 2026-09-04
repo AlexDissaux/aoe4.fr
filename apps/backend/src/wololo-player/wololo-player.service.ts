@@ -25,14 +25,21 @@ export class WololoPlayerService {
 
     async syncWololoPlayers(): Promise<void> {
         const wololoPlayers = await this.wololoPlayerRepository.findAll();
+        const updatedPlayers: WololoPlayer[] = [];
         for (let wololoPlayer of wololoPlayers) {
-            wololoPlayer = await this.updateWololoPlayerInfo(wololoPlayer);
-            wololoPlayer = await this.updateWololoPlayerScores(wololoPlayer);
+            try {
+                wololoPlayer = await this.updateWololoPlayerInfo(wololoPlayer);
+                wololoPlayer = await this.updateWololoPlayerScores(wololoPlayer);
+                updatedPlayers.push(wololoPlayer);
+            } catch (error) {
+                // Skip this player so one failing aoe4world lookup doesn't abort the whole sync
+                this.logger.error(`Failed to sync wololo player ${wololoPlayer.profileId}:`, error);
+            }
         }
 
-        await this.wololoPlayerRepository.upsertAll(wololoPlayers);
+        await this.wololoPlayerRepository.upsertAll(updatedPlayers);
 
-        this.logger.log(`Synced ${wololoPlayers.length} wololo players`);
+        this.logger.log(`Synced ${updatedPlayers.length}/${wololoPlayers.length} wololo players`);
     }
 
     private async updateWololoPlayerScores(wololoPlayer: WololoPlayer): Promise<WololoPlayer> {
