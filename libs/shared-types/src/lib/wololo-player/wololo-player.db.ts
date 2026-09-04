@@ -259,3 +259,16 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11709396, 'Waka
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6108944, 'Waka', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22968308, 'Waka', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (256150, 'Waka', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('NB', 'henniubi', 'sky-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (23488978, 'NB', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9469627, 'NB', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11018483, 'NB', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (18916458, 'NB', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6757911, 'NB', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('LGB', 'Les Gallinettes Brûlées', 'blue-dark');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6151819, 'LGB', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20322008, 'LGB', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8439530, 'LGB', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (23035741, 'LGB', false);
