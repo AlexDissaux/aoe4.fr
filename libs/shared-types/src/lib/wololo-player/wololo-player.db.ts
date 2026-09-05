@@ -303,3 +303,10 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (24075535, '3fs'
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (4231596, '3fs', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (5556271, '3fs', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1091161, '3fs', false);
+
+INSERT INTO wololo_teams (id, name, color) VALUES ('RM', 'Rush Merveille', 'red-light');
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (24115216, 'RM', true);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1969458, 'RM', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9212805, 'RM', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (24165425, 'RM', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25755296, 'RM', false);

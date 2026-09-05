@@ -44,19 +44,20 @@ export const COLOR_PALETTE_HEX: Record<string, string> = {
     'violet-dark':  '#6d28d9',
     'fuchsia-dark': '#a21caf',
     'rose-dark':    '#be123c',
-    'zinc-dark':    '#3f3f46', // used until here
-    'neutral-dark': '#404040',
-    'stone-dark':   '#44403c',
-    'amber-dark':   '#b45309',
-    'lime-dark':    '#4d7c0f',
+    'zinc-dark':    '#3f3f46', 
+
 
     // lighter variants (shade 300)
-    'red-light':    '#fca5a5',
+    'red-light':    '#fca5a5', // used
     'blue-light':   '#93c5fd',
     'green-light':  '#86efac',
     'purple-light': '#d8b4fe',
     'orange-light': '#fdba74',
     'pink-light':   '#f9a8d4',
+    'neutral-dark': '#404040',
+    'stone-dark':   '#44403c',
+    'amber-dark':   '#b45309',
+    'lime-dark':    '#4d7c0f',
 };
 
 export const DEFAULT_TEAM_COLOR_HEX = '#6b7280';
