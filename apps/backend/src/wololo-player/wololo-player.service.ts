@@ -10,6 +10,9 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { WololoGameEntity } from "src/wololo-games/wololo-games.entity";
 import { Repository } from "typeorm";
 
+// Twitch usernames are 4-25 chars, letters/digits/underscore only
+const TWITCH_LOGIN_REGEX = /^[a-zA-Z0-9_]{4,25}$/;
+
 @Injectable()
 export class WololoPlayerService {
     @Inject(WololoPlayerRepository)
@@ -61,8 +64,9 @@ export class WololoPlayerService {
         const wololoPlayerInfo = await this.wololoPlayerApi.fetchPlayerInfo(wololoPlayer.profileId);
         const twitchUrl: string | null = wololoPlayerInfo.social?.twitch ?? null;
         if (twitchUrl !== null) {
-            const twitchLogin = twitchUrl.replace(/.*twitch\.tv\//, '').replace(/\/.*$/, '').toLowerCase();
-            wololoPlayer.twitchLogin = twitchLogin;
+            // Only extract a login when the URL actually references twitch.tv/<login>
+            const match = twitchUrl.match(/twitch\.tv\/([a-zA-Z0-9_]{4,25})/i);
+            wololoPlayer.twitchLogin = match ? match[1].toLowerCase() : null;
         }
         wololoPlayer.name = wololoPlayerInfo.name;
         return wololoPlayer;
@@ -84,6 +88,7 @@ export class WololoPlayerService {
     private async getTwitchLogins(): Promise<string[]> {
         return (await this.wololoPlayerRepository.findAll())
             .map(p => p.twitchLogin)
-            .filter((l): l is string => l !== null && l.length > 0);
+            // Also guards against invalid values already persisted in DB before this validation existed
+            .filter((l): l is string => l !== null && TWITCH_LOGIN_REGEX.test(l));
     }
 }
