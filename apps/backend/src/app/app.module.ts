@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { FrontendOriginGuard } from '../common';
 import { PlayerModule } from '../player';
 import { LeaderboardModule } from '../leaderboard';
 import { CurrentGamesModule } from '../current-games';
@@ -44,6 +46,9 @@ import { WololoGamesModule } from '../wololo-games/wololo-games.module';
     WololoGamesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: FrontendOriginGuard },
+  ],
 })
 export class AppModule {}

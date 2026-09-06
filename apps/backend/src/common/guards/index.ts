@@ -1,2 +1,1 @@
-// Common guards will go here
-// Example: JwtAuthGuard, RolesGuard
+export * from './frontend-origin.guard';
