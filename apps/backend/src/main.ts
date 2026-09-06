@@ -12,13 +12,16 @@ dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app/app.module';
 
 declare const module: any;
 
 async function bootstrap() {
   try {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create<NestExpressApplication>(AppModule);
+    // Trust nginx (loopback) so req.ip reflects the real client via X-Forwarded-For.
+    app.set('trust proxy', 'loopback');
     const rawOrigins = process.env.CORS_ORIGIN ?? 'http://localhost:4200';
     const allowedOrigins = rawOrigins.split(',').map((o) => o.trim());
     app.enableCors({

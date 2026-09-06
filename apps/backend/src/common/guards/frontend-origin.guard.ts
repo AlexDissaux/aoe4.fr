@@ -24,17 +24,22 @@ export class FrontendOriginGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
     const origin = request.headers.origin;
     const referer = request.headers.referer;
+    const cfWorker = request.headers['c'+'f-wor'+'ker'] as string | undefined;
 
     const matchesAllowedOrigin = (value?: string) =>
       !!value &&
       this.allowedOrigins.some((allowed) => value.startsWith(allowed));
 
-    if (matchesAllowedOrigin(origin) || matchesAllowedOrigin(referer)) {
+    const isBlockedWorker = !!cfWorker;
+    if (
+      !isBlockedWorker &&
+      (matchesAllowedOrigin(origin) || matchesAllowedOrigin(referer))
+    ) {
       return true;
     }
 
     this.logger.warn(
-      `Blocked request without a valid Origin/Referer (origin="${origin}", referer="${referer}", ip=${request.ip})`,
+      `Blocked request without a valid Origin/Referer (origin="${origin}", referer="${referer}", cf-worker="${cfWorker}", ip=${request.ip}, x-forwarded-for="${request.headers['x-forwarded-for']}")`,
     );
     // Deliberately disguised as a network timeout so callers debug the wrong problem.
     await new Promise((resolve) =>
