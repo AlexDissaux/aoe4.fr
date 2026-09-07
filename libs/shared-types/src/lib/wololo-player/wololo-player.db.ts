@@ -184,7 +184,7 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (5590088, '3M', 
 INSERT INTO wololo_teams (id, name, color) VALUES ('DDC', 'dynastie du camion', 'stone');
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (4314006, 'DDC', true);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6094081, 'DDC', false);
-INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1849651, 'DDC', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (25250655, 'DDC', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3953084, 'DDC', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (20497467, 'DDC', false);
 
@@ -211,6 +211,7 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6492127, 'GIRLS
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (14697531, 'GIRLS', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (6552004, 'GIRLS', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11763649, 'GIRLS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1571336, 'GIRLS', false);
 
 INSERT INTO wololo_teams (id, name, color) VALUES ('VES', 'Volda Esport', 'purple-dark');
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (19131565, 'VES', true);
