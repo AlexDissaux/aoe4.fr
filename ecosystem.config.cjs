@@ -11,7 +11,8 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
-        CORS_ORIGIN: 'https://aoe4.fr,https://ordreduwololo.fr',
+        CORS_ORIGIN:
+          'https://aoe4.fr,https://www.aoe4.fr,https://ordreduwololo.fr,https://www.ordreduwololo.fr',
       },
     },
   ],
