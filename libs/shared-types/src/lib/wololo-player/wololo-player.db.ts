@@ -42,7 +42,7 @@ INSERT INTO wololo_teams (id, name, color) VALUES ('DDH', 'Diggy Diggy Hole S.A.
 
 
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (24544167, 'DDH', true);
-INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (661076, 'DDH', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11245462, 'DDH', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (2607134, 'DDH', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (22491006, 'DDH', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9990526, 'DDH', false);
@@ -290,6 +290,7 @@ INSERT INTO wololo_teams (id, name, color) VALUES ('love', 'le couple', 'fuchsia
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (11111683, 'love', true);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8402958, 'love', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (12255308, 'love', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (1260486, 'love', false);
 
 INSERT INTO wololo_teams (id, name, color) VALUES ('HMO', 'Wait Dorry, Just Hear Me Out', 'rose-dark');
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (8923419, 'HMO', true);
