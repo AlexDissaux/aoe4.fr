@@ -127,6 +127,8 @@ INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3388442, 'EBS',
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (3625707, 'EBS', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (520130, 'EBS', false);
 INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (15218890, 'EBS', false);
+INSERT INTO wololo_players (profile_id, team_id, is_cap) VALUES (9975445, 'EBS', false);
+
 	
 	
 	
