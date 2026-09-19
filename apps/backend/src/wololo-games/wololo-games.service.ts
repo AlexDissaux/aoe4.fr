@@ -13,7 +13,7 @@ import { WololoPlayerService } from "src/wololo-player/wololo-player.service";
 // But if a later game finishes processing first, it becomes the per-player cursor, so without a
 // lookback buffer the still-pending older game would be skipped forever. Re-fetching a game we
 // already saved is harmless: (gameId, profileId) is a composite PK, so it's just an upsert.
-const GAME_SYNC_LOOKBACK_MS = 5 * 60 * 60 * 1000; // 5h safety window
+const GAME_SYNC_LOOKBACK_MS = 24 * 60 * 60 * 1000; // 24h safety window
 
 @Injectable()
 export class WololoGamesService implements OnApplicationBootstrap {
