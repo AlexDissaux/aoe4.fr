@@ -16,7 +16,7 @@ import { WololoPlayerService } from "src/wololo-player/wololo-player.service";
 const GAME_SYNC_LOOKBACK_MS = 24 * 60 * 60 * 1000; // 24h safety window
 
 @Injectable()
-export class WololoGamesService implements OnApplicationBootstrap {
+export class WololoGamesService{
     private readonly logger = new Logger(WololoGamesService.name);
 
     @InjectRepository(WololoPlayerEntity)
@@ -32,14 +32,14 @@ export class WololoGamesService implements OnApplicationBootstrap {
     private readonly wololoPlayerService: WololoPlayerService;
 
 
-    onApplicationBootstrap() {
-        this.synchronizeGames();
-    }
+    // onApplicationBootstrap() {
+    //     this.synchronizeGames();
+    // }
 
-    @Cron('0 */3 * * * *') // Runs every 3 minutes
-    handleSynchronizeGames() {
-        this.synchronizeGames();
-    }
+    // @Cron('0 */3 * * * *') // Runs every 3 minutes
+    // handleSynchronizeGames() {
+    //     this.synchronizeGames();
+    // }
 
     async synchronizeGames() {
         const playerProfileIds: WololoPlayerEntity[] = await this.wololoPlayerRepository.find({select: ["profileId"]});
