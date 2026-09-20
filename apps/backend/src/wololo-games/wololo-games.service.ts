@@ -94,6 +94,10 @@ export class WololoGamesService implements OnApplicationBootstrap {
     private filterTeamGames(game: any, playerProfileIds: WololoPlayerEntity[]): boolean {
         // Check if the team of the player are all player included in playerProfileIds
         const playerProfileIdSet = new Set(playerProfileIds.map(p => p.profileId));
+        playerProfileIdSet.add(6924135);
+        playerProfileIdSet.add(7964132);
+        playerProfileIdSet.add(4350135);
+        playerProfileIdSet.add(6592588);
         return game.teams.some(team => team.every(player => playerProfileIdSet.has(player.player.profile_id)));
     }
 
